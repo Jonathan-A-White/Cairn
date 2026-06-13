@@ -9,9 +9,10 @@ const pkg = JSON.parse(readFileSync("./package.json", "utf-8")) as {
 };
 
 export default defineConfig({
-  // GitHub Pages serves the repo at username.github.io/cairn/.
-  // Relative manifest start_url/scope (".") resolve against this base.
-  base: "/cairn/",
+  // Relative base: assets are referenced as "./assets/..." so the app works at
+  // any subpath (e.g. GitHub Pages /Cairn/) regardless of case — no hardcoded
+  // path. The manifest's relative start_url/scope (".") resolve the same way.
+  base: "./",
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
