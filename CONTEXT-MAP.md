@@ -1,4 +1,4 @@
-# Context Map — Home App (product name TBD)
+# Context Map — Cairn
 
 A multi-context Progressive Web App for the household. Each capability is a
 self-contained bounded context layered over a small shared kernel, so new
