@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/trips/plan-request/1.0",
+  "title": "Plan Request",
+  "description": "Exported by the app for an already-decided Trip; read by the household's Claude Project, which replies with a Trip Plan. Carries data only — the result schema and behaviour live in the Project's standing instructions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requestType", "trip"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "requestType": { "const": "trip-plan" },
+    "trip": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["destination", "startDate", "endDate", "kind", "travellers"],
+      "properties": {
+        "destination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "notes": {
+              "type": "array",
+              "description": "Travel Notes scoped to this Destination.",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "kind": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The single Trip Kind tag (e.g. camping, beach week, family visit)."
+        },
+        "kindNotes": {
+          "type": "array",
+          "description": "Travel Notes scoped to this Trip Kind.",
+          "items": { "type": "string" }
+        },
+        "travellers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "ageYears": { "type": "integer", "minimum": 0 },
+              "dietary": {
+                "type": "string",
+                "description": "Dietary needs from the Traveller Profile (e.g. low-FODMAP, gluten-free)."
+              },
+              "packingQuirks": { "type": "array", "items": { "type": "string" } },
+              "notes": {
+                "type": "array",
+                "description": "Travel Notes scoped to this Person.",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "householdNotes": {
+      "type": "array",
+      "description": "Travel Notes scoped to the whole household.",
+      "items": { "type": "string" }
+    }
+  }
+}

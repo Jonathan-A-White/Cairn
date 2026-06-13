@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/inventory/sweep-result/1.0",
+  "title": "Sweep Result",
+  "description": "Returned by the Claude Project from a photographed Place. Imported into the target Place after the user confirms or edits it. No quantities — this is knowledge of where kinds of things live, not stock control.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "responseType", "placeName", "items"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "responseType": { "const": "sweep-result" },
+    "placeName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Echo of the target Place name, so the user can confirm before import."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "aliases": {
+            "type": "array",
+            "description": "Optional alternate names the household might search by.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/trips/trip-plan/1.0",
+  "title": "Trip Plan",
+  "description": "Returned by the Claude Project for one Plan Request and imported by the app. Exactly one structured part (the Packing List); everything else is free-form titled Plan Sections rendered as-is.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "responseType", "packingList", "sections"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "responseType": { "const": "trip-plan" },
+    "packingList": {
+      "type": "array",
+      "description": "Checkable items. The app adds and persists the checked state locally; the Project never sends it.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["item"],
+        "properties": {
+          "item": { "type": "string", "minLength": 1 },
+          "assignedTo": {
+            "type": ["string", "null"],
+            "description": "Name of the Traveller responsible, or null for shared/unassigned."
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Titled free-form sections (itinerary, dining, logistics, ...). Body is plain text / markdown, rendered as-is and never interpreted.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "body"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "body": { "type": "string" }
+        }
+      }
+    }
+  }
+}

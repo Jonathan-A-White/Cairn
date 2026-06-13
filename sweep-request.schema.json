@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/inventory/sweep-request/1.0",
+  "title": "Sweep Request",
+  "description": "Exported by the app for a photo-assisted Sweep of one Place. The user attaches the photo by hand in the Claude Project; the photo never enters the app. The result schema lives in the Project's standing instructions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requestType", "place"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "requestType": { "const": "sweep" },
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full Home Tree path of the target Place, e.g. 'Attic -> eaves closet -> blue bin'."
+        }
+      }
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional free-text note from the user about what to focus on in the photo."
+    }
+  }
+}
