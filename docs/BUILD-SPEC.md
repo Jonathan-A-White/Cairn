@@ -1,6 +1,6 @@
-# Home App — Build Spec (one-shot brief)
+# Cairn — Build Spec (one-shot brief)
 
-You are implementing **Home App**, an offline-first PWA for one household. Build
+You are implementing **Cairn**, an offline-first PWA for one household. Build
 it end-to-end. This document is the connective tissue; the **authorities below
 are binding** and you must read them before writing code. Where this spec and an
 authority disagree, the authority wins.
