@@ -2,7 +2,7 @@ import { EventBus } from "../../../shared/core/eventBus";
 import type { VerificationOutcome } from "./types";
 
 /** Domain events published within HomeInventory. */
-export interface InventoryEvents {
+export type InventoryEvents = {
   placeChanged: { placeId: string };
   itemChanged: { itemId: string };
   placementChanged: { placementId: string; itemId: string; placeId: string };
@@ -12,6 +12,6 @@ export interface InventoryEvents {
     by: string | null;
   };
   swept: { placeId: string; addedItemIds: string[] };
-}
+};
 
 export const inventoryBus = new EventBus<InventoryEvents>();
