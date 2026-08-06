@@ -131,6 +131,15 @@ All downstream analysis runs across all six.
 | Uniform random, 18 symbols | 0.0556 | 0.0038 | [0.0503, 0.0626] | 4.022 | 4.77 | 10.4 |
 | Diatonic melody → 24 symbols | 0.0623 | 0.0144 | [0.0433, 0.0898] | 3.981 | 0.00 | 28.1 |
 
+One clarification about row 3, because it is easy to misread. **IC and entropy
+are exactly invariant under an *injective* monoalphabetic substitution** —
+enciphering permutes the symbol labels and nothing else. The whole difference
+between "English, plain" (0.0637) and "monoalphabetic English → 24 symbols"
+(0.0697) comes from the *forced merging of two letter pairs* when 26 letters
+are squeezed into a 24-symbol alphabet, not from encipherment. So comparing
+Dorabella's IC against enciphered English is, up to that merge, the same test
+as comparing it against plain English.
+
 **The central fact of this table is that the first three rows and the last one
 overlap almost completely.** English, abbreviated English, enciphered English
 and melody all sit near IC ≈ 0.062–0.070 with standard deviations of
