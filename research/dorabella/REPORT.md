@@ -1540,7 +1540,99 @@ note by roughly two years.)*
 
 ---
 
-## 18. Conclusions, ranked by robustness
+## 18. Round 13 — the edition ensemble, and what it can and cannot measure
+
+Both memoir editions were obtained: the 1937 first edition appendix plate and
+the 1947 OUP second edition, the latter carrying Dora's September 1946
+addendum ("Nobody, so far as I am aware, has yet succeeded in reading it").
+
+### 18.1 A framing limit, before any measurement
+
+Both plates descend from the **same lost original photograph**. Differences
+between them are therefore *reproduction* noise — screening, printing,
+scanning — added downstream of the original. A cross-edition comparison bounds
+that downstream noise; it **cannot** bound the original photograph's own
+limitations, which is where §7.2's 10–14% appearance ambiguity lives. The
+hoped-for clean split of "measurement noise vs reader noise" is thus narrower
+than it first appears: the measurement half is only the part introduced after
+1937.
+
+### 18.2 The 1937 plate segments cleanly, and yields a dot inventory
+
+Connected components at fixed threshold:
+
+| line | components | expected |
+|------|-----------|----------|
+| 1 | 30 | 29 |
+| 2 | 31 | 31 |
+| 3 | 28 | 27 |
+| **total** | **89** | **87** |
+
+The two extras are isolated small marks, and they separate unambiguously by
+size — line 1's smallest component is 14 px against a next-smallest of 101,
+line 3's is 22 against 94:
+
+| line | position | size | location |
+|------|----------|------|----------|
+| 3 | ordinal 6 | 22 px | 21% across the line |
+| 1 | ordinal 24 | 14 px | 81% across the line |
+| 2 | — | — | **none** |
+
+The line-3 mark at ordinal 6 **matches the documented dot** (reported as line 3,
+char 5/6). Line 2 carries **no** anomalous mark in the 1937 plate, consistent
+with the second dot being a later-edition artifact rather than an original
+feature.
+
+The line-1 mark at ordinal 24 is recorded as observed but uncertain: at 14 px
+it is at the scale of a print speck or scan noise, and I would not build on it
+without a higher-resolution capture.
+
+### 18.3 The 1947 plate is not usable at this resolution
+
+| | components (lines 1/2/3) | median component size |
+|---|---|---|
+| 1937 | 30 / 31 / 28 | ~190 px |
+| 1947 | 50 / 50 / 50 | ~27 px |
+
+The 1947 capture yields 150 components against 87 glyphs. The cause is
+twofold: a previous library borrower has pencilled symbol numbers above the
+cipher lines, and the fainter sepia print has fragmented the ink itself.
+Critically, **no size threshold separates the two** — filtering at 40 px drops
+to 32 components, at 60 px to 21, because genuine glyph strokes have broken
+into pencil-scale fragments. The print and the annotation occupy the same size
+regime.
+
+**The cross-edition glyph-level comparison cannot be performed from these
+captures.** It is not attempted, and no cross-edition disagreement figure is
+reported. Both images are phone screenshots of a lending-library viewer, at
+roughly a quarter the linear resolution of the plate scan already analysed in
+§7. A direct high-resolution capture of the 1947 plate would make the
+measurement possible; these do not.
+
+*(The borrower's pencilled numbering is itself a stranger's partial
+transcription attempt, in a public library copy. It does not appear to reach
+87.)*
+
+### 18.4 Textual variants, now citable from the primary source
+
+| | 1937 first edition | 1947 second edition |
+|---|---|---|
+| recipient | "a letter from the Lady to my **mother**" | "to my **stepmother**" |
+| cross-reference | "(see p. 9)" | "(see p. 7)" |
+
+Dora's mother died days after her birth, so the first edition misstates the
+recipient and 1947 corrects it. Cryptanalytically irrelevant, but it is direct
+evidence that **the editions were actively revised**, which supports the
+premise that the plates were not mechanically identical either — and makes the
+1949 Methuen third screening worth obtaining if it surfaces.
+
+Also now citable from the source rather than at second hand: "the third letter
+I had from him, if indeed it is one", and Dora's statement that Elgar never
+explained it and that all attempts to solve it had failed.
+
+---
+
+## 19. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1651,7 +1743,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 19. The single most informative next experiment
+## 20. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
