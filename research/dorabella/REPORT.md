@@ -784,18 +784,34 @@ matched solver budget (40 trials per rate). Observed consensus: **−4.680**.
 | 0.0% | −4.229 | 0.143 | 0.023 | **−0.451** | perfect transcription |
 | 1.1% | −4.329 | 0.173 | 0.027 | **−0.351** | Hartmeier's rate (≈ consensus) |
 | 3.4% | −4.412 | 0.189 | 0.030 | **−0.268** | Pelling's rate |
-| 6.2% | *(running)* | | | | upper 95% CI on Hartmeier |
-| 10.3% | *(running)* | | | | Schmeh's rate — the outlier |
+| 6.2% | −4.616 | 0.223 | 0.035 | **−0.064** | upper 95% CI on Hartmeier |
+| 10.3% | −4.695 | 0.210 | 0.033 | **+0.015** | Schmeh's rate — the outlier |
 
 A negative residual means Dorabella scores *worse* than a genuine simple
 substitution of English read at that error rate.
 
 If the consensus inherits the accuracy of its best readers — 1–3%, which is
 what §10.2 implies — then **a deficit of roughly −0.27 to −0.35/gram
-survives**, about 1.5–2 sd of the corruption-trial spread and many times its
-standard error. Round 4's clean "transcription noise explains everything"
+survives**. Round 4's clean "transcription noise explains everything"
 conclusion was an artifact of using Schmeh's error rate as if it were the
-plate's.
+plate's, and is withdrawn.
+
+**But the deficit is not robust to the uncertainty in that error rate, and
+this should not be overstated.** Dorabella is a single draw, so the right yardstick
+is the corruption distribution's sd, not its standard error:
+
+| assumed error | deficit | deficit / sd | one-tailed p |
+|---------------|---------|--------------|--------------|
+| 0.0% | −0.451 | −3.15 | ~0.001 |
+| 1.1% | −0.351 | −2.03 | ~0.02 |
+| 3.4% | −0.268 | −1.42 | ~0.08 |
+| 6.2% | −0.064 | −0.29 | ns |
+| 10.3% | +0.015 | +0.07 | ns |
+
+Hartmeier's error rate rests on **one** dissent in 87, so its 95% interval is
+[0.0%, 6.2%] — and across that interval the deficit runs from decisive to
+absent. The honest statement is: *a deficit of about 2 sd at the point
+estimate, decaying to nothing by 6% error.* Suggestive, not established.
 
 ### 10.6 Exhaustive latent sweep over the contested positions
 
@@ -840,7 +856,88 @@ from documentary evidence rather than from the plate.
 
 ---
 
-## 11. Conclusions, ranked by robustness
+## 11. Round 6 — Massey replicated, and what the mirror excess actually implies
+
+### 11.1 One of Massey's two observations replicates; the other does not
+
+Massey (2017) reported two anomalies by eye. Both are testable against
+permutation nulls that hold the symbol multiset fixed and randomise only order.
+
+| statistic | observed | null | p |
+|-----------|----------|------|---|
+| adjacent 180°-opposed pairs, **same arc count** | **13** | 5.15 ± 2.17 | **0.0018** |
+| adjacent 180°-opposed pairs, any arc count | 27 | 12.58 ± 3.13 | **0.0001** |
+| longest arc-count alternation run | 13 | 10.31 ± 3.00 | 0.19 (ns) |
+
+**The mirror-pair anomaly replicates exactly** — 13 against ~5 expected, which
+is precisely Massey's "12–13 versus ~5". Two independent routes (his by eye,
+mine via the dial statistic of §5, z = +2.25) find the same thing.
+
+**The alternation-run claim does not survive.** A longest run of 13 sounds
+striking against his stated control maximum of 5–6, but a proper permutation
+null gives a mean of 10.3 and a maximum of 37: with three near-equal arc-count
+classes, long alternation runs are ordinary. That control was wrong.
+
+### 11.2 What the mirror excess implies — a constructive discrimination
+
+The excess is anomalous for monoalphabetic English because plaintext bigrams do
+not know the key's geometry. Unless the key was *built* so that common bigrams
+land on mirrored symbols. That is quantifiable.
+
+Under Elgar's key (§8.1), the bigrams that become same-arc opposed pairs are
+`AN NA BO OB CP PC DQ QD ER RE FS SF GT TG HU UH IW WI KX XK LY YL MZ ZM`.
+They carry 6.63% of English bigram mass — dominated by ER (16.1‰), AN (16.0‰)
+and RE (14.3‰).
+
+| key | mirror-producing bigram share | expected pairs in 86 slots |
+|-----|-------------------------------|----------------------------|
+| order-shuffled null | — | 5.15 |
+| **Elgar's actual 1920 key** | 6.63% | **5.70** |
+| **best possible key** (max-weight perfect matching over letter pairs) | 12.23% | **10.52** |
+| share needed to expect 13 | 15.12% | 13 |
+
+The optimal matching pairs `HT, ER, IN, AL, FO, MP, SU, CK, BY, DW, GQ, XZ` —
+i.e. a key deliberately arranged so TH/HT, ER/RE and IN/NI fall opposite.
+
+Three conclusions follow:
+
+1. **Elgar's actual key cannot produce the excess.** It predicts 5.70; we
+   observe 13, about +2.4 sd. This is independent corroboration of §8.3's
+   exhaustive negative, by a completely different statistic.
+2. **A bigram-optimised key can.** The best achievable expectation is 10.52,
+   and observing 13 against that is +0.8 sd — entirely unremarkable. So
+   Pelling's "key crafted so common bigrams mirror" hypothesis **survives the
+   test that kills Elgar's own key**.
+3. **Massey's hoax/nonsense reading is therefore not required.** The mirror
+   excess has a live explanation that keeps the text meaningful. It is evidence
+   against *this particular key*, not against language.
+
+No key can reach 15.12% — the theoretical ceiling is 12.23% — so the observed
+13 sits slightly above even the optimum's expectation, but well inside its
+noise. The mirror statistic constrains the key without condemning the plaintext.
+
+### 11.3 The notebook is 1924 or later, which reframes Round 3
+
+Marco the spaniel was born 27 May 1924, so the "Marco Elgar" page postdates
+Dorabella by ~27 years, not 23 — and Pelling reads it as Elgar *reconstructing*
+a system he no longer remembered, with `A VERY OLD CYPHER` enciphered on the
+same page.
+
+That materially changes how §8.3 should be read. The exhaustive sweep killed
+**the reconstructed 1924 geometry**, not the concept of a structured key. If
+Elgar's own later recollection was imperfect, failure of that family on the
+1897 note is expected rather than damning. §11.2 sharpens this from the other
+side: whatever the 1897 key was, it put common bigrams opposite in a way the
+1924 geometry does not.
+
+It also means known plaintext in the arc alphabet **does** exist after all —
+`MARCO ELGAR` and `A VERY OLD CYPHER` on that page — which retracts the flat
+statement in §8.4 that no such sample is known. The arc-count channel test on
+those lines remains outstanding.
+
+---
+
+## 12. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -951,7 +1048,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 12. The single most informative next experiment
+## 13. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
