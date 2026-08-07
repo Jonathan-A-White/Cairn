@@ -1022,10 +1022,11 @@ makes the text more English-like.
 Note rank 2 is orientation step 4 — the mirror step, the one that would
 manufacture the §11.2 anomaly. Even it is 0.32 worse than doing nothing.
 
-*(Null: identical best-of-24 procedure on shuffled text, 14 reps — running.
-Its role is only to calibrate the identity result, which §4 already
-established; the family-level conclusion above does not depend on it, since
-the best member is the identity by inspection.)*
+Null, identical best-of-24 procedure on shuffled text, 14 reps: **−4.943 ±
+0.060, max −4.855**. Observed best-of-family −4.761, **z = +3.02, p < 0.001**.
+So the family-level result confirms §4 — the text beats meaningless text — but
+that margin is carried entirely by the identity member. The rotation layer
+itself contributes nothing.
 
 **Constant-step rotation is dead.** This is the second documented key family
 exhausted, after §8.3. Periodic (multi-character) keys remain untested, and at
@@ -1055,13 +1056,87 @@ maximally favourably, does **not** account for the deficit. This is the
 strongest available answer to "would a perfect transcription solve it?": within
 the space the three readers actually disagree over, no.
 
-*(Matched-budget null on shuffled text running; the observed value is already
-interpretable without it, since the comparison to the English band is absolute
-rather than relative.)*
+Two runs were made. A thorough scan (3 restarts × 4000 iters per labelling)
+found a best of **−4.613**; a cheaper matched-budget rerun (1 × 2500) found
+**−4.686**, having missed the better mask — the cheap scan is noisier, so
+−4.613 is the better estimate of the true best-of-8192.
+
+The matched-budget null was interrupted by a container restart after 2 of 8
+reps: **−4.841, −4.927**, both below the observed −4.686. Indicative but not a
+completed null, and reported as such. The section's conclusion does not rest on
+it: the comparison that matters is absolute — even the best of 8192 labellings
+falls 2.4 sd short of the English band, and its plaintext is gibberish.
 
 ---
 
-## 13. Conclusions, ranked by robustness
+## 13. Round 8 — the homophonic family, and the limit of what a quadgram score can decide
+
+### 13.1 Provenance note
+
+Schooling's *Secrets in Cipher* I **is** on archive.org
+(`sim_pall-mall-magazine`, vol. VIII, 1896, pp. 119–129), contrary to the
+report that the series is unavailable there. Article I is a survey of
+historical systems, and it documents one directly relevant construction:
+"underneath each of the letters of the alphabet are written three, sometimes
+four, peculiar marks … the writer made use of any one of these three marks to
+represent a letter." That is **homophonic substitution**, in Elgar's
+possession fifteen months before Dorabella. It is pre-registered here on the
+same documentary footing as the rotation family, and it was the one documented
+family thought recoverable in principle at this length — §6 puts its unicity
+distance at 35.2 against 87 available, versus 55 for a 2-alphabet
+polyalphabetic.
+
+### 13.2 The family cannot be tested at n = 87
+
+A non-injective solver (many cipher symbols may share a letter) has strictly
+more freedom than the injective one, so it scores higher on everything. All
+rows below use the identical solver and budget — 25 restarts × 18,000 iters.
+
+| | score/gram |
+|---|---|
+| **Dorabella (consensus)** | **−3.942** |
+| homophonically-enciphered English (positive control) | −4.012 ± 0.054 |
+| shuffled Dorabella (null) | −4.029 ± 0.077 |
+| **uniform random symbols (null)** | **−4.017 ± 0.047** |
+
+**All four coincide.** Genuine homophonic English (−4.012) and uniform random
+noise (−4.017) are indistinguishable. The solver cannot tell a real message
+from nothing at all, so it certainly cannot adjudicate Dorabella. The
+observed "96th percentile against the null" and "+1.28 sd above the English
+control" are artifacts of that collapse and carry no information.
+
+The homophonic hypothesis is therefore **untestable at this length, not
+rejected.** Contrast the injective case, where the same machinery separates
+English (−4.20) from meaningless text (−5.01) by 0.81/gram, and recovers known
+plaintext at 96% accuracy.
+
+### 13.3 What this says about unicity distance
+
+This is the sharpest methodological result in the report, and it corrects a
+natural misreading of §6. The analytic unicity distance for the homophonic
+family is 35.2, comfortably under 87, which says a unique key *exists* given
+unlimited computation and a perfect model of English. The empirical test shows
+a quadgram score cannot *find* it at this length — the added key freedom
+absorbs the text's redundancy faster than the statistic can exploit it.
+
+**Unicity distance bounds uniqueness, not discriminability.** Every "the
+cipher is long enough in principle" argument in this literature — including
+the one in §6 that opens with 87 exceeding simple substitution's 27 — needs
+this caveat attached. It holds for simple substitution because that was
+verified empirically by positive control; it does not transfer to richer
+families merely because their unicity numbers are also below 87.
+
+### 13.4 Consequence for the surviving hypotheses
+
+Three families are now exhausted (§8.3, §12.2, §12.3) and a fourth is shown
+untestable. The probability mass that would otherwise flow to "homophonic, and
+we simply have not found the key" must instead be recorded as **unresolvable
+with these methods at this length** — which is a different and more honest
+resting place than either acceptance or rejection.
+
+---
+
+## 14. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1172,7 +1247,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 14. The single most informative next experiment
+## 15. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three

@@ -5,3 +5,9 @@ HOMOPHONIC FAMILY (pre-registered; Schooling article I)
 budget: 25 restarts x 18000 iters, identical for all rows
 
 Dorabella (consensus)          : -3.942   STREASRESSHEENEREESTTENTSTHHERERSTESTEREERSHEREHESTEENTSSTHERESTERNTTHERESTEEHETHESENTE
+homophonic English (control)   : -4.012 +- 0.054
+shuffled Dorabella (null)      : -4.029 +- 0.077  max -3.827
+uniform random (null)          : -4.017 +- 0.047  max -3.954
+
+  observed percentile vs null : 0.96
+  z vs homophonic-English     : +1.28

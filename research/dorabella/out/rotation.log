@@ -28,3 +28,13 @@ null: identical best-of-24 procedure on shuffled text (14 reps)
   rep  8: -4.978
   rep  9: -4.855
   rep 10: -4.962
+  rep 11: -4.879
+  rep 12: -4.897
+  rep 13: -4.885
+  rep 14: -5.007
+
+  null mean=-4.943 sd=0.060 max=-4.855
+  observed best-of-family=-4.761
+  z=+3.02   p=0.000
+
+  Reference: enciphered real English at n=87 scores about -4.20/gram.
