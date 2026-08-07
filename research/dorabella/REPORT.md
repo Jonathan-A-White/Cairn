@@ -434,7 +434,127 @@ exists even in principle.
 
 ---
 
-## 7. Conclusions, ranked by robustness
+## 7. Round 2 — high-resolution plate, period corpus, invented vocabulary
+
+Three new inputs arrived: a high-resolution scan of the 1937 book plate
+(3090×1280, ~3× the linear resolution of the first image), Jane Austen's
+*Letters* (Gutenberg #42078) as period corpus, and the 1886 Liszt concert
+programme carrying an 18–25 glyph pencilled fragment in the same symbol set.
+
+**Context that reframes everything: the original manuscript is lost.** Every
+transcription in existence descends from the same 1937 printed halftone. There
+is no ground truth to measure absolute error against, and inter-transcriber
+agreement is inflated by shared-source correlation that no amount of better
+imaging can break.
+
+### 9.1 The higher resolution does not rescue the orientation estimator
+
+Segmentation of the hi-res plate gives 29/31/27 = 87 glyphs (one speck
+discarded), matching the published split. But the 8-fold quantisation test on
+measured opening angles is *still* not significant:
+
+| test | 1st image | hi-res plate | null p95 |
+|------|-----------|--------------|----------|
+| 2-fold order parameter | 0.659 | 0.652 | 0.183 |
+| 4-fold | 0.485 | 0.395 | 0.186 |
+| 8-fold | 0.207 (p=0.021) | **0.162 (p=0.104)** | 0.185 |
+
+Tripling the resolution changed nothing. **The failure is intrinsic to the
+hull-diameter estimator, not to image quality** — a useful negative, since it
+means better photographs will not automatically yield better transcriptions.
+
+### 9.2 How internally consistent is the consensus? — 86%
+
+Absolute accuracy is unmeasurable, but *internal consistency* is not: if the
+consensus is a faithful reading, glyphs sharing a label should look alike. A
+leave-one-out nearest-neighbour classifier on scale-normalised glyph bitmaps
+(rotation deliberately **not** normalised, since orientation is the label):
+
+| target | LOO accuracy | chance |
+|--------|--------------|--------|
+| full symbol | **0.862** | 0.069 |
+| arc count | **0.943** | 0.338 |
+| orientation | **0.897** | 0.161 |
+
+The consensus labels are strongly predictable from ink. The orientation
+confusion matrix is near-diagonal; almost all residual error sits in the rare
+class `H` (4 of 8 misassigned, confused with `A` and `G`).
+
+Twelve positions carry a consensus label that disagrees with the
+nearest-looking glyph: **0, 4, 9, 15, 21, 23, 24, 33, 36, 68, 71, 77**. These
+are the concrete candidates for mis-transcription.
+
+A surprise: they are **not** enriched among the 20 transcriber-contested
+positions (3 of 20 overlap; Fisher exact p = 1.000). Where transcribers
+disagree with each other is *not* where the glyphs are visually ambiguous.
+That points at convention differences or transcription slips rather than
+genuine illegibility — and it means contested-position lists are a poor proxy
+for where the reading is actually uncertain.
+
+**This sets a ceiling.** If glyph appearance determines the consensus label
+only ~86–90% of the time, the plate supports roughly 10–14% irreducible
+reading error — which is the same size as the ~8.8% equivalent error implied
+by the solver score (§4.3). The crux of conclusion 6 may therefore be
+**permanently unresolvable from surviving sources**.
+
+### 9.3 Period register explains ~9% of the gap
+
+Language model held fixed (modern synthetic), plaintext register varied, so
+any difference is a property of the text:
+
+| plaintext | plain score | solved | recovery |
+|-----------|-------------|--------|----------|
+| modern English | −4.233 ± 0.150 | −4.236 ± 0.175 | 0.96 |
+| Austen letters (1800s epistolary) | −4.281 ± 0.147 | −4.277 ± 0.153 | 0.95 |
+
+**Register cost: −0.041/gram — 9% of the −0.444 gap.** Period epistolary
+English solves essentially as well as modern English. Dorabella remains 2.64σ
+below the Austen band. *Register alone does not explain the gap.*
+
+### 9.4 Invented vocabulary — the right idea, but it needs an implausible dose
+
+Simulating portmanteaus directly (prefix of one word + suffix of another, the
+`HYSTERIOUS` = hysterical + mysterious construction), with frequency-weighted
+vocabulary so the zero-nonce baseline reproduces natural English:
+
+| nonce-word fraction | plain score | solved | recovery |
+|---------------------|-------------|--------|----------|
+| 0.00 | −4.243 | −4.220 | 0.98 |
+| 0.15 | −4.459 | −4.447 | 0.84 |
+| 0.30 | −4.605 | −4.411 | 0.87 |
+| 0.50 | −4.786 | −4.682 | 0.62 |
+| 0.75 | −4.945 | −4.710 | 0.54 |
+
+Dorabella's −4.680 corresponds to roughly **40–50% invented vocabulary**.
+(The solved column is noisy at 14 reps per point; the plain column, at 400
+reps, is the reliable one and puts the equivalent between 0.30 and 0.50.)
+
+So the mechanism is real but the required dose is not plausible: explaining
+the whole gap by idiolect means *half the words in the note are coinages*.
+By contrast ~9% transcription error explains it entirely and sits squarely
+inside the 10–14% ambiguity the plate actually exhibits. **Transcription noise
+is much the more parsimonious explanation** — though the two combine, and
+~5% error plus ~15% coinage would also suffice.
+
+### 9.5 The Liszt fragment — not readable from this image
+
+The pencilled cipher is at x≈42–58, y≈233–686 of the programme scan, written
+rotated; de-rotated it resolves into recognisable Dorabella-type glyphs.
+But at 26 px tall it is below the threshold for reliable segmentation:
+connected-component counts swing from 5 to 20 across thresholds (140–170) and
+the projection profile is fragmentary. **No transcription is offered.**
+
+One discrepancy worth flagging: the fragment appears to carry roughly 20–24
+glyphs, whereas the reported solution `GETS YOU TO JOY, AND HYSTERIOUS` is 25
+letters and the accompanying description calls it an 18-character message.
+Those three numbers cannot all be right, and I could not verify the 1977
+decoding independently (no external network access). A higher-resolution image
+of this page is worth more than anything else currently outstanding: it is the
+only known-plaintext sample in this symbol system.
+
+---
+
+## 8. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -465,12 +585,25 @@ structural fact about doubled symbols, independent of any language model.
 
 ### Genuinely uncertain — and now the crux
 
-**6. Whether this is a simple substitution of ordinary English depends
-entirely on the consensus transcription's absolute error rate.** The observed
-score corresponds to ≈ 8.8% equivalent glyph error. At the ~2% error implied
-by consensus-vs-dCode agreement, the hypothesis is disfavoured by ~2.2 sd; at
-~9% it is perfectly consistent. Pairwise transcription distances cannot
-resolve this because the transcriptions are not independent.
+**6. Whether this is a simple substitution of ordinary English cannot be
+settled from surviving sources.** The observed score corresponds to ≈ 8.8%
+equivalent glyph error. Round 2 sharpened rather than resolved this:
+
+- The manuscript is lost; all transcriptions descend from one 1937 halftone,
+  so absolute error has no measurable ground truth and inter-transcriber
+  agreement is inflated by shared-source correlation.
+- Tripling image resolution did not improve the orientation estimator at all
+  (8-fold quantisation p = 0.104, vs 0.021 before), so better photographs of
+  *this* source will not fix it.
+- The plate supports only ~86–90% appearance-to-label consistency, i.e.
+  10–14% irreducible reading error — the same magnitude as the ~8.8% the
+  solver score implies. **The measurement and the effect are the same size.**
+
+Two mechanisms each explain the gap fully, and they are not exclusive:
+~9% transcription error, or ~40–50% invented vocabulary. The former is
+comfortably inside what the plate exhibits; the latter would mean half the
+note is coinages. **Transcription noise is the more parsimonious explanation**,
+and period register is *not* — it accounts for only 9% of the gap (§7.3).
 
 **7. Arc count and orientation are not independent** (χ² = 40.18,
 MC p = 0.001, Cramér's V = 0.481). I discarded this in my first pass as an
@@ -494,6 +627,11 @@ correction and still costs 0.20 relative to leaving the solver unconstrained.
 
 ### Methodological findings worth carrying forward
 
+**10a. Where transcribers disagree is not where glyphs are ambiguous.** The
+12 positions whose consensus label contradicts the nearest-looking glyph are
+not enriched among the 20 transcriber-contested positions (Fisher p = 1.000).
+Contested-position lists are a poor proxy for genuine illegibility.
+
 **11. The identity-partition metric overstates transcription disagreement by
 ~10×.** Consensus vs dCode is "20 disputed positions" but only 2 actual glyph
 differences. Anyone using disputed-position counts as an error rate will badly
@@ -510,19 +648,26 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 8. The single most informative next experiment
+## 9. The single most informative next experiment
 
-**Measure the consensus transcription's absolute error against a
-high-resolution scan of the original.** Everything now turns on conclusion 6,
-and that one number decides it: at ~2% error the simple-substitution-English
-hypothesis is disfavoured and the interesting question becomes *what else* the
-cipher is; at ~9% error nothing has been excluded and the field is back where
-it started.
+**A high-resolution image of the 1886 Liszt programme fragment.** My earlier
+answer — measure the consensus against a scan of the original — is now known to
+be unfulfillable: the manuscript is lost, and Round 2 showed that better
+imaging of the surviving plate does not improve orientation reading anyway.
 
-Every other avenue is currently rate-limited by this. More compute, more
-mapping families, more cribs and better language models all sit downstream of
-a quantity that a single good photograph would fix. The original is held by
-the Elgar Birthplace Museum; the British Library holds related material.
+The Liszt fragment replaces it, and is strictly better, because it is the only
+**known-plaintext** sample in this symbol system. It would give: a direct read
+on Elgar's key construction; ground-truth glyph geometry from ink rather than
+halftone, for calibrating the confusion structure; and an independent check on
+the claimed 1977 decoding. The image supplied (453×687, cipher column 26 px
+tall) is far below what segmentation needs — component counts swing from 5 to
+20 across thresholds. Note also that its apparent 20–24 glyphs sit awkwardly
+against both the reported 25-letter solution and the "18-character" description;
+that discrepancy alone is worth resolving.
+
+Failing that, the honest position is that conclusion 6 is **permanently
+conditional**, and effort is better spent on structured-key hypothesis families
+(structured alphabet-to-grid layouts, still untested) than on more imaging.
 
 The second experiment, worth building in parallel, is the latent-variable
 formulation: joint inference over (glyph labels, key) with the ~20 contested
