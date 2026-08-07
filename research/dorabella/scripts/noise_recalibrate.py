@@ -19,8 +19,9 @@ def trial(rate, rng):
     L=sorted(set(pt)); k=len(L); perm=rng.permutation(26)[:k]
     m={c:int(perm[j]) for j,c in enumerate(L)}
     ct=np.array([m[c] for c in pt])
-    order=rng.permutation(k)
-    nb={int(order[j]):(int(order[(j-1)%k]),int(order[(j+1)%k])) for j in range(k)}
+    vals=sorted(set(ct.tolist())); m=len(vals)
+    ring=[vals[i] for i in rng.permutation(m)]
+    nb={ring[j]:(ring[(j-1)%m], ring[(j+1)%m]) for j in range(m)}
     ct2=ct.copy()
     for p in np.flatnonzero(rng.random(N)<rate):
         a,b=nb[int(ct[p])]; ct2[p]= a if rng.random()<.5 else b

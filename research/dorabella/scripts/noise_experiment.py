@@ -28,14 +28,15 @@ def trial(rate, rng):
     m={c:int(perm[j]) for j,c in enumerate(letters)}
     ct=np.array([m[c] for c in pt])
     # confusion structure: each symbol has 2 'adjacent rotation' neighbours
-    order=rng.permutation(k)
-    nb={int(order[j]):(int(order[(j-1)%k]),int(order[(j+1)%k])) for j in range(k)}
+    vals=sorted(set(ct.tolist())); m=len(vals)
+    ring=[vals[i] for i in rng.permutation(m)]
+    nb={ring[j]:(ring[(j-1)%m], ring[(j+1)%m]) for j in range(m)}
     sym=sorted(set(ct.tolist()))
     idxmap={s:s for s in sym}
     ct2=ct.copy()
     hit=rng.random(N)<rate
     for p in np.flatnonzero(hit):
-        a,b=nb.get(int(ct[p]),(int(ct[p]),int(ct[p])))
+        a,b=nb[int(ct[p])]
         ct2[p]= a if rng.random()<.5 else b
     best,got,_,_=solve(ct2.tolist(), restarts=RESTARTS, iters=ITERS, seed=int(rng.integers(1e6)))
     acc=sum(x==y for x,y in zip(got,pt))/N
