@@ -701,7 +701,146 @@ such analysis and always will be, the manuscript being lost.
 
 ---
 
-## 10. Conclusions, ranked by robustness
+## 10. Round 5 — three readers, per-reader error rates, and a reversal
+
+### 10.1 Provenance: "dCode" was never a fourth reader
+
+A screenshot of Hartmeier's benzedrine.ch page shows the letter string
+`BPECAHTCKYFRQDRIRRHPPRDXYXGFS / TRTHTCKLCERREHGQTRFRHUSQDXKKXFS /
+ESHUSEDUWGSERHUQSDCPGSHCDXC` — character-identical to dCode's. **dCode copied
+Hartmeier.** The archive of "independent" sources shrinks again.
+
+The same page also states outright that its letters are a *decipherment under
+an "(arbitrary) key"*, not raw glyph names, and describes that key exactly as
+extracted in §8.1: "the first symbol is two semi-circles with their open sides
+facing east, we pick the second eastern letter, B". Since a fixed key is a
+relabeling, the partition analyses are unaffected. The page also quotes Kevin
+Jones on the Liszt fragment being an **18-character** code, independently
+corroborating Pelling's count over Thorley's 25 (§8.4).
+
+### 10.2 Three genuinely pre-consensus readers, triangulated
+
+Hartmeier (2006), Schmeh (2018), Pelling (2012) all read the plate before the
+2021 consensus existed. Aligned to a common labelling by Hungarian assignment:
+
+| pair | disagreement |
+|------|--------------|
+| Hartmeier vs Schmeh | 10 / 87 = 11.5% |
+| Hartmeier vs Pelling | 4 / 87 = 4.6% |
+| Schmeh vs Pelling | 12 / 87 = 13.8% |
+
+All three verify exactly as reported. The three-way structure is where it gets
+informative: **74 of 87 positions are unanimous, and there are ZERO three-way
+splits.** At every one of the 13 contested positions exactly two readers agree
+and one dissents — a perfect fit to a model of independent single-reader error,
+and a strong internal validation of the triangulation.
+
+That yields per-reader error rates directly:
+
+| reader | dissents | rate | 95% CI (Clopper–Pearson) | positions |
+|--------|----------|------|--------------------------|-----------|
+| Hartmeier | 1 | **1.1%** | [0.0%, 6.2%] | 33 |
+| Pelling | 3 | **3.4%** | [0.7%, 9.7%] | 12, 21, 84 |
+| Schmeh | 9 | **10.3%** | [4.8%, 18.7%] | 9, 22, 23, 25, 37, 50, 68, 77, 85 |
+
+**Schmeh is the noisy reader**, by roughly an order of magnitude. This is
+independently corroborated by Phase 4: Schmeh's string solved at the null
+(−4.948) while the Hartmeier and consensus lineages solved at −4.68 (§4.2).
+
+The 3-reader majority differs from Hartmeier at exactly one position (33).
+
+### 10.3 The bitmap classifier and the human readers agree on where the plate is hard
+
+The 13 reader-contested positions are
+`9, 12, 21, 22, 23, 25, 33, 37, 50, 68, 77, 84, 85`. The 12 positions flagged
+in §7.2 by a leave-one-out nearest-neighbour classifier on glyph bitmaps — a
+method that knew nothing about any reader — are
+`0, 4, 9, 15, 21, 23, 24, 33, 36, 68, 71, 77`.
+
+**Six positions overlap: 9, 21, 23, 33, 68, 77. Fisher exact p = 0.0020.**
+
+Two entirely different methods — human transcribers reading a halftone, and a
+pixel classifier trained on consensus labels — independently localise the same
+glyphs as the hard ones. This substantially raises confidence in both, and it
+makes the error budget *position-localised* rather than diffuse. It also
+retracts the §7.2 remark that contested positions do not track illegibility:
+that was computed against the *transcriber-contested* list, which is now known
+to have been contaminated by dCode's non-independence.
+
+### 10.4 Round 4's conclusion does not survive
+
+Round 4 concluded that transcription noise explained the entire solver gap. It
+rested on 9.2% (consensus vs Schmeh) as the noise floor. With Schmeh now
+identified as a 10.3% outlier against readers at 1.1% and 3.4%, that figure was
+inflated by one reader, and the conclusion has to be withdrawn.
+
+### 10.5 The residual deficit, recomputed
+
+Corruption anchors at the rates the three-reader data actually supports, all at
+matched solver budget (40 trials per rate). Observed consensus: **−4.680**.
+
+| assumed error rate | expected score | sd | sem | residual deficit | source of the rate |
+|--------------------|----------------|----|----|------------------|--------------------|
+| 0.0% | −4.229 | 0.143 | 0.023 | **−0.451** | perfect transcription |
+| 1.1% | −4.329 | 0.173 | 0.027 | **−0.351** | Hartmeier's rate (≈ consensus) |
+| 3.4% | −4.412 | 0.189 | 0.030 | **−0.268** | Pelling's rate |
+| 6.2% | *(running)* | | | | upper 95% CI on Hartmeier |
+| 10.3% | *(running)* | | | | Schmeh's rate — the outlier |
+
+A negative residual means Dorabella scores *worse* than a genuine simple
+substitution of English read at that error rate.
+
+If the consensus inherits the accuracy of its best readers — 1–3%, which is
+what §10.2 implies — then **a deficit of roughly −0.27 to −0.35/gram
+survives**, about 1.5–2 sd of the corruption-trial spread and many times its
+standard error. Round 4's clean "transcription noise explains everything"
+conclusion was an artifact of using Schmeh's error rate as if it were the
+plate's.
+
+### 10.6 Exhaustive latent sweep over the contested positions
+
+With zero three-way splits, every contested position has exactly two candidate
+readings — the majority value and the dissenter's — so the latent-variable
+model collapses to an enumeration of 2¹³ = 8192 complete labellings. Each is
+solved, and the best is compared against the identical best-of-8192 procedure
+applied to shuffled text, so the selection effect sits in the null too.
+
+*(running; result to follow)*
+
+### 10.7 The fork this all turns on
+
+Everything above assumes **Pelling read the plate independently of
+Hartmeier**. I do not think 4 glyphs of disagreement establishes that, and the
+suggestion that it "rules out copying" should be resisted — dCode copying
+Hartmeier verbatim is direct proof that copying happens in this literature, and
+4 corrections to an inherited transcription is an entirely ordinary amount of
+editing.
+
+The two branches diverge sharply:
+
+- **If Pelling is independent:** three readers, errors 1.1 / 3.4 / 10.3%, the
+  consensus inherits roughly 1–3% error, and a residual deficit of ~0.3–0.45
+  survives. The "plain English, badly transcribed" story weakens and
+  second-layer or non-English hypotheses revive.
+- **If Pelling derives from Hartmeier:** there are two lineages, not three. The
+  H/P agreement measures editing rather than independent reading, and the only
+  true independent comparison is lineage-vs-Schmeh at 11.5–13.8% — at which the
+  residual deficit vanishes entirely and Round 4 stands.
+
+Two refinements pull in opposite directions and are worth stating rather than
+silently netting off. Reader *disagreement* is a lower bound on *absolute*
+error, since a glyph all three misread identically is invisible — which makes
+the true error higher and the deficit smaller. But §7.4 showed systematic error
+is less damaging than random error of the same rate, and transcription error is
+systematic — which makes the expected score higher and the deficit larger.
+
+**Resolving Pelling's provenance is now the single highest-value question in
+the project**, and unlike every previous "next experiment" it is answerable
+from documentary evidence rather than from the plate.
+
+---
+
+## 11. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -812,7 +951,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 11. The single most informative next experiment
+## 12. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
