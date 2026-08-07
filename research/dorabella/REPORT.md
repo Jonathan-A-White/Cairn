@@ -1,14 +1,58 @@
-# Computational analysis of the Dorabella Cipher (Elgar, 14 July 1897)
+# The Dorabella Cipher: a transcription-noise decomposition and the exhaustive elimination of three key families
 
 **Status: characterisation, not solution.** No plaintext is claimed. Every
-positive-looking result is reported against a simulated null.
+positive-looking result is reported against a simulated null, and every solver
+comparison uses a matched search budget.
 
-This report has two layers. The **primary analysis** runs on the published
-transcriptions (HistoCrypt majority consensus, Schmeh, dCode). A **secondary
-strand** documents an independent transcription I derived from the manuscript
-image before the published ones were available, and measures it against the
-consensus — that comparison turns out to be one of the more useful results
-here, because it calibrates how much transcription error actually costs.
+---
+
+## Abstract
+
+The Dorabella cipher (Elgar, 14 July 1897; 87 symbols over an alphabet of
+1–3 semicircular arcs in 8 rotations) is analysed with explicit attention to
+two failure modes that dominate the amateur literature: hill-climbers that
+always produce English-flavoured output at n = 87, and transcription
+disagreement mistaken for cryptographic structure.
+
+Four contributions. **(1) A transcription-noise decomposition.** Of the four
+transcriptions in circulation, dCode is shown to be a verbatim copy of
+Hartmeier and the Zenodo archive to contain only the published consensus, so
+the field holds three independent readings, not five. Triangulating those
+three yields per-reader error rates — Hartmeier 1.1%, Pelling 3.4%, Schmeh
+10.3% — with 74/87 positions unanimous and **zero three-way splits**.
+**(2) A bound on what transcription can explain.** Enumerating all 2¹³ = 8192
+labellings of the reader-contested positions and solving each shows that even
+maximally charitable transcription leaves the decipherment 2.4 sd short of
+English. **(3) Exhaustive elimination of three key families** — Elgar's own
+documented 1924 geometry (483,840 keys), constant-step additive rotation, and
+the transcription-ambiguity space — each with matched-budget nulls.
+**(4) One constructive constraint**: Massey's mirror-pair anomaly is
+replicated (13 vs 5.15 ± 2.17, p = 0.0018), shown to be incompatible with
+Elgar's own key (which predicts 5.70) but compatible with a key built to
+mirror common bigrams (ceiling 10.52), which constrains the 1897 key without
+condemning the plaintext.
+
+Also reported: 87 characters *exceeds* the unicity distance of simple
+substitution (≈ 27), so the cipher's survival is not explained by the text
+being too short; the arc-count channel is statistically indistinguishable from
+uniform; the music hypothesis is disfavoured; and Thorley's 1977 reading of
+the related Liszt fragment is inconsistent with its 18-symbol length.
+
+### Reading guide
+
+| section | content |
+|---|---|
+| §0–1 | sources, provenance, and how to measure transcription disagreement |
+| §2–3 | ciphertext statistics and structural tests, against n = 87 nulls |
+| §4 | solving, with positive controls and matched-budget nulls |
+| §5–6 | music hypothesis; unicity distance |
+| §7–12 | successive rounds: imaging limits, Elgar's key, the archive, the three-reader decomposition, the mirror constraint, rotation and latent sweeps |
+| §13 | conclusions ranked by robustness |
+| §14 | what would actually move this |
+
+Sections 7–12 are kept in the order the work happened, including two
+conclusions that were drawn and later withdrawn (§9 → §10.4), because the
+retractions are part of the method.
 
 ---
 
@@ -937,7 +981,566 @@ those lines remains outstanding.
 
 ---
 
-## 12. Conclusions, ranked by robustness
+## 12. Round 7 — the additive-rotation family, pre-registered and exhausted
+
+### 12.1 Why this family, and why not the mirror-optimal one
+
+The obvious follow-up to §11.2 — search keys constrained to mirror
+high-frequency bigrams — is **circular as scoped**. The constraint is derived
+from the observed mirror excess, on the text that exhibits it; scoring such
+keys against unconstrained nulls double-counts the evidence. It is not run here.
+
+The additive-rotation family is pre-committed on **documentary** grounds
+instead. Elgar owned Schooling's four 1896 *Secrets in Cipher* articles and
+solved the Nihilist cipher in the fourth — a Polybius substitution plus an
+*additive keyword layer* — fifteen months before Dorabella. (The I=J / U=V
+merges of `ALPHA24` are themselves the Polybius-tradition merges.) The dial
+analogue, proposed by Pelling in 2009 as the "rotating pigpen", is a
+substitution whose orientation and/or arc channel is shifted by a key
+advancing per character.
+
+Hypothesis: `cipher_i = plain_i` shifted by `s·i`, on the orientation channel
+mod 8 and/or the arc channel mod 3. Decryption un-shifts and solves the
+residual as a monoalphabetic cipher. Family size 8 × 3 = 24, enumerated
+exhaustively.
+
+### 12.2 Result: the identity is the best member
+
+| rank | orientation step | arc step | score/gram |
+|------|------------------|----------|------------|
+| **1** | **0** | **0** | **−4.761  (identity — the plain monoalphabetic case)** |
+| 2 | 4 | 0 | −5.082 |
+| 3 | 2 | 0 | −5.111 |
+| 4 | 5 | 1 | −5.175 |
+| 5 | 7 | 2 | −5.235 |
+
+**Every non-trivial rotation scores worse than no rotation at all**, by a
+margin of 0.32/gram or more. The best-of-family equals the identity, so the
+rotation family contributes nothing: there is no constant-step shift that
+makes the text more English-like.
+
+Note rank 2 is orientation step 4 — the mirror step, the one that would
+manufacture the §11.2 anomaly. Even it is 0.32 worse than doing nothing.
+
+Null, identical best-of-24 procedure on shuffled text, 14 reps: **−4.943 ±
+0.060, max −4.855**. Observed best-of-family −4.761, **z = +3.02, p < 0.001**.
+So the family-level result confirms §4 — the text beats meaningless text — but
+that margin is carried entirely by the identity member. The rotation layer
+itself contributes nothing.
+
+**Constant-step rotation is dead.** This is the second documented key family
+exhausted, after §8.3. Periodic (multi-character) keys remain untested, and at
+n = 87 a period of 4 or more is beyond what the text can support — the unicity
+distance for a 2-alphabet polyalphabetic is already 55, and 82 for three (§6).
+
+### 12.3 Exhaustive latent sweep: resolving the contested positions does not rescue it
+
+All 2¹³ = 8192 labellings of the 13 reader-contested positions were enumerated
+and solved.
+
+| | score/gram |
+|---|---|
+| majority-of-three reading | −4.680 |
+| **best of all 8192 labellings** | **−4.613** |
+| median of 8192 | −5.021 |
+| worst of 8192 | −5.423 |
+| enciphered real English (reference) | ≈ −4.20 |
+
+Cherry-picking the single most favourable resolution of every contested glyph —
+an 8192-fold selection, and far more freedom than any honest transcription
+would grant — buys **0.067/gram**, and lands 2.4 sd short of the English band.
+The best labelling's plaintext is still gibberish.
+
+So the transcription ambiguity that Rounds 5–6 localised, even resolved
+maximally favourably, does **not** account for the deficit. This is the
+strongest available answer to "would a perfect transcription solve it?": within
+the space the three readers actually disagree over, no.
+
+Two runs were made. A thorough scan (3 restarts × 4000 iters per labelling)
+found a best of **−4.613**; a cheaper matched-budget rerun (1 × 2500) found
+**−4.686**, having missed the better mask — the cheap scan is noisier, so
+−4.613 is the better estimate of the true best-of-8192.
+
+The matched-budget null was interrupted by a container restart after 2 of 8
+reps: **−4.841, −4.927**, both below the observed −4.686. Indicative but not a
+completed null, and reported as such. The section's conclusion does not rest on
+it: the comparison that matters is absolute — even the best of 8192 labellings
+falls 2.4 sd short of the English band, and its plaintext is gibberish.
+
+---
+
+## 13. Round 8 — the homophonic family, and the limit of what a quadgram score can decide
+
+### 13.1 Provenance note
+
+Schooling's *Secrets in Cipher* I **is** on archive.org
+(`sim_pall-mall-magazine`, vol. VIII, 1896, pp. 119–129), contrary to the
+report that the series is unavailable there. Article I is a survey of
+historical systems, and it documents one directly relevant construction:
+"underneath each of the letters of the alphabet are written three, sometimes
+four, peculiar marks … the writer made use of any one of these three marks to
+represent a letter." That is **homophonic substitution**, in Elgar's
+possession fifteen months before Dorabella. It is pre-registered here on the
+same documentary footing as the rotation family, and it was the one documented
+family thought recoverable in principle at this length — §6 puts its unicity
+distance at 35.2 against 87 available, versus 55 for a 2-alphabet
+polyalphabetic.
+
+### 13.2 The family cannot be tested at n = 87
+
+A non-injective solver (many cipher symbols may share a letter) has strictly
+more freedom than the injective one, so it scores higher on everything. All
+rows below use the identical solver and budget — 25 restarts × 18,000 iters.
+
+| | score/gram |
+|---|---|
+| **Dorabella (consensus)** | **−3.942** |
+| homophonically-enciphered English (positive control) | −4.012 ± 0.054 |
+| shuffled Dorabella (null) | −4.029 ± 0.077 |
+| **uniform random symbols (null)** | **−4.017 ± 0.047** |
+
+**All four coincide.** Genuine homophonic English (−4.012) and uniform random
+noise (−4.017) are indistinguishable. The solver cannot tell a real message
+from nothing at all, so it certainly cannot adjudicate Dorabella. The
+observed "96th percentile against the null" and "+1.28 sd above the English
+control" are artifacts of that collapse and carry no information.
+
+The homophonic hypothesis is therefore **untestable at this length, not
+rejected.** Contrast the injective case, where the same machinery separates
+English (−4.20) from meaningless text (−5.01) by 0.81/gram, and recovers known
+plaintext at 96% accuracy.
+
+### 13.3 What this says about unicity distance
+
+This is the sharpest methodological result in the report, and it corrects a
+natural misreading of §6. The analytic unicity distance for the homophonic
+family is 35.2, comfortably under 87, which says a unique key *exists* given
+unlimited computation and a perfect model of English. The empirical test shows
+a quadgram score cannot *find* it at this length — the added key freedom
+absorbs the text's redundancy faster than the statistic can exploit it.
+
+**Unicity distance bounds uniqueness, not discriminability.** Every "the
+cipher is long enough in principle" argument in this literature — including
+the one in §6 that opens with 87 exceeding simple substitution's 27 — needs
+this caveat attached. It holds for simple substitution because that was
+verified empirically by positive control; it does not transfer to richer
+families merely because their unicity numbers are also below 87.
+
+### 13.4 Consequence for the surviving hypotheses
+
+Three families are now exhausted (§8.3, §12.2, §12.3) and a fourth is shown
+untestable. The probability mass that would otherwise flow to "homophonic, and
+we simply have not found the key" must instead be recorded as **unresolvable
+with these methods at this length** — which is a different and more honest
+resting place than either acceptance or rejection.
+
+---
+
+## 14. Round 9 — Schooling Article II, and the notebook's second cipher identified
+
+Article II (*Pall Mall Magazine* vol. VIII, pp. 245–256) is now in hand.
+Articles III and IV remain outstanding.
+
+### 14.1 No. 30 — Charles I's shorthand cipher — matches the notebook's stroke line
+
+Page 256 reproduces "King Charles the First's Shorthand Cipher, written by the
+King himself": the alphabet written along a horizontal rule, with **dots and
+dashes placed above or below the line** denoting each letter. Schooling's text:
+"the dots and dashes, placed above or below a line, which were employed to
+denote the letters of the alphabet."
+
+In §8.4 I reported that the notebook's `DO YOU GO TO LONDON TOMORROW?` line is
+**not** in the arc alphabet but in a different system of "short vertical strokes
+with small flags". Measuring that line now: the plaintext letters occupy
+y 196–206, with marks confined to y 181–195 **above** and y 207–215 **below**,
+and each position carries ink on one side or the other — almost never both.
+That is No. 30's structure exactly: one mark per letter, above or below a rule.
+
+**Qualitatively this identifies the notebook's second cipher as Charles I's
+shorthand system from Schooling Article II.** The significance is the one
+proposed: Elgar was copying *specific printed systems* out of Schooling into
+the exercise book, which raises the prior that the arc alphabet also follows a
+printed model and promotes Articles III–IV from background to primary-source
+key candidates.
+
+**But the decisive decode is not achievable from the available image.** The
+known plaintext contains nine `O`s, so a correct reading must place identical
+marks at all nine — a test that needs no key. It cannot be run here:
+segmenting the line yields 27 blobs for 23 letters, and the marks themselves
+are 1–5 pixel features. A zoomed capture of the notebook line, and of the
+No. 30 strip on p. 256, would settle it either way. **Reported as a structural
+match, not a confirmed decipherment.**
+
+### 14.2 No. 19 — the sliding-card cipher — as the documented model for the dots
+
+Article II also describes a 24-letter sliding-card system (J and U omitted)
+whose card position is changed at intervals mid-message, each change signalled
+**in-band by a numeral marking the new setting**. This is the only construction
+encountered anywhere in this project that *predicts* Dorabella's anomalous dots
+rather than explaining them away, and it mechanically produces the sectional
+heterogeneity that Pelling, Massey and §3.2 have each noticed by different
+routes.
+
+It is **not swept**, and deliberately so: §6 puts a 2-alphabet polyalphabetic's
+unicity distance at 55 and a 3-alphabet's at 82 against 87 available, so a
+sectional system with 2–3 segments is underdetermined at this length. Sweeping
+it would be fitting noise by construction — the same objection that retired the
+mirror-constrained search in §12.1. It is recorded in the surviving-hypotheses
+list with documentary weight, not tested.
+
+### 14.3 The Two-Word Square eliminated on parity
+
+Article II's 1627 Two-Word Square (OPTIMVS/DOMINVS) is digraphic: each plaintext
+letter becomes two ciphertext letters, so any ciphertext it produces has even
+length. Dorabella has **87** symbols. Eliminated.
+
+### 14.4 Ledger
+
+Families exhausted: Elgar's 1924 geometry (§8.3), constant-step rotation
+(§12.2), transcription-ambiguity space (§12.3). Shown untestable at n = 87:
+homophonic (§13.2). Eliminated on structure: digraphic (§14.3). Recorded but
+untestable in principle: sliding-card / sectional polyalphabetic (§14.2).
+Outstanding and pre-registerable: Article III's music cipher — 12 + 12 notes
+over 24 letters with I/J and U/V merged, the closest printed analogue to a
+two-factor 24-symbol design yet identified.
+
+---
+
+## 15. Round 10 — Article III, and an adversarial test of the dial thesis
+
+### 15.1 Two documentary claims that do not survive checking
+
+Article III (pp. 453–461) is in hand. Two specific structural claims made
+about it are **not supported by the primary source**:
+
+- The music cipher (No. 41, p. 459, George II era) is described on p. 460 only
+  as "composed by substituting the specified musical notes for the letters of
+  the alphabet which are written underneath the notes." There is **no 12 + 12
+  quarter/eighth-note structure and no I/J or U/V merge stated.** The claim
+  that this is a 24-letter two-factor design with Elgar's exact merges is not
+  in the text; it may be inferable from the facsimile, which is not legible at
+  the resolution available.
+- The series was reported unavailable on archive.org; it is there
+  (`sim_pall-mall-magazine`, vol. VIII).
+
+Both are recorded because the documentary thread has been the strongest part
+of the collaboration and its error rate matters. What *is* confirmed on p. 460
+is a motive rather than a mechanism: the musical cipher's stated advantage is
+"not attracting suspicion, because this cipher might very well pass for being
+merely the copy of a few bars of music … sent away to a similarly gifted
+friend." Suggestive for a composer writing to a young friend — but Dorabella
+is not musical notation, so it bears on motive only.
+
+Nos. 34–37 (revolving dial and ladder) and No. 31 (Foreign Office syllable
+cipher) are as described. The dial device is genuinely documented, genuinely
+rotating, and genuinely changes key mid-message.
+
+### 15.2 The adversarial test: are the surviving hypotheses distinguishable?
+
+Before adopting a dial/sectional thesis, the question is whether that reading
+is *distinguishable* at n = 87 from its rivals, or merely compatible like
+everything else. Four generative models were simulated, 40 samples each, over
+the 8 × 3 grid:
+
+| model | construction |
+|-------|--------------|
+| MASC | simple substitution of English, random key |
+| DIAL | sectional polyalphabetic, 2–3 sections, key changed mid-text |
+| MIRROR | simple substitution whose key mirrors common bigrams (§11.2) |
+| COMPOSITE | part MASC English, part random "decoration" |
+
+Features: IC, entropy, doubles, repeated bigrams, mirror-pair count, across-row
+IC spread, distinct symbols, and best injective solver score at matched budget.
+
+**They are distinguishable.** Random-forest, 5-fold cross-validated:
+
+| comparison | accuracy | chance |
+|---|---|---|
+| 4-way | **0.669 ± 0.058** | 0.250 |
+| MASC vs DIAL | 0.900 | 0.500 |
+| MASC vs MIRROR | 0.938 | 0.500 |
+| MASC vs COMPOSITE | 0.787 | 0.500 |
+| DIAL vs MIRROR | 0.925 | 0.500 |
+| DIAL vs COMPOSITE | 0.600 | 0.500 |
+| MIRROR vs COMPOSITE | 0.950 | 0.500 |
+
+So the "nothing at n = 87 can separate them, rank by documentary weight alone"
+branch does **not** fire. The statistics have power here, and the only weak
+pair is DIAL vs COMPOSITE (0.600) — which makes sense, since both are
+heterogeneous-by-construction.
+
+### 15.3 Where Dorabella actually falls — against the thesis
+
+Dorabella's feature vector in pooled-sd units from each model's mean:
+
+| feature | Dorabella | vs MASC | vs DIAL | vs MIRROR | vs COMPOSITE |
+|---------|-----------|---------|---------|-----------|--------------|
+| IC | 0.059 | −0.76 | +0.60 | −0.87 | +0.30 |
+| entropy | 4.030 | +0.58 | −0.89 | +0.65 | −0.66 |
+| repeated bigrams | 19 | −0.01 | +1.28 | +0.03 | +0.96 |
+| **mirror pairs** | **13** | **+2.58** | **+2.46** | **+0.66** | **+2.78** |
+| row-IC spread | 0.011 | +0.36 | +0.09 | +0.34 | −0.08 |
+| solver score | −4.823 | −0.95 | +0.58 | −0.97 | +0.17 |
+
+Classifier posterior over the four models, fresh 160-sample fit:
+
+| model | posterior |
+|-------|-----------|
+| **MIRROR** | **0.851** |
+| MASC | 0.070 |
+| **DIAL** | **0.052** |
+| COMPOSITE | 0.026 |
+
+Feature importances: mirror 0.253, solver 0.179, entropy 0.145, IC 0.108.
+
+**The dial thesis is the least supported of the four readings, at 5%.** The
+decisive feature is the mirror count: at 13, Dorabella sits +2.5 sd above MASC,
+DIAL and COMPOSITE alike, but only **+0.66 sd** above the mirror-key model.
+A sectional dial does not predict adjacent-symbol rotational opposition — that
+was the one anomaly the thesis claimed to explain, and it does not.
+
+The honest complication is that no single model reproduces Dorabella's *joint*
+profile. Mirror count points at MIRROR; solver score points the other way
+(−0.97 sd below MIRROR's mean, but +0.58 above DIAL's). Dorabella has MIRROR's
+mirror excess **and** DIAL's solver deficit, and none of the four models
+generates both at once.
+
+### 15.4 A caveat that partly rescues the thesis, stated plainly
+
+The DIAL simulation used **independent random keys per section**. A real
+revolving dial rotates a *single* alphabet, so its section keys are related by
+rotation, not independent — a more constrained model that would preserve more
+structure than what I simulated. The 0.052 posterior therefore applies to
+sectional-polyalphabetic-with-independent-keys, and may understate a true
+rotating-dial device.
+
+Against that: §12.2 swept constant-step rotations exhaustively and found the
+identity best by ≥0.32/gram, including step 4 — the very rotation that would
+manufacture the mirror excess. Both routes point away from rotation as the
+mechanism behind the anomaly.
+
+### 15.5 Consequence for the write-up
+
+The proposed organising thesis — "Dorabella is unsolved because its author
+studied a cipher class that is information-theoretically unrecoverable at this
+length" — is elegant and documentarily well-supported, but the ciphertext
+statistics do not support it over the alternatives, and actively favour a
+different one. Adopting it would mean weighting documentary evidence over
+measurement in the one place where measurement turned out to have power.
+
+The defensible framing is narrower and, I think, better: **the mirror-key
+simple-substitution reading is the best-supported of the tested models
+(posterior 0.851), it is the only one consistent with the strongest anomaly in
+the ciphertext, and no tested model reproduces the observed profile in full.**
+The dial family stays in the surviving list on documentary grounds, explicitly
+flagged as favoured by provenance and disfavoured by statistics.
+
+---
+
+## 16. Round 11 — the transposition family, and the joint-profile puzzle survives
+
+### 16.1 The Heraldic cipher is the printed model for the arc alphabet
+
+Article IV, Nos. 48–49 (p. 613): a shield divided into compartments, alphabet
+of 24 with J and V omitted, two or three alphabet-consecutive letters per
+compartment, each letter denoted by **the angle of its compartment plus one,
+two or three tick marks**.
+
+That is the Dorabella design: orientation plus 1–3 arcs, 24 letters,
+consecutive triplets per orientation. It is also exactly the structure of
+Elgar's 1924 notebook key (§8.1). The design-source question is closed as
+firmly as it can be.
+
+The cryptological consequence is neutral-to-negative for new hypotheses,
+however: the Heraldic cipher is a plain monoalphabetic substitution, and
+§8.3 already swept all 483,840 standard-alphabet layouts of that geometry.
+The one variant not covered is **keyword-mixed alphabets** laid into the
+triplet geometry — small and pre-registerable, and a natural generator of the
+mirror structure without Elgar designing for it. Not run here.
+
+### 16.2 Transposition — a documented family nobody had swept
+
+Article IV, No. 46 (Pack of Cards): message written down columns, order
+restored by rhyme — columnar transposition, in Elgar's library. Neither this
+report nor, as far as can be established, any published analysis has tested it.
+
+Its predicted signature matches the observation better than anything yet
+proposed: transposition leaves **single-symbol frequencies untouched** (which
+is why Dorabella's look English-like) while **destroying bigram and quadgram
+structure** (the solver deficit). And unlike the dial it stays inside the
+unicity bound — verified here: MASC 87.4 bits → 27.3 characters; adding
+columnar column-order entropy for k ≤ 8 (≤ 15.3 bits) gives a joint unicity
+distance of **32.1 against 87 available**. Recoverable in principle.
+
+**Result.** 21 permutations (columnar k = 2–8 with identity and reversed
+column orders, plus route variants over the 29/31/27 line structure), each
+un-transposed then MASC-solved at matched budget:
+
+| | score/gram |
+|---|---|
+| identity (no transposition) | −4.838 |
+| **best of family** (`reverse`) | **−4.759** |
+| null: identical best-of-21 on shuffled text, 10 reps | −4.915 ± 0.050 (max −4.824) |
+| enciphered real English | ≈ −4.20 |
+
+Observed z = +3.13 against the null — **but that margin is carried by the
+identity member**, which §4 already established beats meaningless text. The
+gain *from transposition itself* is 0.079 over identity, from 21 tries, against
+a null sd of 0.050: about 1.6 sd of pure selection. And the best member remains
+0.56 below the English band.
+
+**Transposition does not rescue the decipherment.** That the `reverse`
+permutation topped the list is worth one sentence and no more — at full budget
+§4.2 found reversal consistently *worse* than forward across every variant, so
+this is selection noise, not support for the reads-backwards literature.
+
+**Scope caveat, stated because this report's other sweeps were exhaustive and
+this one is not.** A complete columnar sweep would enumerate all *k*! column
+orderings (46,232 for k ≤ 8); I tested a documented subset of 21. §8.3 and
+§12.2 were genuinely exhaustive; **§16.2 is not**, and a full sweep remains
+open.
+
+### 16.3 The fifth model: TRANS added to the classifier
+
+The Round-10 puzzle was that no model generated both the mirror excess and the
+solver deficit. TRANS+MASC was the obvious missing candidate. Adding it:
+
+5-way CV accuracy **0.560 ± 0.012** against 0.200 chance — still discriminating.
+
+| model | posterior for Dorabella |
+|-------|-------------------------|
+| **MIRROR** | **0.722** |
+| MASC | 0.116 |
+| TRANS | 0.056 |
+| DIAL | 0.054 |
+| COMPOSITE | 0.052 |
+
+TRANS does not win, and the reason is precise. Its mirror-pair mean is 3.575 —
+Dorabella sits **+2.82 sd** away — while its solver mean is −4.832, which
+Dorabella matches at **+0.32 sd**. So transposition reproduces the solver
+deficit and **not** the mirror excess, the mirror image of MIRROR's failure
+(+0.91 sd on mirrors, −0.88 sd on solver).
+
+**The joint-profile puzzle survives an expanded model set.** Across five
+generative models, none produces both of Dorabella's distinguishing features
+at once. MIRROR remains the best single account at 0.722, having now survived
+a harder test — but "best of five imperfect models" is the correct description,
+not "identified".
+
+---
+
+## 17. Round 12 — the mirror pairs are not clustered, and the puzzle turns out to be structural
+
+### 17.1 The position test: no clustering
+
+Pre-registered by the literature rather than by this report: Massey observed
+that the mirror pairs and the alternation runs occupy disjoint stretches, and
+Pelling (2020) flagged "the cluster of mirror pairs at the end of the middle
+line" as candidate padding, proposing its excision before solving. Under a
+mirror-key MASC the pairs should track high-mass bigrams and be roughly
+uniform; under a composite/decoration reading they should cluster.
+
+The 13 pairs sit at adjacency positions
+`12, 27, 38, 40, 49, 52, 54, 56, 58, 62, 71, 73, 78` — 2 in line 1, 7 in line
+2, 4 in line 3, with five of them in positions 49–58. That looks exactly like
+the reported cluster.
+
+It is not one.
+
+| test | observed | null | p |
+|------|----------|------|---|
+| max pairs in any 12-wide window | 5 | uniform placement of 13 points: 4.26 ± 0.78 | **0.33** |
+| max pairs in any 12-wide window | 5 | shuffled sequence, conditioned on 11–15 pairs: 3.95 ± 0.77 | **0.20** |
+| KS against uniform | D = 0.294 | — | **0.17** |
+
+**Thirteen points scattered at random across 86 slots produce a five-in-twelve
+window as a matter of course.** The apparent cluster at the end of line 2 is
+what randomness looks like at this density.
+
+This is the third human visual observation in this cipher's literature to fail
+a proper null, after Massey's alternation-run claim (§11.1, p = 0.19) and the
+run-length control that accompanied it. The one visual observation that *has*
+survived is the mirror excess itself (p = 0.0018) — which is a reminder that
+the eye is good at detecting that something is unusual and unreliable at
+saying what.
+
+### 17.2 The excision experiment is declined
+
+Pelling's proposed excision — remove the mirror-dense region, re-solve the
+remainder — was the one procedure on the table that could have produced a
+partial decipherment, since ~70 characters is above the empirically validated
+recovery threshold of §4.1.
+
+It is not run, for two reasons that would each be sufficient. There is no
+statistically real cluster to excise (§17.1). And the excision window would be
+chosen by inspecting the data, so any improvement would be the §12.1
+circularity in a new costume — with the added hazard that removing 18 symbols
+from 87 raises the null for *any* window, as §4.3's length-matched row nulls
+already demonstrated.
+
+### 17.3 The sixth model: pre-registered, and it fails where it was built to succeed
+
+MIRROR + light transposition was declared in advance with falsification
+targets, precisely because it is assembled from the two features it is meant
+to explain. Judged on six held-out features:
+
+| feature | Dorabella | model mean | z | verdict |
+|---------|-----------|------------|---|---------|
+| IC | 0.059 | 0.065 | −0.76 | pass |
+| entropy | 4.030 | 3.960 | +0.51 | pass |
+| doubles | 4 | 5.000 | −0.48 | pass |
+| repeated bigrams | 19 | 14.625 | +0.97 | pass |
+| row-IC spread | 0.011 | 0.012 | −0.12 | pass |
+| distinct symbols | 20 | 19.400 | +0.37 | pass |
+| *mirror pairs* | *13* | *5.775* | *+1.89* | **(assembled — FAILS)** |
+| *solver* | *−4.806* | *−4.916* | *+0.30* | *(assembled — matches)* |
+
+The automated verdict printed PASS on 6/6 held-out features. **That verdict is
+wrong and is overridden here.** The model reproduces the solver deficit and
+**not** the mirror excess — its mirror mean is 5.775 against Dorabella's 13,
+barely above the shuffled baseline of 5.15. It fails on one of the two features
+it was specifically constructed to capture.
+
+### 17.4 Why — and this is the round's actual finding
+
+The failure has a cause, and the cause resolves the puzzle's status.
+
+**Mirror-pair excess and transposition make incompatible demands on
+adjacency.** Mirror pairs are a property of *which symbols sit next to which*:
+a mirroring key produces them only because common plaintext bigrams remain
+adjacent in the ciphertext. Transposition's entire mechanism is the destruction
+of that adjacency. Composing the two therefore cannot preserve both — the
+transposition step scrambles away the mirror structure the key created, which
+is exactly what the simulation shows.
+
+So the Round-10 puzzle upgrades from *unexplained* to *structurally
+constrained*: Dorabella's two distinguishing features pull in opposite
+directions on the same underlying property. Any model that reproduces both
+needs a mechanism that **preserves plaintext adjacency** (to keep the mirrors)
+while **destroying n-gram fitness** (to depress the solver) — and substitution,
+transposition, and their composition each fail one half by construction.
+
+Six-way posterior: MIRROR 0.376, MIRROR_TRANS 0.368, DIAL 0.082, COMPOSITE
+0.072, MASC 0.062, TRANS 0.040. MIRROR remains the best single account, now on
+a near-tie with a composed model that does not actually do its job.
+
+### 17.5 What this leaves
+
+The surviving space is narrower and better characterised than at any earlier
+point. A mechanism preserving adjacency while depressing n-gram fitness would
+be: a plaintext that is not ordinary English (idiolect, coinage, abbreviation —
+§7.4 measured the required dose at 40–50%, implausible but not impossible), or
+a substitution key we have not guessed that both mirrors common bigrams and
+maps them unfavourably for a quadgram model. Both remain untested and neither
+is currently distinguishable from the other at n = 87.
+
+*(Keyword-mixed Heraldic sweep not run. If attempted, note that `ENIGMA` must
+be excluded as a candidate keyword — the Variations postdate the July 1897
+note by roughly two years.)*
+
+---
+
+## 18. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1048,7 +1651,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 13. The single most informative next experiment
+## 19. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three

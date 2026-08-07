@@ -1,0 +1,16 @@
+
+classifier posterior over models for Dorabella (fresh 160-sample fit):
+  MIRROR      0.851
+  MASC        0.070
+  DIAL        0.052
+  COMPOSITE   0.026
+
+feature importances:
+  mirror      0.253
+  solver      0.179
+  H           0.145
+  IC          0.108
+  rowspread   0.097
+  k           0.088
+  rep2        0.081
+  doubles     0.050

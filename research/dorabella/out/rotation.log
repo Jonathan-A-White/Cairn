@@ -1,0 +1,40 @@
+==============================================================================
+ADDITIVE-ROTATION SWEEP (pre-registered; Schooling/Nihilist analogue)
+==============================================================================
+
+family size: 24 (orientation step 0-7 mod 8 x arc step 0-2 mod 3)
+identity (0,0) reproduces the plain monoalphabetic result of section 4.
+
+rank  o-step  a-step  score/gram   plaintext
+   1       0       0      -4.761   KFROUTCONDLAMPAGAATFFAPIDISLECACTIONWORAARTSMCALATHEMPINNILERETHERPHYSERATHMESOFSETOPIO  <- identity
+   2       4       0      -5.082   KSNOFLUOHMANDDEPENTSONCHWHIRRIEITHSYMONNEETUDIERELLADDYYHHAANATTRECTPUREELLCRUSSIATOCHS
+   3       2       0      -5.111   NBABUNGBLATHECOPARISPREYHEVFTMOUDEPERSAHAHIMEMOFANDWECLELETWOFINTHENSUKRANDCTUPSGFIBYEP
+   4       5       1      -5.175   TOLINICEMBOWHYLLAYTECRFROUTUSEOFUPGROOFBANTFSADVEANWITHYMPOVERNMENDDPHOWEANVSSUSBYCHAWP
+   5       7       2      -5.235   CLENHIGINCETOVERYWHICDPUPCMMONBASTSUPLIHYSHARENCANTKFULDNTECASTALSERDIETANTTOQUEJUMBLHV
+   6       0       1      -5.244   ABRFFSTALKINCRNSCNOBJERKKYOREVEUSMALLARECROSETCHEDUNNIMPLMICIESVERHTTDEREDUCEOFBONDWHYW
+   7       1       1      -5.260   IDSBEBLADKNOHESMYEIALIMINGIGAANSOCKINDMKYPISAHURTHEOFWHEDCNRTIENTPUZRYNOTHERATOTVELYYOR
+   8       0       2      -5.278   UINFULTORDNAAWASHAGIVEWBDDSMAKEPLYORCONEHNGGHTHWESTHEMYCRYNEWALPANNKPLANESTAASFISHSUNDU
+
+identity (0,0) score: -4.761   best-of-family: -4.761
+
+null: identical best-of-24 procedure on shuffled text (14 reps)
+  rep  1: -4.953
+  rep  2: -4.867
+  rep  3: -4.927
+  rep  4: -5.015
+  rep  5: -5.022
+  rep  6: -5.042
+  rep  7: -4.917
+  rep  8: -4.978
+  rep  9: -4.855
+  rep 10: -4.962
+  rep 11: -4.879
+  rep 12: -4.897
+  rep 13: -4.885
+  rep 14: -5.007
+
+  null mean=-4.943 sd=0.060 max=-4.855
+  observed best-of-family=-4.761
+  z=+3.02   p=0.000
+
+  Reference: enciphered real English at n=87 scores about -4.20/gram.

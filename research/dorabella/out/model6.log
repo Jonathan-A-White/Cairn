@@ -1,0 +1,30 @@
+  generated 40 x MASC
+  generated 40 x DIAL
+  generated 40 x MIRROR
+  generated 40 x COMPOSITE
+  generated 40 x TRANS
+  generated 40 x MIRROR_TRANS
+
+PRE-REGISTERED TEST of MIRROR_TRANS on held-out features
+feature     dorabella  model mean       z  verdict
+IC              0.059       0.065   -0.76  PASS
+H               4.030       3.960   +0.51  PASS
+doubles         4.000       5.000   -0.48  PASS
+rep2           19.000      14.625   +0.97  PASS
+mirror         13.000       5.775   +1.89  (assembled)
+rowspread       0.011       0.012   -0.12  PASS
+k              20.000      19.400   +0.37  PASS
+solver         -4.806      -4.916   +0.30  (assembled)
+
+held-out features passed: 6/6   (threshold 5)
+VERDICT: PASS -- model survives its own falsification test
+
+6-way CV accuracy: 0.537 +- 0.024  (chance 0.167)
+
+posterior over six models:
+  MIRROR        0.376
+  MIRROR_TRANS  0.368
+  DIAL          0.082
+  COMPOSITE     0.072
+  MASC          0.062
+  TRANS         0.040

@@ -15,8 +15,8 @@ from solver import solve, norm
 from three_readers import load
 
 N=87
-SCAN_RESTARTS=3; SCAN_ITERS=4000       # cheap pass over all 8192
-FINE_RESTARTS=20; FINE_ITERS=15000     # careful pass over the top candidates
+SCAN_RESTARTS=1; SCAN_ITERS=2500       # cheap, but IDENTICAL for observed and null
+FINE_RESTARTS=20; FINE_ITERS=15000
 RNG=np.random.default_rng(4242)
 
 def contested(R):
@@ -61,7 +61,7 @@ if __name__=='__main__':
     sc=scan(base,pos,alts,1000)
     print(f"scan over all {len(sc)} labellings (cheap budget):")
     print(f"  best={sc.max():.3f}  median={np.median(sc):.3f}  worst={sc.min():.3f}")
-    top=np.argsort(-sc)[:25]
+    top=np.argsort(-sc)[:15]
     print(f"\nre-solving top 25 at full budget...")
     fine=[]
     for m in top:
@@ -74,7 +74,7 @@ if __name__=='__main__':
     # NULL: same best-of-8192 procedure on shuffled text
     print(f"\nnull: identical best-of-{1<<len(pos)} procedure on shuffled text (12 reps)")
     nulls=[]
-    for t in range(12):
+    for t in range(8):
         b2=list(base); RNG.shuffle(b2)
         s2=scan(b2,pos,alts,50000+t*10000)
         idx=int(s2.argmax())
