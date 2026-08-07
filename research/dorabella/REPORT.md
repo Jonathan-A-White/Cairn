@@ -1136,7 +1136,77 @@ resting place than either acceptance or rejection.
 
 ---
 
-## 14. Conclusions, ranked by robustness
+## 14. Round 9 — Schooling Article II, and the notebook's second cipher identified
+
+Article II (*Pall Mall Magazine* vol. VIII, pp. 245–256) is now in hand.
+Articles III and IV remain outstanding.
+
+### 14.1 No. 30 — Charles I's shorthand cipher — matches the notebook's stroke line
+
+Page 256 reproduces "King Charles the First's Shorthand Cipher, written by the
+King himself": the alphabet written along a horizontal rule, with **dots and
+dashes placed above or below the line** denoting each letter. Schooling's text:
+"the dots and dashes, placed above or below a line, which were employed to
+denote the letters of the alphabet."
+
+In §8.4 I reported that the notebook's `DO YOU GO TO LONDON TOMORROW?` line is
+**not** in the arc alphabet but in a different system of "short vertical strokes
+with small flags". Measuring that line now: the plaintext letters occupy
+y 196–206, with marks confined to y 181–195 **above** and y 207–215 **below**,
+and each position carries ink on one side or the other — almost never both.
+That is No. 30's structure exactly: one mark per letter, above or below a rule.
+
+**Qualitatively this identifies the notebook's second cipher as Charles I's
+shorthand system from Schooling Article II.** The significance is the one
+proposed: Elgar was copying *specific printed systems* out of Schooling into
+the exercise book, which raises the prior that the arc alphabet also follows a
+printed model and promotes Articles III–IV from background to primary-source
+key candidates.
+
+**But the decisive decode is not achievable from the available image.** The
+known plaintext contains nine `O`s, so a correct reading must place identical
+marks at all nine — a test that needs no key. It cannot be run here:
+segmenting the line yields 27 blobs for 23 letters, and the marks themselves
+are 1–5 pixel features. A zoomed capture of the notebook line, and of the
+No. 30 strip on p. 256, would settle it either way. **Reported as a structural
+match, not a confirmed decipherment.**
+
+### 14.2 No. 19 — the sliding-card cipher — as the documented model for the dots
+
+Article II also describes a 24-letter sliding-card system (J and U omitted)
+whose card position is changed at intervals mid-message, each change signalled
+**in-band by a numeral marking the new setting**. This is the only construction
+encountered anywhere in this project that *predicts* Dorabella's anomalous dots
+rather than explaining them away, and it mechanically produces the sectional
+heterogeneity that Pelling, Massey and §3.2 have each noticed by different
+routes.
+
+It is **not swept**, and deliberately so: §6 puts a 2-alphabet polyalphabetic's
+unicity distance at 55 and a 3-alphabet's at 82 against 87 available, so a
+sectional system with 2–3 segments is underdetermined at this length. Sweeping
+it would be fitting noise by construction — the same objection that retired the
+mirror-constrained search in §12.1. It is recorded in the surviving-hypotheses
+list with documentary weight, not tested.
+
+### 14.3 The Two-Word Square eliminated on parity
+
+Article II's 1627 Two-Word Square (OPTIMVS/DOMINVS) is digraphic: each plaintext
+letter becomes two ciphertext letters, so any ciphertext it produces has even
+length. Dorabella has **87** symbols. Eliminated.
+
+### 14.4 Ledger
+
+Families exhausted: Elgar's 1924 geometry (§8.3), constant-step rotation
+(§12.2), transcription-ambiguity space (§12.3). Shown untestable at n = 87:
+homophonic (§13.2). Eliminated on structure: digraphic (§14.3). Recorded but
+untestable in principle: sliding-card / sectional polyalphabetic (§14.2).
+Outstanding and pre-registerable: Article III's music cipher — 12 + 12 notes
+over 24 letters with I/J and U/V merged, the closest printed analogue to a
+two-factor 24-symbol design yet identified.
+
+---
+
+## 15. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1247,7 +1317,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 15. The single most informative next experiment
+## 16. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
