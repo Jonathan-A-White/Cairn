@@ -1584,8 +1584,36 @@ with the second dot being a later-edition artifact rather than an original
 feature.
 
 The line-1 mark at ordinal 24 is recorded as observed but uncertain: at 14 px
-it is at the scale of a print speck or scan noise, and I would not build on it
-without a higher-resolution capture.
+it is at the scale of a print speck or scan noise. Inspected at magnification
+it is a small dot sitting **below the baseline**, between glyphs.
+
+### 18.2a Cross-edition persistence of the line-3 dot
+
+A zoomed capture of the 1947 plate settles the more important half of this.
+Although §18.3 shows the 1947 image cannot be segmented automatically, the
+line-3 dot is **plainly visible by eye** in it: sitting between the fifth and
+sixth glyphs, in the same dark ink tone as the glyphs themselves and clearly
+distinct from the grey pencil numerals above.
+
+This matters more than the automated count. **A print speck would not survive
+independent re-screening for a new edition.** The line-3 dot appearing in both
+the 1937 and 1947 plates is therefore good evidence that it is a feature of the
+original note rather than a reproduction artifact — which is the first direct
+support for treating it as intentional, and the strongest thing the edition
+ensemble has produced.
+
+The line-1 sub-baseline mark is **not** resolvable in the 1947 capture. That is
+inconclusive rather than refuting: at 2–3 px in a blurred sepia JPEG, a mark of
+that size would be lost regardless of whether it is there. Its status is
+unchanged — observed in 1937, unverified elsewhere.
+
+Summary of the dot inventory:
+
+| mark | 1937 | 1947 | verdict |
+|------|------|------|---------|
+| line 3, between glyphs 5–6 | present | **present** | original feature, cross-edition |
+| line 1, sub-baseline at ordinal 24 | present | not resolvable | unverified |
+| line 2 | absent | absent | no support for a second dot |
 
 ### 18.3 The 1947 plate is not usable at this resolution
 
