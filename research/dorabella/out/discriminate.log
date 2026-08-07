@@ -1,0 +1,31 @@
+  generated 40 x MASC
+  generated 40 x DIAL
+  generated 40 x MIRROR
+  generated 40 x COMPOSITE
+
+feature means by model:
+model               IC          H    doubles       rep2     mirror  rowspread          k     solver
+MASC             0.065      3.940      2.900     19.075      3.375      0.009     19.200     -4.423
+DIAL             0.053      4.167      3.250     12.300      3.825      0.011     21.750     -5.067
+MIRROR           0.066      3.929      3.050     18.825     10.525      0.009     19.175     -4.414
+COMPOSITE        0.056      4.131      3.400     13.975      2.600      0.012     21.525     -4.893
+sd (pooled)      0.009      0.155      1.632      5.242      3.737      0.006      1.811      0.421
+
+4-way classification accuracy (5-fold CV): 0.669 +- 0.058   (chance 0.250)
+  MASC       vs DIAL      : 0.900   (chance 0.500)
+  MASC       vs MIRROR    : 0.938   (chance 0.500)
+  MASC       vs COMPOSITE : 0.787   (chance 0.500)
+  DIAL       vs MIRROR    : 0.925   (chance 0.500)
+  DIAL       vs COMPOSITE : 0.600   (chance 0.500)
+  MIRROR     vs COMPOSITE : 0.950   (chance 0.500)
+
+Dorabella feature vector vs each model's mean (in pooled sd units):
+feature      dorabella       MASC       DIAL     MIRROR  COMPOSITE
+IC               0.059      -0.76      +0.60      -0.87      +0.30
+H                4.030      +0.58      -0.89      +0.65      -0.66
+doubles          4.000      +0.67      +0.46      +0.58      +0.37
+rep2            19.000      -0.01      +1.28      +0.03      +0.96
+mirror          13.000      +2.58      +2.46      +0.66      +2.78
+rowspread        0.011      +0.36      +0.09      +0.34      -0.08
+k               20.000      +0.44      -0.97      +0.46      -0.84
+solver          -4.823      -0.95      +0.58      -0.97      +0.17

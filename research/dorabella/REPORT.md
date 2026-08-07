@@ -1206,7 +1206,138 @@ two-factor 24-symbol design yet identified.
 
 ---
 
-## 15. Conclusions, ranked by robustness
+## 15. Round 10 — Article III, and an adversarial test of the dial thesis
+
+### 15.1 Two documentary claims that do not survive checking
+
+Article III (pp. 453–461) is in hand. Two specific structural claims made
+about it are **not supported by the primary source**:
+
+- The music cipher (No. 41, p. 459, George II era) is described on p. 460 only
+  as "composed by substituting the specified musical notes for the letters of
+  the alphabet which are written underneath the notes." There is **no 12 + 12
+  quarter/eighth-note structure and no I/J or U/V merge stated.** The claim
+  that this is a 24-letter two-factor design with Elgar's exact merges is not
+  in the text; it may be inferable from the facsimile, which is not legible at
+  the resolution available.
+- The series was reported unavailable on archive.org; it is there
+  (`sim_pall-mall-magazine`, vol. VIII).
+
+Both are recorded because the documentary thread has been the strongest part
+of the collaboration and its error rate matters. What *is* confirmed on p. 460
+is a motive rather than a mechanism: the musical cipher's stated advantage is
+"not attracting suspicion, because this cipher might very well pass for being
+merely the copy of a few bars of music … sent away to a similarly gifted
+friend." Suggestive for a composer writing to a young friend — but Dorabella
+is not musical notation, so it bears on motive only.
+
+Nos. 34–37 (revolving dial and ladder) and No. 31 (Foreign Office syllable
+cipher) are as described. The dial device is genuinely documented, genuinely
+rotating, and genuinely changes key mid-message.
+
+### 15.2 The adversarial test: are the surviving hypotheses distinguishable?
+
+Before adopting a dial/sectional thesis, the question is whether that reading
+is *distinguishable* at n = 87 from its rivals, or merely compatible like
+everything else. Four generative models were simulated, 40 samples each, over
+the 8 × 3 grid:
+
+| model | construction |
+|-------|--------------|
+| MASC | simple substitution of English, random key |
+| DIAL | sectional polyalphabetic, 2–3 sections, key changed mid-text |
+| MIRROR | simple substitution whose key mirrors common bigrams (§11.2) |
+| COMPOSITE | part MASC English, part random "decoration" |
+
+Features: IC, entropy, doubles, repeated bigrams, mirror-pair count, across-row
+IC spread, distinct symbols, and best injective solver score at matched budget.
+
+**They are distinguishable.** Random-forest, 5-fold cross-validated:
+
+| comparison | accuracy | chance |
+|---|---|---|
+| 4-way | **0.669 ± 0.058** | 0.250 |
+| MASC vs DIAL | 0.900 | 0.500 |
+| MASC vs MIRROR | 0.938 | 0.500 |
+| MASC vs COMPOSITE | 0.787 | 0.500 |
+| DIAL vs MIRROR | 0.925 | 0.500 |
+| DIAL vs COMPOSITE | 0.600 | 0.500 |
+| MIRROR vs COMPOSITE | 0.950 | 0.500 |
+
+So the "nothing at n = 87 can separate them, rank by documentary weight alone"
+branch does **not** fire. The statistics have power here, and the only weak
+pair is DIAL vs COMPOSITE (0.600) — which makes sense, since both are
+heterogeneous-by-construction.
+
+### 15.3 Where Dorabella actually falls — against the thesis
+
+Dorabella's feature vector in pooled-sd units from each model's mean:
+
+| feature | Dorabella | vs MASC | vs DIAL | vs MIRROR | vs COMPOSITE |
+|---------|-----------|---------|---------|-----------|--------------|
+| IC | 0.059 | −0.76 | +0.60 | −0.87 | +0.30 |
+| entropy | 4.030 | +0.58 | −0.89 | +0.65 | −0.66 |
+| repeated bigrams | 19 | −0.01 | +1.28 | +0.03 | +0.96 |
+| **mirror pairs** | **13** | **+2.58** | **+2.46** | **+0.66** | **+2.78** |
+| row-IC spread | 0.011 | +0.36 | +0.09 | +0.34 | −0.08 |
+| solver score | −4.823 | −0.95 | +0.58 | −0.97 | +0.17 |
+
+Classifier posterior over the four models, fresh 160-sample fit:
+
+| model | posterior |
+|-------|-----------|
+| **MIRROR** | **0.851** |
+| MASC | 0.070 |
+| **DIAL** | **0.052** |
+| COMPOSITE | 0.026 |
+
+Feature importances: mirror 0.253, solver 0.179, entropy 0.145, IC 0.108.
+
+**The dial thesis is the least supported of the four readings, at 5%.** The
+decisive feature is the mirror count: at 13, Dorabella sits +2.5 sd above MASC,
+DIAL and COMPOSITE alike, but only **+0.66 sd** above the mirror-key model.
+A sectional dial does not predict adjacent-symbol rotational opposition — that
+was the one anomaly the thesis claimed to explain, and it does not.
+
+The honest complication is that no single model reproduces Dorabella's *joint*
+profile. Mirror count points at MIRROR; solver score points the other way
+(−0.97 sd below MIRROR's mean, but +0.58 above DIAL's). Dorabella has MIRROR's
+mirror excess **and** DIAL's solver deficit, and none of the four models
+generates both at once.
+
+### 15.4 A caveat that partly rescues the thesis, stated plainly
+
+The DIAL simulation used **independent random keys per section**. A real
+revolving dial rotates a *single* alphabet, so its section keys are related by
+rotation, not independent — a more constrained model that would preserve more
+structure than what I simulated. The 0.052 posterior therefore applies to
+sectional-polyalphabetic-with-independent-keys, and may understate a true
+rotating-dial device.
+
+Against that: §12.2 swept constant-step rotations exhaustively and found the
+identity best by ≥0.32/gram, including step 4 — the very rotation that would
+manufacture the mirror excess. Both routes point away from rotation as the
+mechanism behind the anomaly.
+
+### 15.5 Consequence for the write-up
+
+The proposed organising thesis — "Dorabella is unsolved because its author
+studied a cipher class that is information-theoretically unrecoverable at this
+length" — is elegant and documentarily well-supported, but the ciphertext
+statistics do not support it over the alternatives, and actively favour a
+different one. Adopting it would mean weighting documentary evidence over
+measurement in the one place where measurement turned out to have power.
+
+The defensible framing is narrower and, I think, better: **the mirror-key
+simple-substitution reading is the best-supported of the tested models
+(posterior 0.851), it is the only one consistent with the strongest anomaly in
+the ciphertext, and no tested model reproduces the observed profile in full.**
+The dial family stays in the surviving list on documentary grounds, explicitly
+flagged as favoured by provenance and disfavoured by statistics.
+
+---
+
+## 16. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1317,7 +1448,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 16. The single most informative next experiment
+## 17. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
