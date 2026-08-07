@@ -649,7 +649,59 @@ alphabet is currently in hand.**
 
 ---
 
-## 9. Conclusions, ranked by robustness
+## 9. Round 4 — the Zenodo archive does not contain the raw transcriptions
+
+The Hauer et al. code-and-data archive (DOI 10.5281/zenodo.4819086, 119 MB,
+8,709 files) was reassembled and searched exhaustively. **The five source
+transcriptions are not in it.**
+
+It contains exactly one Dorabella transcription, appearing in four different
+symbol labelings for four different experiments:
+
+| file | agreement with consensus (Fig. 2) |
+|------|-----------------------------------|
+| `LanguageIdentification/IsDorabellaEnglish/DorabellaTranscription.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora1/dora.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora2/dora2.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora3/dora4.txt` | **100.0%** |
+
+All four are exact relabelings of the published consensus under Hungarian
+alignment — identical partitions, different names. Confirmed absent: any file
+referencing Schmeh, Pelling, Hartmeier or benzedrine (the only greps that hit
+are large English word-frequency tables); any file with 87 lines (per-position
+votes); any file using orientation+count tokens; any consensus-building script.
+
+**Consequence for the crux.** The reader-noise floor cannot be estimated from
+ten pairwise comparisons, because only one independent reading is in hand
+(Schmeh). And that single number is itself **biased low**: the consensus is a
+majority vote over five readers *including Schmeh*, so Schmeh agrees with it
+more than with an arbitrary independent reader. Consensus-vs-Schmeh at 9.2% is
+therefore a **lower bound** on true reader-to-reader disagreement.
+
+Against the pre-registered decision rule — floor ~8–12% favours transcription
+noise, ≤4–5% reopens the deficit — the only available estimate is ≥9.2%,
+already inside the upper band and able only to rise. **The rule fires for the
+transcription-noise branch.** The maximum-parsimony reading of this project is:
+*a simple substitution whose plaintext we cannot recover because the surviving
+source cannot be read accurately enough*, with the caveat that shared-source
+error (a halftone artifact fooling all readers identically) is invisible to any
+such analysis and always will be, the manuscript being lost.
+
+### 9.1 Incidental findings from the archive
+
+- The authors' reference corpus is **Letters of Jane Austen** (`LJA.txt`,
+  Gutenberg), the same text independently chosen for §7.3 here.
+- `CiphertextCharacteristics/Scripts/encodeDorabella.py` encodes the alphabet
+  as `1⇑ 1⇗ 1⇒ … 3⇖` — 3 arc counts × 8 directions, matching the structure
+  extracted from Elgar's notebook in §8.1.
+- The same script contains `isReflection` / `countReflections`, and the archive
+  ships `mirroredSymbols.sh`: the authors tested whether adjacent symbols are
+  **mirror reflections** of one another. That hypothesis is untested here and
+  is a reasonable next probe, being cheap and structurally motivated.
+
+---
+
+## 10. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -760,7 +812,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 10. The single most informative next experiment
+## 11. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
