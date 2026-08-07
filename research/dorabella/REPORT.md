@@ -1,14 +1,58 @@
-# Computational analysis of the Dorabella Cipher (Elgar, 14 July 1897)
+# The Dorabella Cipher: a transcription-noise decomposition and the exhaustive elimination of three key families
 
 **Status: characterisation, not solution.** No plaintext is claimed. Every
-positive-looking result is reported against a simulated null.
+positive-looking result is reported against a simulated null, and every solver
+comparison uses a matched search budget.
 
-This report has two layers. The **primary analysis** runs on the published
-transcriptions (HistoCrypt majority consensus, Schmeh, dCode). A **secondary
-strand** documents an independent transcription I derived from the manuscript
-image before the published ones were available, and measures it against the
-consensus — that comparison turns out to be one of the more useful results
-here, because it calibrates how much transcription error actually costs.
+---
+
+## Abstract
+
+The Dorabella cipher (Elgar, 14 July 1897; 87 symbols over an alphabet of
+1–3 semicircular arcs in 8 rotations) is analysed with explicit attention to
+two failure modes that dominate the amateur literature: hill-climbers that
+always produce English-flavoured output at n = 87, and transcription
+disagreement mistaken for cryptographic structure.
+
+Four contributions. **(1) A transcription-noise decomposition.** Of the four
+transcriptions in circulation, dCode is shown to be a verbatim copy of
+Hartmeier and the Zenodo archive to contain only the published consensus, so
+the field holds three independent readings, not five. Triangulating those
+three yields per-reader error rates — Hartmeier 1.1%, Pelling 3.4%, Schmeh
+10.3% — with 74/87 positions unanimous and **zero three-way splits**.
+**(2) A bound on what transcription can explain.** Enumerating all 2¹³ = 8192
+labellings of the reader-contested positions and solving each shows that even
+maximally charitable transcription leaves the decipherment 2.4 sd short of
+English. **(3) Exhaustive elimination of three key families** — Elgar's own
+documented 1924 geometry (483,840 keys), constant-step additive rotation, and
+the transcription-ambiguity space — each with matched-budget nulls.
+**(4) One constructive constraint**: Massey's mirror-pair anomaly is
+replicated (13 vs 5.15 ± 2.17, p = 0.0018), shown to be incompatible with
+Elgar's own key (which predicts 5.70) but compatible with a key built to
+mirror common bigrams (ceiling 10.52), which constrains the 1897 key without
+condemning the plaintext.
+
+Also reported: 87 characters *exceeds* the unicity distance of simple
+substitution (≈ 27), so the cipher's survival is not explained by the text
+being too short; the arc-count channel is statistically indistinguishable from
+uniform; the music hypothesis is disfavoured; and Thorley's 1977 reading of
+the related Liszt fragment is inconsistent with its 18-symbol length.
+
+### Reading guide
+
+| section | content |
+|---|---|
+| §0–1 | sources, provenance, and how to measure transcription disagreement |
+| §2–3 | ciphertext statistics and structural tests, against n = 87 nulls |
+| §4 | solving, with positive controls and matched-budget nulls |
+| §5–6 | music hypothesis; unicity distance |
+| §7–12 | successive rounds: imaging limits, Elgar's key, the archive, the three-reader decomposition, the mirror constraint, rotation and latent sweeps |
+| §13 | conclusions ranked by robustness |
+| §14 | what would actually move this |
+
+Sections 7–12 are kept in the order the work happened, including two
+conclusions that were drawn and later withdrawn (§9 → §10.4), because the
+retractions are part of the method.
 
 ---
 

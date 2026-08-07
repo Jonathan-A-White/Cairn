@@ -5,3 +5,12 @@ EXHAUSTIVE LATENT SWEEP OVER READER-CONTESTED POSITIONS
 contested positions (13): [9, 12, 21, 22, 23, 25, 33, 37, 50, 68, 77, 84, 85]
 labellings to enumerate: 2^13 = 8192
 
+scan over all 8192 labellings (cheap budget):
+  best=-4.724  median=-5.182  worst=-5.727
+
+re-solving top 25 at full budget...
+  best labelling: score=-4.686 mask=0110001001011
+  plaintext: DYNAMTRALDPERCEBEETYYESOGOSPIRERTRALWANEENTSFREPETHIFCOLLOPINITHINCHUSINETHFISAYSITASOA
+
+null: identical best-of-8192 procedure on shuffled text (12 reps)
+    rep 1: -4.841
