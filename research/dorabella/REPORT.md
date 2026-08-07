@@ -1,4 +1,4 @@
-# The Dorabella Cipher: a transcription-noise decomposition and the exhaustive elimination of three key families
+# The Dorabella Cipher: a transcription-noise decomposition and the exhaustive elimination of two key families
 
 **Status: characterisation, not solution.** No plaintext is claimed. Every
 positive-looking result is reported against a simulated null, and every solver
@@ -23,9 +23,11 @@ three yields per-reader error rates — Hartmeier 1.1%, Pelling 3.4%, Schmeh
 **(2) A bound on what transcription can explain.** Enumerating all 2¹³ = 8192
 labellings of the reader-contested positions and solving each shows that even
 maximally charitable transcription leaves the decipherment 2.4 sd short of
-English. **(3) Exhaustive elimination of three key families** — Elgar's own
-documented 1924 geometry (483,840 keys), constant-step additive rotation, and
-the transcription-ambiguity space — each with matched-budget nulls.
+English. **(3) Exhaustive elimination of two key families** — Elgar's own
+documented 1924 geometry (483,840 keys) and constant-step additive rotation —
+each with matched-budget nulls, plus a homophonic family shown *untestable*
+rather than rejected, a digraphic family eliminated on parity, and a
+transposition family swept only in part (21 of 46,232 orderings, flagged).
 **(4) One constructive constraint**: Massey's mirror-pair anomaly is
 replicated (13 vs 5.15 ± 2.17, p = 0.0018), shown to be incompatible with
 Elgar's own key (which predicts 5.70) but compatible with a key built to
@@ -50,9 +52,15 @@ the related Liszt fragment is inconsistent with its 18-symbol length.
 | §13 | conclusions ranked by robustness |
 | §14 | what would actually move this |
 
-Sections 7–12 are kept in the order the work happened, including two
+Sections 7–19 are kept in the order the work happened, including two
 conclusions that were drawn and later withdrawn (§9 → §10.4), because the
 retractions are part of the method.
+
+**Reading this repository:** `README.md` maps every headline number to the
+script that produced it and states the seven standing methodological rules.
+`TODO.md` carries five open items with priors attached — item 5 is a caveat on
+§19 that is load-bearing and easy to misread. `sources/PROVENANCE.md` documents
+the image captures and their resolution limits.
 
 ---
 
@@ -865,7 +873,10 @@ model collapses to an enumeration of 2¹³ = 8192 complete labellings. Each is
 solved, and the best is compared against the identical best-of-8192 procedure
 applied to shuffled text, so the selection effect sits in the null too.
 
-*(running; result to follow)*
+**Result reported in §12.3** (it completed after Round 7). In brief: best of
+8192 = −4.613, against −4.680 for the majority reading — a gain of 0.067 from
+an 8192-fold selection, still 2.4 sd short of English. The matched-budget null
+was interrupted at 2 of 8 reps and is flagged there as incomplete.
 
 ### 10.7 The fork this all turns on
 
@@ -1128,8 +1139,10 @@ families merely because their unicity numbers are also below 87.
 
 ### 13.4 Consequence for the surviving hypotheses
 
-Three families are now exhausted (§8.3, §12.2, §12.3) and a fourth is shown
-untestable. The probability mass that would otherwise flow to "homophonic, and
+Two **key families** are now exhausted (§8.3 Elgar's 1924 geometry, §12.2
+constant-step rotation), the **transcription-labelling space** has been
+enumerated (§12.3, though its null was interrupted), and a third family is
+shown untestable. The probability mass that would otherwise flow to "homophonic, and
 we simply have not found the key" must instead be recorded as **unresolvable
 with these methods at this length** — which is a different and more honest
 resting place than either acceptance or rejection.
@@ -1196,8 +1209,9 @@ length. Dorabella has **87** symbols. Eliminated.
 
 ### 14.4 Ledger
 
-Families exhausted: Elgar's 1924 geometry (§8.3), constant-step rotation
-(§12.2), transcription-ambiguity space (§12.3). Shown untestable at n = 87:
+Key families exhausted: Elgar's 1924 geometry (§8.3), constant-step rotation
+(§12.2). Labelling space enumerated (not a key family): transcription
+ambiguity (§12.3). Shown untestable at n = 87:
 homophonic (§13.2). Eliminated on structure: digraphic (§14.3). Recorded but
 untestable in principle: sliding-card / sectional polyalphabetic (§14.2).
 Outstanding and pre-registerable: Article III's music cipher — 12 + 12 notes
@@ -1540,161 +1554,420 @@ note by roughly two years.)*
 
 ---
 
-## 18. Conclusions, ranked by robustness
+## 18. Round 13 — the edition ensemble, and what it can and cannot measure
 
-### Well supported
+Both memoir editions were obtained: the 1937 first edition appendix plate and
+the 1947 OUP second edition, the latter carrying Dora's September 1946
+addendum ("Nobody, so far as I am aware, has yet succeeded in reading it").
 
-**1. The text is not random, and not a melody.** It beats every
-meaningless-text null on solver score (percentile 1.00) and sits at the 98th
-percentile of the uniform-symbol IC null. Against music: the best of 96
-pitch mappings scores *worse* than the sequence's own shuffles (p = 0.903),
-and consecutive glyphs are further apart on the rotational dial than chance
-(z = +2.25, p = 0.989) — replicated independently on my image transcription
-(z = 1.2–2.6 across six variants). **The music hypothesis is disfavoured**
-within the mapping families tested.
+### 18.1 A framing limit, before any measurement
 
-**2. 87 characters is *not* too short — for simple substitution.** Unicity
-distance is ≈ 27 characters, so the text is ~3.2× what uniqueness requires,
-and the solver empirically recovers known enciphered English at this length
-with 96% accuracy. The folk explanation for the cipher's survival is wrong.
+Both plates descend from the **same lost original photograph**. Differences
+between them are therefore *reproduction* noise — screening, printing,
+scanning — added downstream of the original. A cross-edition comparison bounds
+that downstream noise; it **cannot** bound the original photograph's own
+limitations, which is where §7.2's 10–14% appearance ambiguity lives. The
+hoped-for clean split of "measurement noise vs reader noise" is thus narrower
+than it first appears: the measurement half is only the part introduced after
+1937.
 
-**3. The arc-count channel carries no detectable structure.** Entropy 1.576
-against a 1.585 ceiling, distribution 29/33/25. Replicated across the
-consensus and my independent transcription (which got arc count 97.7% right).
-If loop count encodes anything systematic, it leaves no trace.
+### 18.2 The 1937 plate segments cleanly, and yields a dot inventory
 
-**4. No polyalphabetic period.** No Kasiski spacing divisor is enriched above
-chance, and row-by-row drift is not significant in any variant (p = 0.07–0.32).
+Connected components at fixed threshold:
 
-**5. PENNY, MISS PENNY and WOLVERHAMPTON cannot appear in the text.** A
-structural fact about doubled symbols, independent of any language model.
+| line | components | expected |
+|------|-----------|----------|
+| 1 | 30 | 29 |
+| 2 | 31 | 31 |
+| 3 | 28 | 27 |
+| **total** | **89** | **87** |
 
-### Genuinely uncertain — and now the crux
+The two extras are isolated small marks, and they separate unambiguously by
+size — line 1's smallest component is 14 px against a next-smallest of 101,
+line 3's is 22 against 94:
 
-**6. Whether this is a simple substitution of ordinary English cannot be
-settled from surviving sources.** The observed score corresponds to ≈ 8.8%
-equivalent glyph error. Round 2 sharpened rather than resolved this:
+| line | position | size | location |
+|------|----------|------|----------|
+| 3 | ordinal 6 | 22 px | 21% across the line |
+| 1 | ordinal 24 | 14 px | 81% across the line |
+| 2 | — | — | **none** |
 
-- The manuscript is lost; all transcriptions descend from one 1937 halftone,
-  so absolute error has no measurable ground truth and inter-transcriber
-  agreement is inflated by shared-source correlation.
-- Tripling image resolution did not improve the orientation estimator at all
-  (8-fold quantisation p = 0.104, vs 0.021 before), so better photographs of
-  *this* source will not fix it.
-- The plate supports only ~86–90% appearance-to-label consistency, i.e.
-  10–14% irreducible reading error — the same magnitude as the ~8.8% the
-  solver score implies. **The measurement and the effect are the same size.**
+The line-3 mark at ordinal 6 **matches the documented dot** (reported as line 3,
+char 5/6). Line 2 carries **no** anomalous mark in the 1937 plate, consistent
+with the second dot being a later-edition artifact rather than an original
+feature.
 
-Two mechanisms each explain the gap fully, and they are not exclusive:
-~9% transcription error, or ~40–50% invented vocabulary. The former is
-comfortably inside what the plate exhibits; the latter would mean half the
-note is coinages. **Transcription noise is the more parsimonious explanation**,
-and period register is *not* — it accounts for only 9% of the gap (§7.3).
+The line-1 mark at ordinal 24 is recorded as observed but uncertain: at 14 px
+it is at the scale of a print speck or scan noise. Inspected at magnification
+it is a small dot sitting **below the baseline**, between glyphs.
 
-**Round 3 removed the counter-argument.** The ~2% figure that supported the
-"disfavoured" branch came from consensus-vs-dCode agreement, and dCode is now
-proven to be the consensus deciphered under Elgar's own key (§8.2) — not an
-independent reading. The only independent estimate is consensus-vs-Schmeh at
-9.2%, against a solver-implied 8.8%. Those agree, and both sit inside the
-plate's 10–14% ambiguity. The weight of evidence is now that **the gap is
-transcription noise**, and that this cannot be pushed further without a
-genuinely independent reading of the plate.
+### 18.2a Cross-edition persistence of the line-3 dot
 
-**7. Arc count and orientation are not independent** (χ² = 40.18,
-MC p = 0.001, Cramér's V = 0.481). I discarded this in my first pass as an
-artifact of my own reading — sound reasoning, wrong conclusion, since it
-replicates at the same strength on a transcription I had no hand in. It is
-real; its meaning is open. The four never-used symbols (`D3`, `E1`, `E2`,
-`H3`) are consistent with the inventory being shaped rather than uniform.
+A zoomed capture of the 1947 plate settles the more important half of this.
+Although §18.3 shows the 1947 image cannot be segmented automatically, the
+line-3 dot is **plainly visible by eye** in it: sitting between the fifth and
+sixth glyphs, in the same dark ink tone as the glyphs themselves and clearly
+distinct from the grey pencil numerals above.
 
-**7a. Elgar's own key structure is exhaustively excluded.** All 483,840 keys
-in the family his 1920 notebook documents (8 orientation-groups × 3 arc counts,
-both layouts) score at the shuffled-text null on the 1897 note — best −6.272
-against a null of −6.266 ± 0.083, p = 0.500. His literal notebook key scores
-−7.705. Because the search is exhaustive there is no local-optimum escape.
-Either the 1897 key was structurally unlike the 1920 one, or a further layer
-intervenes, or the plaintext is not English (§8.3).
+This matters more than the automated count. **A print speck would not survive
+independent re-screening for a new edition.** The line-3 dot appearing in both
+the 1937 and 1947 plates is therefore good evidence that it is a feature of the
+original note rather than a reproduction artifact — which is the first direct
+support for treating it as intentional, and the strongest thing the edition
+ensemble has produced.
 
-### Not supported / uninformative
+**The line-1 sub-baseline mark is absent from the 1947 plate.** A
+high-magnification capture of the right-hand portion of the lines resolves this
+properly. The comparison is anchored to content rather than coordinates: the
+visible glyph run `3 3 w a v ᶶ ᶜ` is the same sequence in which the 1937 mark
+appears, so the same stretch of the line is being inspected in both. The line-1
+glyph band ends cleanly at its baseline with **zero ink below it**, and at a
+magnification where the pencil numerals are legible and the glyph strokes crisp,
+a 2–3 px mark would be conspicuous.
 
-**8. Reversal.** Reversed scores are consistently slightly worse. Note also
-that IC, entropy, unigram frequencies and doubled-symbol counts are *exactly*
-reversal-invariant, so any "reads backwards" claim resting on them is vacuous.
+So the two anomalous marks behave oppositely across editions, and that is what
+makes the ensemble useful:
 
-**9. Sukhotin vowel separation.** Precision 0.56 when calibrated on plain
-English at n=87 — barely better than chance. Its output here carries no
-information.
+| mark | 1937 | 1947 | verdict |
+|------|------|------|---------|
+| line 3, between glyphs 5–6 | present | **present** | **original feature** |
+| line 1, sub-baseline at ordinal 24 | present | **absent** | **1937 print artifact** |
+| line 2 | absent | absent | no support for a second dot |
 
-**10. All cribs tested.** ALFRED's z = 3.04 does not survive multiple-comparison
-correction and still costs 0.20 relative to leaving the solver unconstrained.
+The full glyph-level cross-edition comparison was not achievable (§18.3), but
+the ensemble adjudicates individual marks cleanly, because the logic is
+asymmetric and does not need segmentation: **a mark surviving an independent
+re-screening is on the original; a mark appearing in one screening only is an
+artifact of that screening.** That disposes of the line-1 mark I raised last
+round — it was a print speck, exactly as its 14 px size suggested — and
+promotes the line-3 dot from "documented" to "physically corroborated".
 
-### Methodological findings worth carrying forward
+By the same argument, the reported second dot in the 1949 Methuen plate, absent
+from both editions examined here, is more likely a 1949 screening artifact than
+a recovered original feature. The line-2 region is the specific thing to
+inspect if that edition surfaces.
 
-**10a. Where transcribers disagree is not where glyphs are ambiguous.** The
-12 positions whose consensus label contradicts the nearest-looking glyph are
-not enriched among the 20 transcriber-contested positions (Fisher p = 1.000).
-Contested-position lists are a poor proxy for genuine illegibility.
+### 18.3 The 1947 plate is not usable at this resolution
 
-**11. The identity-partition metric overstates transcription disagreement by
-~10×.** Consensus vs dCode is "20 disputed positions" but only 2 actual glyph
-differences. Anyone using disputed-position counts as an error rate will badly
-misjudge how uncertain the transcriptions are.
+| | components (lines 1/2/3) | median component size |
+|---|---|---|
+| 1937 | 30 / 31 / 28 | ~190 px |
+| 1947 | 50 / 50 / 50 | ~27 px |
 
-**12. Search budget must be matched between observed and null**, and per-row
-scores need *length-matched* nulls. Both errors independently produced
-convincing-looking effects in my first pass that vanished on correction. A
-27-character row can be forced to read `TSINSTANDASTHINGSAREASURALR` at the
-44th percentile of its own null.
+The 1947 capture yields 150 components against 87 glyphs. The cause is
+twofold: a previous library borrower has pencilled symbol numbers above the
+cipher lines, and the fainter sepia print has fragmented the ink itself.
+Critically, **no size threshold separates the two** — filtering at 40 px drops
+to 32 components, at 60 px to 21, because genuine glyph strokes have broken
+into pencil-scale fragments. The print and the annotation occupy the same size
+regime.
 
-**13. Symbol-count proximity is not evidence of transcription accuracy.** My
-18 distinct symbols against the true 20 coexisted with 16 misread glyphs.
+**The cross-edition glyph-level comparison cannot be performed from these
+captures.** It is not attempted, and no cross-edition disagreement figure is
+reported. Both images are phone screenshots of a lending-library viewer, at
+roughly a quarter the linear resolution of the plate scan already analysed in
+§7. A direct high-resolution capture of the 1947 plate would make the
+measurement possible; these do not.
+
+*(The borrower's pencilled numbering is itself a stranger's partial
+transcription attempt, in a public library copy. It does not appear to reach
+87.)*
+
+### 18.4 Textual variants, now citable from the primary source
+
+| | 1937 first edition | 1947 second edition |
+|---|---|---|
+| recipient | "a letter from the Lady to my **mother**" | "to my **stepmother**" |
+| cross-reference | "(see p. 9)" | "(see p. 7)" |
+
+Dora's mother died days after her birth, so the first edition misstates the
+recipient and 1947 corrects it. Cryptanalytically irrelevant, but it is direct
+evidence that **the editions were actively revised**, which supports the
+premise that the plates were not mechanically identical either — and makes the
+1949 Methuen third screening worth obtaining if it surfaces.
+
+Also now citable from the source rather than at second hand: "the third letter
+I had from him, if indeed it is one", and Dora's statement that Elgar never
+explained it and that all attempts to solve it had failed.
 
 ---
 
-## 19. The single most informative next experiment
+## 19. Round 14 — the primary source, and Elgar's measured register
 
-**A genuinely independent re-transcription of the plate — by a reader who has
-not seen the consensus.** Round 3 showed that what looked like three
-independent transcriptions is really two, and the whole crux now rests on a
-single pairwise number (consensus vs Schmeh, 9.2%). One more independent
-reading would either confirm that ~9% is the plate's real noise floor — closing
-the question in favour of transcription noise — or expose the consensus as
-better than that, reopening it. Nothing else currently in reach moves the
-central question.
+### 19.1 Source inflation: the Schooling story is one sentence
 
-Two candidates I previously ranked first have been downgraded by Round 3: the
-Liszt fragment is not a known-plaintext sample (Thorley's reading is rejected;
-it is an 18-symbol ciphertext), and the notebook's `LONDON TOMORROW` line is in
-a different cipher system. **No known-plaintext sample in the arc alphabet is
-currently known to exist**, which is itself worth stating plainly.
+Buckley's *Sir Edward Elgar* (1905) is the primary source for Elgar's
+cryptographic interests, cited throughout the secondary literature. An
+exhaustive search of the full 3,869-line text for `cipher | cryptogram |
+Schooling | puzzle | enigma | secret | anagram` returns exactly **one** passage
+on the subject, at p. 41:
 
-*Previously recommended, now superseded:*
+> "During railway journeys amuses himself with cryptograms; solved one by John
+> Holt Schooling who defied the world to unravel his mystery."
 
-**A high-resolution image of the 1886 Liszt programme fragment.** My earlier
-answer — measure the consensus against a scan of the original — is now known to
-be unfulfillable: the manuscript is lost, and Round 2 showed that better
-imaging of the surviving plate does not improve orientation reading anyway.
+That is the complete content. **No index cards, no wooden box, no "working in
+the dark", no 1896 date, no identification of which cipher.** Every one of
+those details entered the record through later authors and museum artifacts,
+not through the biography they are attributed to.
 
-The Liszt fragment replaces it, and is strictly better, because it is the only
-**known-plaintext** sample in this symbol system. It would give: a direct read
-on Elgar's key construction; ground-truth glyph geometry from ink rather than
-halftone, for calibrating the confusion structure; and an independent check on
-the claimed 1977 decoding. The image supplied (453×687, cipher column 26 px
-tall) is far below what segmentation needs — component counts swing from 5 to
-20 across thresholds. Note also that its apparent 20–24 glyphs sit awkwardly
-against both the reported 25-letter solution and the "18-character" description;
-that discrepancy alone is worth resolving.
+What the primary source establishes: Elgar solved a Schooling challenge, and
+was proud enough of it to tell his biographer. What it does not establish:
+method, date, or which of the four articles' challenges. The report's earlier
+sections should be read with that distinction in place — §12.1's documentary
+motivation for the rotation family survives (Elgar demonstrably engaged with
+Schooling), but the specific "Nihilist cipher, 1896" framing does not come from
+Buckley.
 
-Failing that, the honest position is that conclusion 6 is **permanently
-conditional**, and effort is better spent on structured-key hypothesis families
-(structured alphabet-to-grid layouts, still untested) than on more imaging.
+**This is the third secondary claim in this project to fail a primary check**,
+after the music cipher's "12 + 12 notes with I/J and U/V merges" (§15.1, not in
+the text) and Thorley's Liszt solution (§8.4, 25 letters against 18 symbols).
+The pattern is consistent: a modest primary fact accretes specificity as it
+passes through hands that do not cite pages. Given that this report has spent
+fourteen rounds applying null distributions to statistical claims, applying the
+same scepticism to documentary ones is not optional — **source inflation in the
+Dorabella literature is a finding, not a footnote.**
 
-The second experiment, worth building in parallel, is the latent-variable
-formulation: joint inference over (glyph labels, key) with the ~20 contested
-positions as the only free label variables and per-glyph geometric confidence
-as the prior. That search space is small (≤ 2²⁰, far less with
-transcriber-attested values only) and it yields a falsifiable output the
-discrete ensemble cannot: if the posterior concentrates on one labelling that
-*also* clears the null, that is evidence; if it stays flat, the cipher is
-provably underdetermined by the available images — itself a publishable
-negative.
+*(One incidental primary fact worth keeping, p. 40: Elgar's house name "Craeg
+Lea … conceals an anagram". Documented wordplay in his own hand, contemporary,
+and relevant to §7.4 — it establishes that Elgar played this kind of game,
+without saying anything about how far he played it.)*
+
+### 19.2 Elgar's register, measured — and the idiolect branch closes
+
+§7.4 established that explaining Dorabella's solver deficit by unusual language
+alone would require 40–50% coined vocabulary, but that was a simulation with no
+empirical anchor. Buckley supplies one: his introduction states that "the
+sayings of Elgar are recorded in the actual words addressed directly to the
+writer", and the book quotes him verbatim throughout.
+
+Method identical to §7.3 — language model held fixed (modern quadgram), only
+the register varied, scored per-quadgram over 87-character windows:
+
+| text | windows | mean | sd |
+|------|---------|------|-----|
+| **Elgar, quoted verbatim** | 238 | **−4.219** | 0.151 |
+| Buckley chs. IV–V (Elgar's conversation, reported) | 3225 | −4.249 | 0.167 |
+| Buckley, whole book (1905 prose) | 4936 | −4.277 | 0.228 |
+| modern English (reference) | 600 | −4.240 | 0.135 |
+| Austen letters (reference) | 600 | −4.271 | 0.161 |
+| **Dorabella (consensus, solved)** | — | **−4.680** | — |
+
+**Elgar's documented register is statistically indistinguishable from ordinary
+English — and if anything marginally *more* ordinary, at +0.021 above the
+modern reference.** The register cost is not merely too small to explain the
+gap; it has the wrong sign. Edwardian prose generally (−4.277) also sits on the
+reference band, alongside Austen (−4.271).
+
+So the branch that needed Elgar's natural register to sit 0.3–0.4 below
+ordinary English is **closed**. What survives of the non-English reading is
+only the narrower claim that this specific note was *deliberately* written in
+coinage or private shorthand — which §7.4 priced at 40–50% nonce words, an
+implausible but not impossible dose, and which the Craeg Lea anagram shows is
+at least the kind of game he played.
+
+*(Caveat: this measures conversational and reported register as filtered
+through a biographer, not a deliberately cryptic private note to a young
+friend, which is a different genre. The measurement constrains "Elgar wrote
+unusually" and not "Elgar wrote a deliberately playful nonsense note".
+The quoted-span set also includes two epigraph poems and one quoted critic,
+about 300 of 4,838 characters, which is too small to move the mean.)*
+
+### 19.3 State of the surviving hypotheses
+
+With the register branch closed, what remains is what §17.5 identified, now
+with one leg shortened:
+
+1. **A substitution key we have not guessed**, mirroring common bigrams while
+   mapping them unfavourably for a quadgram model — best-supported by the
+   classifier at 0.722–0.851 across model sets, and the only reading consistent
+   with the strongest replicated anomaly.
+2. **Deliberate coinage or private shorthand** at ~40–50% density — not
+   excluded, but now with no support from Elgar's measured ordinary register.
+3. **Sectional/sliding-card polyalphabetic** — best documentary support of any
+   reading, the only one predicting the (now cross-edition-confirmed) line-3
+   dot, and provably underdetermined at n = 87.
+
+No experiment available at this length distinguishes (1) from (2), and (3) is
+untestable by construction.
+
+---
+
+## 20. Conclusions
+
+### 20.1 What this report establishes
+
+**The transcription-noise decomposition** (§1, §10, §18). Of the four
+transcriptions in circulation, dCode is a verbatim copy of Hartmeier (§10.1,
+proven: applying Elgar's own key to the consensus reproduces dCode's string at
+85/87) and the Zenodo archive contains only the published consensus in four
+relabelings (§9). The field therefore holds **three** independent readings, not
+five. Triangulating them: 74/87 positions unanimous, **zero three-way splits**,
+giving per-reader error rates of Hartmeier 1.1%, Pelling 3.4%, Schmeh 10.3%.
+Six of the 13 contested positions were independently flagged by a bitmap
+classifier that knew nothing of any reader (Fisher p = 0.0020).
+
+**The family ledger**, every entry with matched-budget nulls:
+
+| family | status | evidence |
+|--------|--------|----------|
+| Elgar's 1924 notebook geometry | **exhausted** (483,840 keys) | best −6.272 vs null −6.266 ± 0.083, p = 0.500 (§8.3) |
+| constant-step additive rotation | **exhausted** (24 keys) | identity is the best member; all rotations ≥0.32 worse (§12.2) |
+| homophonic | **untestable at n = 87** | solver cannot separate real homophonic English (−4.012) from uniform noise (−4.017) (§13.2) |
+| digraphic (Two-Word Square) | **eliminated on parity** | even-length output; 87 is odd (§14.3) |
+| transposition + substitution | **not exhausted** — 21 of 46,232 tested | best −4.759 vs identity −4.838; gain 0.079 ≈ 1.6 sd of selection (§16.2) |
+| sectional / sliding-card polyalphabetic | **underdetermined in principle** | unicity 55 (k=2) and 82 (k=3) against 87 available (§6, §14.2) |
+| transcription-labelling space | enumerated (2¹³), null incomplete | best of 8192 = −4.613, still 2.4 sd short of English (§12.3) |
+
+**Two methodological results.** First: **unicity distance bounds uniqueness,
+not discriminability** (§13.3). The homophonic family's unicity distance is
+35.2 against 87 available, yet a quadgram score cannot find its key — added key
+freedom absorbs redundancy faster than the statistic exploits it. Every "long
+enough in principle" argument needs this caveat, including this report's own
+headline that 87 exceeds simple substitution's 27, which survives only because
+a positive control verified it empirically (96% recovery of known plaintext).
+
+Second: **claims must be specific enough to test.** Four human visual
+observations met proper nulls, with one survivor — the mirror-pair excess
+(13 vs 5.15 ± 2.17, p = 0.0018) replicated; the alternation-run claim (p = 0.19),
+the mirror-clustering claim (p = 0.20), and the disjointness claim all failed.
+Three documentary claims met primary-source checks, with **no** survivors: the
+music cipher's "12+12 notes, I/J and U/V merged" (not in the text, §15.1),
+Thorley's Liszt solution (25 letters against 18 symbols, §8.4), and the
+Schooling story's index cards, wooden box, 1896 date and Nihilist
+identification (none in Buckley, §19.1). The distinction that separates the
+survivor from the failures is not eye-versus-machine but whether the claim is
+**specific enough to test**: "there is a dot here" is; "these regions look
+disjoint" is not.
+
+**Subsidiary findings.** 87 characters exceeds simple substitution's unicity
+distance (~27) by ~3.2×, so the cipher's survival is not explained by length
+(§6). The arc-count channel is statistically indistinguishable from uniform —
+entropy 1.576 against a 1.585 ceiling (§2.3). The music hypothesis is
+disfavoured: best of 96 pitch mappings scores worse than the sequence's own
+shuffles, p = 0.903 (§5). No polyalphabetic period (§2.4), no significant row
+drift (§3.2), Sukhotin uninformative at this length (§3.4). PENNY, MISS PENNY
+and WOLVERHAMPTON cannot be placed at all (§4.4). The line-3 dot appears in
+both the 1937 and 1947 plates and is therefore an original feature; the line-1
+mark appears in 1937 only and is a print artifact (§18.2a). Elgar's documented
+register is indistinguishable from ordinary English, marginally *more* ordinary
+at +0.021 (§19.2).
+
+### 20.2 What survives
+
+Three readings, none excluded and none demonstrated:
+
+1. **An unguessed substitution key** that mirrors common bigrams while mapping
+   them unfavourably for a quadgram model. Best-supported by the classifier
+   (posterior 0.722–0.851 across model sets), and the only reading consistent
+   with the strongest replicated anomaly.
+2. **Deliberate coinage or private shorthand** at ~40–50% density (§7.4). Not
+   excluded, but with no support from Elgar's measured ordinary register — see
+   the genre caveat in `TODO.md`, which is load-bearing.
+3. **Sectional / sliding-card polyalphabetic.** The best documentary support of
+   any reading, and the only one predicting the now cross-edition-confirmed
+   line-3 dot — but provably underdetermined at n = 87, and the classifier
+   ranks it last (0.052–0.082).
+
+No experiment available at this length distinguishes (1) from (2); (3) is
+untestable by construction. **Favoured by provenance, disfavoured by
+statistics** is the honest description of (3), and the disagreement between the
+two evidence streams is itself a result.
+
+### 20.3 The closing open problem, stated precisely
+
+Dorabella has two distinguishing statistical features. It carries an **excess
+of adjacent 180°-opposed glyph pairs** (13 observed against 5.15 ± 2.17,
+p = 0.0018), and its **best decipherment falls short of English** (−4.680
+against −4.196 ± 0.168 for enciphered real English at matched budget).
+
+Across six generative models — plain substitution, sectional polyalphabetic,
+mirror-key substitution, composite text, transposition+substitution, and
+mirror-key+transposition — **no model reproduces both features at once.**
+Mirror-key substitution matches the mirror excess (+0.66 sd) and misses the
+deficit (−0.88 sd). Transposition matches the deficit (+0.32 sd) and misses the
+mirror excess (+2.82 sd). Their composition, pre-registered with falsification
+targets, passed all six held-out features and still failed the mirror count it
+was built to capture (model mean 5.775 against 13).
+
+The failure has a cause, and it is structural:
+
+> **Mirror-pair excess and transposition make incompatible demands on
+> adjacency.** Mirror pairs exist only because common plaintext bigrams remain
+> adjacent in the ciphertext; transposition's mechanism is the destruction of
+> that adjacency.
+
+So the open problem is precise:
+
+> **Find a mechanism that preserves plaintext adjacency — so that a mirroring
+> key's bigram structure survives into the ciphertext — while simultaneously
+> destroying quadgram fitness by ~0.5/gram. Substitution, transposition, and
+> their composition each fail one half by construction.**
+
+Candidate directions not tested here: a substitution key that is
+adjacency-preserving by definition but maps high-frequency bigrams onto
+low-frequency quadgram contexts (the §16.1 keyword-mixed Heraldic sweep is the
+cheapest probe); a plaintext whose own quadgram statistics are depressed
+without disturbing bigram adjacency (coinage at the §7.4 dose does this, and is
+the only tested mechanism that could); or a transposition confined to a scale
+shorter than the adjacency window, which would preserve local pairs while
+disrupting longer n-grams. That last is untested and is the most obviously
+missing member of the model set.
+
+---
+
+## 21. What would actually move this
+
+Ranked, with the reasoning that survived fourteen rounds of revision.
+
+**1. A genuinely independent re-transcription of the plate**, by a reader who
+has not seen the consensus. The transcription-noise decomposition rests on
+three readings, one of which (Schmeh) is a 10.3% outlier. A fourth independent
+reading would either confirm ~9% as the plate's noise floor or expose the
+consensus as better than that. This remains first because §12.3 showed the
+*labelling* space cannot rescue the decipherment, so the question is whether
+the consensus is right, not which labelling to prefer.
+
+**2. Pelling's provenance** — one email settles whether his 2012 reading was
+independent of Hartmeier's 2006 (§10.7). It does not change the substantive
+conclusion (§12.3 closed that), but it decides whether the three-reader
+triangulation has three legs or two.
+
+**3. The keyword-mixed Heraldic sweep** (§16.1, never run). The only
+pre-registerable family that could generate the mirror structure as a
+*byproduct* rather than by design — which would dissolve the one thing about
+the best-supported reading that strains credulity.
+
+Explicitly **not** recommended, with reasons: better imaging of the surviving
+plate (§7.1 showed 3× resolution changed nothing), the Liszt fragment (not
+known plaintext, §8.4), a sliding-card sweep (underdetermined by unicity,
+§14.2), and any search constrained by a statistic measured on this text
+(circular, §12.1).
+
+---
+
+## 22. Limitations
+
+**Capture resolution, not the cipher, blocked three measurements**: the Liszt
+fragment (§8.4), the notebook's `LONDON TOMORROW` line (§14.1), and the
+cross-edition glyph comparison (§18.3). This is the most consistent obstacle in
+the project and the one a better-resourced follow-up could actually remove. It
+separates "we could not" from "nobody can" — a distinction this report has
+otherwise been careful to maintain.
+
+**The English reference model** is synthesised by frequency-weighted sampling
+from `wordfreq`'s empirical table, not drawn from a real corpus. It reproduces
+letter and within-word n-gram statistics but under-models cross-word structure.
+Austen's *Letters* and Buckley's *Elgar* provide period anchors (§7.3, §19.2)
+but the quadgram model itself remains modern.
+
+**Every plate descends from one lost photograph.** Shared-source error — a
+halftone artifact fooling all readers identically — is invisible to every
+analysis here and always will be. All reader-disagreement figures are lower
+bounds on absolute error.
+
+**The transposition family is not exhausted** (§16.2): 21 of 46,232 column
+orderings. Unlike §8.3 and §12.2, "exhausted" would be an overstatement there.
+
+**One null run is incomplete** (§12.3): the matched-budget latent null was
+interrupted by a container restart at 2 of 8 reps. Its section's conclusion
+rests on an absolute comparison to the English band, not on that null.
