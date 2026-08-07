@@ -1337,7 +1337,99 @@ flagged as favoured by provenance and disfavoured by statistics.
 
 ---
 
-## 16. Conclusions, ranked by robustness
+## 16. Round 11 — the transposition family, and the joint-profile puzzle survives
+
+### 16.1 The Heraldic cipher is the printed model for the arc alphabet
+
+Article IV, Nos. 48–49 (p. 613): a shield divided into compartments, alphabet
+of 24 with J and V omitted, two or three alphabet-consecutive letters per
+compartment, each letter denoted by **the angle of its compartment plus one,
+two or three tick marks**.
+
+That is the Dorabella design: orientation plus 1–3 arcs, 24 letters,
+consecutive triplets per orientation. It is also exactly the structure of
+Elgar's 1924 notebook key (§8.1). The design-source question is closed as
+firmly as it can be.
+
+The cryptological consequence is neutral-to-negative for new hypotheses,
+however: the Heraldic cipher is a plain monoalphabetic substitution, and
+§8.3 already swept all 483,840 standard-alphabet layouts of that geometry.
+The one variant not covered is **keyword-mixed alphabets** laid into the
+triplet geometry — small and pre-registerable, and a natural generator of the
+mirror structure without Elgar designing for it. Not run here.
+
+### 16.2 Transposition — a documented family nobody had swept
+
+Article IV, No. 46 (Pack of Cards): message written down columns, order
+restored by rhyme — columnar transposition, in Elgar's library. Neither this
+report nor, as far as can be established, any published analysis has tested it.
+
+Its predicted signature matches the observation better than anything yet
+proposed: transposition leaves **single-symbol frequencies untouched** (which
+is why Dorabella's look English-like) while **destroying bigram and quadgram
+structure** (the solver deficit). And unlike the dial it stays inside the
+unicity bound — verified here: MASC 87.4 bits → 27.3 characters; adding
+columnar column-order entropy for k ≤ 8 (≤ 15.3 bits) gives a joint unicity
+distance of **32.1 against 87 available**. Recoverable in principle.
+
+**Result.** 21 permutations (columnar k = 2–8 with identity and reversed
+column orders, plus route variants over the 29/31/27 line structure), each
+un-transposed then MASC-solved at matched budget:
+
+| | score/gram |
+|---|---|
+| identity (no transposition) | −4.838 |
+| **best of family** (`reverse`) | **−4.759** |
+| null: identical best-of-21 on shuffled text, 10 reps | −4.915 ± 0.050 (max −4.824) |
+| enciphered real English | ≈ −4.20 |
+
+Observed z = +3.13 against the null — **but that margin is carried by the
+identity member**, which §4 already established beats meaningless text. The
+gain *from transposition itself* is 0.079 over identity, from 21 tries, against
+a null sd of 0.050: about 1.6 sd of pure selection. And the best member remains
+0.56 below the English band.
+
+**Transposition does not rescue the decipherment.** That the `reverse`
+permutation topped the list is worth one sentence and no more — at full budget
+§4.2 found reversal consistently *worse* than forward across every variant, so
+this is selection noise, not support for the reads-backwards literature.
+
+**Scope caveat, stated because this report's other sweeps were exhaustive and
+this one is not.** A complete columnar sweep would enumerate all *k*! column
+orderings (46,232 for k ≤ 8); I tested a documented subset of 21. §8.3 and
+§12.2 were genuinely exhaustive; **§16.2 is not**, and a full sweep remains
+open.
+
+### 16.3 The fifth model: TRANS added to the classifier
+
+The Round-10 puzzle was that no model generated both the mirror excess and the
+solver deficit. TRANS+MASC was the obvious missing candidate. Adding it:
+
+5-way CV accuracy **0.560 ± 0.012** against 0.200 chance — still discriminating.
+
+| model | posterior for Dorabella |
+|-------|-------------------------|
+| **MIRROR** | **0.722** |
+| MASC | 0.116 |
+| TRANS | 0.056 |
+| DIAL | 0.054 |
+| COMPOSITE | 0.052 |
+
+TRANS does not win, and the reason is precise. Its mirror-pair mean is 3.575 —
+Dorabella sits **+2.82 sd** away — while its solver mean is −4.832, which
+Dorabella matches at **+0.32 sd**. So transposition reproduces the solver
+deficit and **not** the mirror excess, the mirror image of MIRROR's failure
+(+0.91 sd on mirrors, −0.88 sd on solver).
+
+**The joint-profile puzzle survives an expanded model set.** Across five
+generative models, none produces both of Dorabella's distinguishing features
+at once. MIRROR remains the best single account at 0.722, having now survived
+a harder test — but "best of five imperfect models" is the correct description,
+not "identified".
+
+---
+
+## 17. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1448,7 +1540,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 17. The single most informative next experiment
+## 18. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three

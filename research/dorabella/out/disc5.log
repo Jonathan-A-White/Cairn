@@ -1,0 +1,34 @@
+  generated 40 x MASC
+  generated 40 x DIAL
+  generated 40 x MIRROR
+  generated 40 x COMPOSITE
+  generated 40 x TRANS
+
+feature means by model:
+model               IC          H    doubles       rep2     mirror  rowspread          k     solver
+MASC             0.064      3.967      2.775     18.400      4.100      0.011     19.600     -4.441
+DIAL             0.054      4.167      2.650     11.925      3.575      0.010     21.825     -5.099
+MIRROR           0.063      3.980      2.575     17.850      9.950      0.009     19.700     -4.369
+COMPOSITE        0.054      4.164      2.675     13.300      3.425      0.011     21.750     -4.952
+TRANS            0.067      3.937      4.400     15.250      3.575      0.012     19.625     -4.832
+sd (pooled)      0.008      0.141      1.684      4.608      3.338      0.005      1.649      0.385
+
+5-way CV accuracy: 0.560 +- 0.012   (chance 0.200)
+
+posterior over models for Dorabella:
+  MIRROR      0.722
+  MASC        0.116
+  TRANS       0.056
+  DIAL        0.054
+  COMPOSITE   0.052
+
+Dorabella vs each model mean (pooled sd units):
+feature         dora       MASC       DIAL     MIRROR  COMPOSITE      TRANS
+IC             0.059      -0.67      +0.58      -0.53      +0.60      -1.01
+H              4.030      +0.45      -0.97      +0.35      -0.95      +0.66
+doubles        4.000      +0.73      +0.80      +0.85      +0.79      -0.24
+rep2          19.000      +0.13      +1.54      +0.25      +1.24      +0.81
+mirror        13.000      +2.67      +2.82      +0.91      +2.87      +2.82
+rowspread      0.011      +0.08      +0.22      +0.37      -0.03      -0.19
+k             20.000      +0.24      -1.11      +0.18      -1.06      +0.23
+solver        -4.708      -0.69      +1.02      -0.88      +0.64      +0.32
