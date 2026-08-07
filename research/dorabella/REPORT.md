@@ -937,7 +937,87 @@ those lines remains outstanding.
 
 ---
 
-## 12. Conclusions, ranked by robustness
+## 12. Round 7 — the additive-rotation family, pre-registered and exhausted
+
+### 12.1 Why this family, and why not the mirror-optimal one
+
+The obvious follow-up to §11.2 — search keys constrained to mirror
+high-frequency bigrams — is **circular as scoped**. The constraint is derived
+from the observed mirror excess, on the text that exhibits it; scoring such
+keys against unconstrained nulls double-counts the evidence. It is not run here.
+
+The additive-rotation family is pre-committed on **documentary** grounds
+instead. Elgar owned Schooling's four 1896 *Secrets in Cipher* articles and
+solved the Nihilist cipher in the fourth — a Polybius substitution plus an
+*additive keyword layer* — fifteen months before Dorabella. (The I=J / U=V
+merges of `ALPHA24` are themselves the Polybius-tradition merges.) The dial
+analogue, proposed by Pelling in 2009 as the "rotating pigpen", is a
+substitution whose orientation and/or arc channel is shifted by a key
+advancing per character.
+
+Hypothesis: `cipher_i = plain_i` shifted by `s·i`, on the orientation channel
+mod 8 and/or the arc channel mod 3. Decryption un-shifts and solves the
+residual as a monoalphabetic cipher. Family size 8 × 3 = 24, enumerated
+exhaustively.
+
+### 12.2 Result: the identity is the best member
+
+| rank | orientation step | arc step | score/gram |
+|------|------------------|----------|------------|
+| **1** | **0** | **0** | **−4.761  (identity — the plain monoalphabetic case)** |
+| 2 | 4 | 0 | −5.082 |
+| 3 | 2 | 0 | −5.111 |
+| 4 | 5 | 1 | −5.175 |
+| 5 | 7 | 2 | −5.235 |
+
+**Every non-trivial rotation scores worse than no rotation at all**, by a
+margin of 0.32/gram or more. The best-of-family equals the identity, so the
+rotation family contributes nothing: there is no constant-step shift that
+makes the text more English-like.
+
+Note rank 2 is orientation step 4 — the mirror step, the one that would
+manufacture the §11.2 anomaly. Even it is 0.32 worse than doing nothing.
+
+*(Null: identical best-of-24 procedure on shuffled text, 14 reps — running.
+Its role is only to calibrate the identity result, which §4 already
+established; the family-level conclusion above does not depend on it, since
+the best member is the identity by inspection.)*
+
+**Constant-step rotation is dead.** This is the second documented key family
+exhausted, after §8.3. Periodic (multi-character) keys remain untested, and at
+n = 87 a period of 4 or more is beyond what the text can support — the unicity
+distance for a 2-alphabet polyalphabetic is already 55, and 82 for three (§6).
+
+### 12.3 Exhaustive latent sweep: resolving the contested positions does not rescue it
+
+All 2¹³ = 8192 labellings of the 13 reader-contested positions were enumerated
+and solved.
+
+| | score/gram |
+|---|---|
+| majority-of-three reading | −4.680 |
+| **best of all 8192 labellings** | **−4.613** |
+| median of 8192 | −5.021 |
+| worst of 8192 | −5.423 |
+| enciphered real English (reference) | ≈ −4.20 |
+
+Cherry-picking the single most favourable resolution of every contested glyph —
+an 8192-fold selection, and far more freedom than any honest transcription
+would grant — buys **0.067/gram**, and lands 2.4 sd short of the English band.
+The best labelling's plaintext is still gibberish.
+
+So the transcription ambiguity that Rounds 5–6 localised, even resolved
+maximally favourably, does **not** account for the deficit. This is the
+strongest available answer to "would a perfect transcription solve it?": within
+the space the three readers actually disagree over, no.
+
+*(Matched-budget null on shuffled text running; the observed value is already
+interpretable without it, since the comparison to the English band is absolute
+rather than relative.)*
+
+---
+
+## 13. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1048,7 +1128,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 13. The single most informative next experiment
+## 14. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
