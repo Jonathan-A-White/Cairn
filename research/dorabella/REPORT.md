@@ -1678,7 +1678,107 @@ explained it and that all attempts to solve it had failed.
 
 ---
 
-## 19. Conclusions, ranked by robustness
+## 19. Round 14 — the primary source, and Elgar's measured register
+
+### 19.1 Source inflation: the Schooling story is one sentence
+
+Buckley's *Sir Edward Elgar* (1905) is the primary source for Elgar's
+cryptographic interests, cited throughout the secondary literature. An
+exhaustive search of the full 3,869-line text for `cipher | cryptogram |
+Schooling | puzzle | enigma | secret | anagram` returns exactly **one** passage
+on the subject, at p. 41:
+
+> "During railway journeys amuses himself with cryptograms; solved one by John
+> Holt Schooling who defied the world to unravel his mystery."
+
+That is the complete content. **No index cards, no wooden box, no "working in
+the dark", no 1896 date, no identification of which cipher.** Every one of
+those details entered the record through later authors and museum artifacts,
+not through the biography they are attributed to.
+
+What the primary source establishes: Elgar solved a Schooling challenge, and
+was proud enough of it to tell his biographer. What it does not establish:
+method, date, or which of the four articles' challenges. The report's earlier
+sections should be read with that distinction in place — §12.1's documentary
+motivation for the rotation family survives (Elgar demonstrably engaged with
+Schooling), but the specific "Nihilist cipher, 1896" framing does not come from
+Buckley.
+
+**This is the third secondary claim in this project to fail a primary check**,
+after the music cipher's "12 + 12 notes with I/J and U/V merges" (§15.1, not in
+the text) and Thorley's Liszt solution (§8.4, 25 letters against 18 symbols).
+The pattern is consistent: a modest primary fact accretes specificity as it
+passes through hands that do not cite pages. Given that this report has spent
+fourteen rounds applying null distributions to statistical claims, applying the
+same scepticism to documentary ones is not optional — **source inflation in the
+Dorabella literature is a finding, not a footnote.**
+
+*(One incidental primary fact worth keeping, p. 40: Elgar's house name "Craeg
+Lea … conceals an anagram". Documented wordplay in his own hand, contemporary,
+and relevant to §7.4 — it establishes that Elgar played this kind of game,
+without saying anything about how far he played it.)*
+
+### 19.2 Elgar's register, measured — and the idiolect branch closes
+
+§7.4 established that explaining Dorabella's solver deficit by unusual language
+alone would require 40–50% coined vocabulary, but that was a simulation with no
+empirical anchor. Buckley supplies one: his introduction states that "the
+sayings of Elgar are recorded in the actual words addressed directly to the
+writer", and the book quotes him verbatim throughout.
+
+Method identical to §7.3 — language model held fixed (modern quadgram), only
+the register varied, scored per-quadgram over 87-character windows:
+
+| text | windows | mean | sd |
+|------|---------|------|-----|
+| **Elgar, quoted verbatim** | 238 | **−4.219** | 0.151 |
+| Buckley chs. IV–V (Elgar's conversation, reported) | 3225 | −4.249 | 0.167 |
+| Buckley, whole book (1905 prose) | 4936 | −4.277 | 0.228 |
+| modern English (reference) | 600 | −4.240 | 0.135 |
+| Austen letters (reference) | 600 | −4.271 | 0.161 |
+| **Dorabella (consensus, solved)** | — | **−4.680** | — |
+
+**Elgar's documented register is statistically indistinguishable from ordinary
+English — and if anything marginally *more* ordinary, at +0.021 above the
+modern reference.** The register cost is not merely too small to explain the
+gap; it has the wrong sign. Edwardian prose generally (−4.277) also sits on the
+reference band, alongside Austen (−4.271).
+
+So the branch that needed Elgar's natural register to sit 0.3–0.4 below
+ordinary English is **closed**. What survives of the non-English reading is
+only the narrower claim that this specific note was *deliberately* written in
+coinage or private shorthand — which §7.4 priced at 40–50% nonce words, an
+implausible but not impossible dose, and which the Craeg Lea anagram shows is
+at least the kind of game he played.
+
+*(Caveat: this measures conversational and reported register as filtered
+through a biographer, not a deliberately cryptic private note to a young
+friend, which is a different genre. The measurement constrains "Elgar wrote
+unusually" and not "Elgar wrote a deliberately playful nonsense note".
+The quoted-span set also includes two epigraph poems and one quoted critic,
+about 300 of 4,838 characters, which is too small to move the mean.)*
+
+### 19.3 State of the surviving hypotheses
+
+With the register branch closed, what remains is what §17.5 identified, now
+with one leg shortened:
+
+1. **A substitution key we have not guessed**, mirroring common bigrams while
+   mapping them unfavourably for a quadgram model — best-supported by the
+   classifier at 0.722–0.851 across model sets, and the only reading consistent
+   with the strongest replicated anomaly.
+2. **Deliberate coinage or private shorthand** at ~40–50% density — not
+   excluded, but now with no support from Elgar's measured ordinary register.
+3. **Sectional/sliding-card polyalphabetic** — best documentary support of any
+   reading, the only one predicting the (now cross-edition-confirmed) line-3
+   dot, and provably underdetermined at n = 87.
+
+No experiment available at this length distinguishes (1) from (2), and (3) is
+untestable by construction.
+
+---
+
+## 20. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1789,7 +1889,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 20. The single most informative next experiment
+## 21. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
