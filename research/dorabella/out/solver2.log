@@ -1,0 +1,29 @@
+==============================================================================
+PHASE 4 (CORRECTED) — matched budget: 20 restarts x 15000 iters everywhere
+==============================================================================
+
+[A] Reference bands at n=87, all at the shared budget
+    enciphered real English : mean=-4.213 sd=0.139 5th=-4.465   (solver char-accuracy 0.96)
+    shuffled Dorabella      : mean=-4.926 sd=0.082 95th=-4.811 max=-4.695
+    uniform random          : mean=-5.096 sd=0.121 95th=-4.915 max=-4.742
+
+[B] Observed, same budget
+    variant              fwd     rev  pct(null)  z vs English
+    T0_canonical      -4.735  -4.756       0.99         -3.76
+    T1_L_alt1         -4.706  -4.679       0.99         -3.55
+    T2_L_alt2         -4.827  -4.837       0.93         -4.43
+    T3_LM_alt1        -4.725  -4.778       0.99         -3.69
+    T4_random1        -4.866  -4.927       0.85         -4.71
+    T5_random2        -4.812  -4.772       0.96         -4.32
+
+[C] Per-row scores against LENGTH-MATCHED nulls
+    row1 (n=29): obs=-4.041  shuffle-null mean=-4.033 sd=0.098 max=-3.817  English=-3.931+-0.093  pct(null)=0.44
+              DSCABLEANDTHEROFOOLSSOREVERTI
+    row2 (n=31): obs=-4.208  shuffle-null mean=-4.094 sd=0.086 max=-3.913  English=-3.996+-0.117  pct(null)=0.12
+              ITIESOFYOUTTTEDWITHTERANDIFFWHA
+    row3 (n=27): obs=-3.811  shuffle-null mean=-3.952 sd=0.119 max=-3.655  English=-3.859+-0.106  pct(null)=0.90
+              HTINTHANDATHEINSTARYATORALR
+
+    Note how much easier a 27-31 symbol text is to force into English-looking
+    output: the null itself rises sharply as n falls. Short-row 'readings' are
+    the clearest demonstration of why a raw solver score proves nothing.

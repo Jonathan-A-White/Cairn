@@ -1,0 +1,88 @@
+==============================================================================
+PHASE 2 — STATISTICAL CHARACTERISATION
+==============================================================================
+
+Null distributions at n=87 (4000 reps each)
+model                 IC mean   IC sd         IC 5-95%  H mean   H sd   dbl  rep2
+english_plain          0.0637  0.0066 [0.0537,0.0754]   3.993  0.099  2.77 18.31
+english_shorthand      0.0618  0.0076 [0.0511,0.0756]   4.043  0.106  3.85 15.25
+mono_english_24        0.0697  0.0096 [0.0569,0.0871]   3.892  0.121  3.35 19.93
+uniform_24             0.0418  0.0033 [0.0372,0.0478]   4.377  0.062  3.61  6.05
+uniform_18             0.0556  0.0038 [0.0503,0.0626]   4.022  0.052  4.77 10.37
+melody_24              0.0623  0.0144 [0.0433,0.0898]   3.981  0.255  0.00 28.07
+
+Observed, per transcription variant:
+variant            k      IC      H  dbl  rep2  rep3  percentile of IC vs each null
+T0_canonical      18  0.0658  3.894    5    19     3  engl=0.65 engl=0.74 mono=0.39 unif=1.00 unif=0.99 melo=0.65
+T1_L_alt1         16  0.0786  3.684    5    20     2  engl=0.98 engl=0.97 mono=0.85 unif=1.00 unif=1.00 melo=0.86
+T2_L_alt2         18  0.0730  3.796    9    17     2  engl=0.92 engl=0.92 mono=0.69 unif=1.00 unif=1.00 melo=0.79
+T3_LM_alt1        18  0.0791  3.749    4    21     4  engl=0.98 engl=0.98 mono=0.86 unif=1.00 unif=1.00 melo=0.86
+T4_random1        18  0.0623  3.941    3    12     1  engl=0.46 engl=0.57 mono=0.22 unif=1.00 unif=0.95 melo=0.56
+T5_random2        19  0.0679  3.891    2    16     1  engl=0.77 engl=0.81 mono=0.48 unif=1.00 unif=0.99 melo=0.70
+
+arc-count channel: distinct=3 IC=0.3275 H=1.581 doubles=31 (uniform H would be 1.585)
+
+orientation channel: distinct=7 IC=0.1660 H=2.627 doubles=12 (uniform H would be 2.807)
+
+Repeated bigrams/trigrams (canonical T0):
+  2-gram 2NW-2S               x4 at [17, 41, 48, 72] spacings [24, 7, 24]
+  2-gram 2NW-2NW              x3 at [16, 39, 40] spacings [23, 1]
+  2-gram 2S-2N                x3 at [49, 62, 73] spacings [13, 11]
+  2-gram 3NW-2SE              x3 at [59, 64, 70] spacings [5, 6]
+  2-gram 3E-1SE               x2 at [7, 34] spacings [27]
+  2-gram 1N-1S                x2 at [12, 25] spacings [13]
+  2-gram 1S-1N                x2 at [22, 53] spacings [31]
+  2-gram 1NE-1N               x2 at [24, 44] spacings [20]
+  2-gram 3SE-3NW              x2 at [27, 58] spacings [31]
+  2-gram 1N-2NW               x2 at [29, 45] spacings [16]
+  2-gram 2SE-2NW              x2 at [38, 71] spacings [33]
+  2-gram 1S-1NE               x2 at [43, 84] spacings [41]
+  2-gram 2N-3NW               x2 at [50, 63] spacings [13]
+  2-gram 1S-3NW               x2 at [69, 80] spacings [11]
+  3-gram 2NW-2NW-2S           x2 at [16, 40] spacings [24]
+  3-gram 2NW-2S-2N            x2 at [48, 72] spacings [24]
+  3-gram 2S-2N-3NW            x2 at [49, 62] spacings [13]
+  Kasiski bigram spacings: [1, 5, 6, 7, 11, 11, 11, 13, 13, 13, 16, 20, 23, 24, 24, 24, 24, 27, 31, 31, 33, 41, 55]
+  gcd of spacings: 1
+    period  2: 7/23 spacings divisible
+    period  3: 7/23 spacings divisible
+    period  4: 6/23 spacings divisible
+    period  5: 3/23 spacings divisible
+    period  6: 5/23 spacings divisible
+    period  7: 1/23 spacings divisible
+    period  8: 5/23 spacings divisible
+    period  9: 1/23 spacings divisible
+    period 10: 1/23 spacings divisible
+    period 11: 5/23 spacings divisible
+    period 12: 4/23 spacings divisible
+
+==============================================================================
+PHASE 3 — STRUCTURAL HYPOTHESES
+==============================================================================
+
+(a) Are arc-count and orientation independent?
+  T0_canonical     chi2=  34.57 dof= 12 asymp_p=0.001 MC_p=0.000 CramersV=0.446 frac_exp<5=0.71
+  T1_L_alt1        chi2=  34.10 dof= 12 asymp_p=0.001 MC_p=0.000 CramersV=0.443 frac_exp<5=0.57
+  T2_L_alt2        chi2=  32.32 dof= 12 asymp_p=0.001 MC_p=0.000 CramersV=0.431 frac_exp<5=0.57
+  T3_LM_alt1       chi2=  41.04 dof= 12 asymp_p=0.000 MC_p=0.000 CramersV=0.486 frac_exp<5=0.71
+  T4_random1       chi2=  19.72 dof= 12 asymp_p=0.073 MC_p=0.059 CramersV=0.337 frac_exp<5=0.62
+  T5_random2       chi2=  23.74 dof= 12 asymp_p=0.022 MC_p=0.017 CramersV=0.369 frac_exp<5=0.62
+
+(b) Row-by-row drift (is the message homogeneous?)
+  T0_canonical     IC/row=['0.054', '0.069', '0.085'] H/row=['3.70', '3.57', '3.29'] chi2=36.6 MC_p=0.345
+  T1_L_alt1        IC/row=['0.071', '0.084', '0.103'] H/row=['3.41', '3.35', '3.11'] chi2=36.6 MC_p=0.159
+  T2_L_alt2        IC/row=['0.081', '0.075', '0.080'] H/row=['3.28', '3.45', '3.39'] chi2=43.1 MC_p=0.107
+  T3_LM_alt1       IC/row=['0.049', '0.095', '0.114'] H/row=['3.75', '3.23', '2.98'] chi2=42.3 MC_p=0.104
+  T4_random1       IC/row=['0.044', '0.054', '0.088'] H/row=['3.84', '3.78', '3.20'] chi2=31.4 MC_p=0.649
+  T5_random2       IC/row=['0.047', '0.067', '0.083'] H/row=['3.76', '3.52', '3.31'] chi2=37.6 MC_p=0.408
+
+(c) Reversal — which statistics can even detect it?
+  IC fwd=0.0658 rev=0.0658 | H fwd=3.894 rev=3.894 | doubles fwd=5 rev=5
+  -> IC, entropy, unigram freqs and doubled-symbol counts are exactly reversal-invariant;
+     only directional (n-gram / solver) evidence can bear on the 'reads backwards' claim.
+
+(d) Sukhotin vowel separation (canonical T0)
+  symbols: ['1E', '1N', '1NE', '1NW', '1S', '1SE', '2E', '2N', '2NW', '2S', '2SE', '2W', '3E', '3N', '3NW', '3S', '3SE', '3W']
+  classified VOWEL: ['1NE', '1S', '2E', '2N', '2NW', '3E', '3NW']  (7/18)
+  vowel-class share of text: 0.540 (English letters ~0.38-0.40)
+  calibration on plain English n=87: mean 3.8 true vowels + 3.0 false, of 6.8 called -> precision 0.56

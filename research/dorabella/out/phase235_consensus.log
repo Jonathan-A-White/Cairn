@@ -1,0 +1,84 @@
+==============================================================================
+PHASE 2 — on published transcriptions
+==============================================================================
+
+model               IC mean   IC sd  H mean   dbl   rep2
+english_plain        0.0637  0.0066   3.993  2.77  18.31
+mono_english_20      0.0832  0.0136   3.677  4.52  23.91
+uniform_20           0.0501  0.0035   4.154  4.31   8.56
+melody_24            0.0626  0.0149   3.976  0.00  28.25
+
+variant                k      IC      H  dbl  rep2  rep3  pct(Eng)  pct(unif)
+E0_consensus          20  0.0585  4.030    4    19     2      0.23       0.98
+E1_schmeh             21  0.0567  4.088    5    14     0      0.14       0.96
+E2_dcode              20  0.0585  4.030    4    20     4      0.23       0.98
+E3_cons_dcodeCore     20  0.0585  4.030    4    20     4      0.23       0.98
+E4_cons_schmehCore    21  0.0580  4.064    4    16     2      0.20       0.98
+E5_cons_coreMasked    17  0.0984  3.573    8    29     6      1.00       1.00
+
+channels (consensus):
+  arc count    distinct=3 IC=0.3299 H=1.576 (uniform H=1.585) doubles=27  dist={'2': 33, '3': 25, '1': 29}
+  orientation  distinct=8 IC=0.1510 H=2.804 (uniform H=3.000) doubles=14  dist={'A': 9, 'E': 4, 'B': 15, 'C': 14, 'G': 9, 'D': 5, 'H': 8, 'F': 23}
+
+repeats (consensus):
+  2-gram F2-C2              x3 at [17, 48, 72] spacings [31, 24]
+  2-gram B1-H1              x3 at [22, 53, 84] spacings [31, 31]
+  2-gram C2-G2              x3 at [49, 62, 73] spacings [13, 11]
+  2-gram F3-B2              x3 at [59, 64, 70] spacings [5, 6]
+  2-gram A3-D1              x2 at [7, 34] spacings [27]
+  2-gram B3-F2              x2 at [10, 47] spacings [37]
+  2-gram F1-B1              x2 at [12, 52] spacings [40]
+  2-gram F2-F2              x2 at [16, 39] spacings [23]
+  2-gram B3-F3              x2 at [27, 58] spacings [31]
+  2-gram G1-F2              x2 at [29, 45] spacings [16]
+  2-gram H1-A3              x2 at [33, 85] spacings [52]
+  2-gram B2-F2              x2 at [38, 71] spacings [33]
+  2-gram G2-F3              x2 at [50, 63] spacings [13]
+  2-gram F3-C2              x2 at [61, 81] spacings [20]
+  2-gram C1-F3              x2 at [69, 80] spacings [11]
+  3-gram F2-C2-G2           x2 at [48, 72] spacings [24]
+  3-gram C2-G2-F3           x2 at [49, 62] spacings [13]
+  bigram spacings: [5, 6, 11, 11, 11, 13, 13, 16, 20, 23, 24, 24, 27, 31, 31, 31, 31, 33, 37, 40, 52, 55, 62]
+    period  2: 8/23
+    period  3: 5/23
+    period  4: 6/23
+    period  5: 4/23
+    period  6: 3/23
+    period  7: 0/23
+    period  8: 4/23
+    period  9: 1/23
+    period 10: 2/23
+    period 11: 5/23
+    period 12: 2/23
+
+==============================================================================
+PHASE 3 — on published transcriptions
+==============================================================================
+
+(a) arc-count x orientation independence
+  E0_consensus         chi2= 40.18 MC_p=0.001 CramersV=0.481
+  E1_schmeh            skipped (masked symbols)
+  E2_dcode             skipped (masked symbols)
+  E3_cons_dcodeCore    skipped (masked symbols)
+  E4_cons_schmehCore   skipped (masked symbols)
+  E5_cons_coreMasked   skipped (masked symbols)
+
+(b) row drift
+  E0_consensus         IC/row=['0.047', '0.058', '0.074'] MC_p=0.318
+  E1_schmeh            IC/row=['0.052', '0.056', '0.083'] MC_p=0.067
+  E2_dcode             IC/row=['0.047', '0.060', '0.074'] MC_p=0.286
+  E3_cons_dcodeCore    IC/row=['0.047', '0.060', '0.074'] MC_p=0.284
+  E4_cons_schmehCore   IC/row=['0.052', '0.058', '0.074'] MC_p=0.153
+  E5_cons_coreMasked   IC/row=['0.079', '0.105', '0.105'] MC_p=0.294
+
+(d) Sukhotin (consensus)
+  called vowels: ['A3', 'E3', 'F2', 'F3', 'G2', 'H1'] (6/20), share of text 0.460 (English 0.38-0.40)
+
+==============================================================================
+PHASE 5 — music, on published transcriptions
+==============================================================================
+  tonal reference: step<=2=0.767 mean|i|=1.79 rev=0.529
+  E0_consensus         best z= 46.23 step<=2=0.151  null=41.94+-3.43  p=0.903
+
+  circular-step test (orientation dial):
+  E0_consensus         obs=2.326 null=2.012+-0.139 z=+2.25 p(smaller)=0.989

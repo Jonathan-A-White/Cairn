@@ -1,0 +1,20 @@
+==============================================================================
+CRIB-CONSTRAINED SOLVING (consensus transcription)
+==============================================================================
+
+unconstrained best on consensus: -4.680/gram
+
+crib            fits  best score  pos    shuffled-text null       z
+MALVERN           19      -5.357   47     -5.418+-0.084    0.72
+               GFSIBLDITYMARNAWAALFFANOYOUMEDADLOITHISAASLURDAMALVERNOTTOMESELVESNVQUESALVREUIFUELINOI
+ALFRED            31      -4.883    7     -5.230+-0.114    3.04
+               BYNAPTCALFREDGEMEETYYEGOFOSRICECTOALWANEENTSDCERETHIDGOLLORINITHINGHUSINETHDISAYSITAGOA
+PENNY              0          --   --    (cannot be placed)
+SYMPATHY           1      -5.657   69     -5.763+-0.277    0.38
+               KLMECAREDGOPHIPUPPALLPINGNSOYRPRANEDWEMPPMASHRPOPATYHINDDNOYMYATYMITVSYMPATHYSELSYAEINE
+JULY              58      -5.048   68     -5.216+-0.057    2.94
+               BFYEVOTEDMISCASKSSOFFSARMRUILTSTOREDHEYSSYOUCTSISONLCARDDRILYLONLYANJULYSONCLUEFULOEARE
+ELGAR             44      -5.036   25     -5.263+-0.112    2.03
+               KCTSFIRSMYGODHOWOOICCOHEYELGARORIESMUSTOOTILDROGOINADHEMMEGATAINATHNPLATOINDALSCLAISHES
+WOLVERHAMPTON      0          --   --    (cannot be placed)
+MISSPENNY          0          --   --    (cannot be placed)

@@ -1,0 +1,15 @@
+==============================================================================
+REGISTER COST — same model, different plaintext register
+==============================================================================
+
+All scored/solved under the unchanged modern quadgram model:
+  modern English (synthetic)         plain=-4.233+-0.150  solved=-4.236+-0.175  recovery=0.96
+  Austen letters, 1800s epistolary   plain=-4.281+-0.147  solved=-4.277+-0.153  recovery=0.95
+
+  register cost, plain text : -0.049/gram
+  register cost, after solve: -0.041/gram
+
+  Dorabella (consensus)     : -4.680
+  gap to modern English     : -0.444
+  explained by register      : -0.041  (9% of the gap)
+  z of Dorabella vs Austen band: -2.64
