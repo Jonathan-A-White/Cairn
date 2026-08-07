@@ -554,7 +554,102 @@ only known-plaintext sample in this symbol system.
 
 ---
 
-## 8. Conclusions, ranked by robustness
+## 8. Round 3 — Elgar's own key, and an exhaustive structured-key sweep
+
+### 8.1 Elgar's 1920 alphabet, extracted and verified
+
+The notebook page gives Elgar's own A–Z key in his hand, and it is not an
+arbitrary permutation. Twenty-four letters — **I and J share a symbol, U and V
+share a symbol**, both explicitly labelled as such — laid out in **8 groups of
+3**: one group per orientation, arc count giving position within the group.
+
+That yields a closed-form key:
+
+```
+letter = ALPHA24[ orientation_index * 3 + (arc_count - 1) ]
+ALPHA24 = "ABCDEFGHIKLMNOPQRSTUWXYZ"          (no J, no V)
+```
+
+Applying it to the consensus transcription reproduces **dCode's published
+string at 85/87 characters**, differing only at positions 33 and 77.
+
+### 8.2 dCode is not an independent transcription — and that moves the crux
+
+§8.1 settles it: dCode's letter string is *the consensus transcription
+deciphered under Elgar's notebook alphabet*. A fixed key application is a
+relabeling, so the identity-partition and bijection analyses remain valid —
+but the **independence** does not.
+
+This retracts a load-bearing number. In §1.1 I reported consensus-vs-dCode
+agreement of 97.7% and in §4.3 used the implied ~2.3% error to argue that
+simple-substitution English was disfavoured. That comparison was never
+measuring two independent readings; it was measuring one transcription against
+a relabeled near-copy of itself. **There are two independent sources, not
+three.**
+
+The only genuinely independent estimate of transcription error is therefore
+consensus-vs-Schmeh: **9.2%**. The solver score implies **8.8%**. Those agree
+almost exactly. Combined with the plate's measured 10–14% appearance
+ambiguity (§7.2), the evidence now points one way: **transcription noise is
+sufficient to explain the entire gap**, and the "disfavoured" branch of
+conclusion 6 has lost its support.
+
+A corroboration worth recording: the two positions where consensus and dCode
+genuinely differ — **33 and 77** — were both independently flagged by the
+appearance classifier of §7.2 as glyphs whose label contradicts their nearest
+look-alike. Probability of that under chance placement is (12/87)² ≈ 0.019.
+The classifier is detecting real ambiguity.
+
+### 8.3 Exhaustive sweep over Elgar's structural key family
+
+Because the key family is a permutation over 8 orientation-groups × 3 arc
+counts rather than an arbitrary 24!, it can be searched **exhaustively** —
+483,840 keys (8! orderings of orientation groups × 3! of arc counts × 2
+layouts, orientation-major and count-major). No hill climbing, so no
+local-optimum excuse, and the null is exact.
+
+| key | score/gram |
+|-----|-----------|
+| **Elgar's own 1920 notebook key, applied literally** | **−7.705** |
+| best over all 483,840 structured keys | −6.272 |
+| null: same sweep on shuffled text (30 reps) | −6.266 ± 0.083 (max −6.093) |
+| reference: enciphered real English at n=87 | ≈ −4.20 |
+
+**p = 0.500, z = −0.08.** The best structured key on the real text scores
+*exactly at the mean of the shuffled null*. Elgar's documented key structure
+gives no traction on the 1897 note whatsoever, and his literal notebook key is
+worse than gibberish.
+
+This is the strongest negative in the report, because it is exhaustive rather
+than heuristic. Either the 1897 key was structurally unlike the 1920 one, or a
+further layer intervenes, or the plaintext is not English.
+
+(Note the two figures are different quantities: −7.705 is the *literal*
+decipherment scored as-is, whereas the −4.678 of §4.2 came from letting a free
+solver re-permute those symbols over all 24! keys. Both are far below English.)
+
+### 8.4 Two corrections to the supplied material
+
+**The Liszt fragment is not solved.** Thorley's 1977 `GETS YOU TO JOY, AND
+HYSTERIOUS` is rejected by both Bauer and Pelling; Pelling transliterates the
+fragment as `ABC DECFGB HID CBJKDK` — 3+6+3+6 = **18 symbols** plus a terminal
+dash. That resolves the count discrepancy flagged in §7.5: 18 is correct, 25
+is the discredited reading, and my 20–24 was over-segmentation at 26 px. The
+fragment is a *second short ciphertext*, not a known-plaintext sample.
+
+**The notebook's `DO YOU GO TO LONDON TOMORROW?` line is in a different cipher
+system.** Examined at magnification, the marks above and below that line are
+short vertical strokes with small flags — not 1–3 arc semicircles. It is
+therefore **not** a calibration sample for the arc alphabet. The arc-glyph
+lines elsewhere on that page are Elgar practising the alphabet in order, with
+no plaintext attached.
+
+With both of these gone, **no known-plaintext sample in the Dorabella arc
+alphabet is currently in hand.**
+
+---
+
+## 9. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -605,12 +700,29 @@ comfortably inside what the plate exhibits; the latter would mean half the
 note is coinages. **Transcription noise is the more parsimonious explanation**,
 and period register is *not* — it accounts for only 9% of the gap (§7.3).
 
+**Round 3 removed the counter-argument.** The ~2% figure that supported the
+"disfavoured" branch came from consensus-vs-dCode agreement, and dCode is now
+proven to be the consensus deciphered under Elgar's own key (§8.2) — not an
+independent reading. The only independent estimate is consensus-vs-Schmeh at
+9.2%, against a solver-implied 8.8%. Those agree, and both sit inside the
+plate's 10–14% ambiguity. The weight of evidence is now that **the gap is
+transcription noise**, and that this cannot be pushed further without a
+genuinely independent reading of the plate.
+
 **7. Arc count and orientation are not independent** (χ² = 40.18,
 MC p = 0.001, Cramér's V = 0.481). I discarded this in my first pass as an
 artifact of my own reading — sound reasoning, wrong conclusion, since it
 replicates at the same strength on a transcription I had no hand in. It is
 real; its meaning is open. The four never-used symbols (`D3`, `E1`, `E2`,
 `H3`) are consistent with the inventory being shaped rather than uniform.
+
+**7a. Elgar's own key structure is exhaustively excluded.** All 483,840 keys
+in the family his 1920 notebook documents (8 orientation-groups × 3 arc counts,
+both layouts) score at the shuffled-text null on the 1897 note — best −6.272
+against a null of −6.266 ± 0.083, p = 0.500. His literal notebook key scores
+−7.705. Because the search is exhaustive there is no local-optimum escape.
+Either the 1897 key was structurally unlike the 1920 one, or a further layer
+intervenes, or the plaintext is not English (§8.3).
 
 ### Not supported / uninformative
 
@@ -648,7 +760,24 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 9. The single most informative next experiment
+## 10. The single most informative next experiment
+
+**A genuinely independent re-transcription of the plate — by a reader who has
+not seen the consensus.** Round 3 showed that what looked like three
+independent transcriptions is really two, and the whole crux now rests on a
+single pairwise number (consensus vs Schmeh, 9.2%). One more independent
+reading would either confirm that ~9% is the plate's real noise floor — closing
+the question in favour of transcription noise — or expose the consensus as
+better than that, reopening it. Nothing else currently in reach moves the
+central question.
+
+Two candidates I previously ranked first have been downgraded by Round 3: the
+Liszt fragment is not a known-plaintext sample (Thorley's reading is rejected;
+it is an 18-symbol ciphertext), and the notebook's `LONDON TOMORROW` line is in
+a different cipher system. **No known-plaintext sample in the arc alphabet is
+currently known to exist**, which is itself worth stating plainly.
+
+*Previously recommended, now superseded:*
 
 **A high-resolution image of the 1886 Liszt programme fragment.** My earlier
 answer — measure the consensus against a scan of the original — is now known to

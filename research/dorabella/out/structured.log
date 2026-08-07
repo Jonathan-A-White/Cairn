@@ -1,0 +1,16 @@
+==============================================================================
+EXHAUSTIVE STRUCTURED-KEY SWEEP (483,840 keys of Elgar's own family)
+==============================================================================
+
+Elgar's own 1920 notebook key applied to the 1897 note: -7.705/gram
+  plaintext: BPECAHTCKYFRQDRIRRHPPRDXYXGFSTRTHXCKLCERREHGQTRFRHUSQDXKKXFSESHUSEDUWGSERHUQSGCPGSHCDXC
+
+Best over ALL structured keys: -6.272/gram
+  layout=B count-order=(2, 0, 1) orientation-order=(np.int64(5), np.int64(2), np.int64(1), np.int64(3), np.int64(7), np.int64(0), np.int64(4), np.int64(6))
+  plaintext: FQCOXBWOUGLARTAKAABQQATYGYSLIWAWBYOUDOCAACBSRWALABEIRTYUUYLICIBEICTENSICABERISOQSIBOTYO
+
+Null (same symbols, shuffled order, best-of-483840): mean=-6.266 sd=0.083 max=-6.093
+  p = 0.500
+  z = -0.08
+
+Reference: enciphered real English at n=87 scores about -4.20/gram.
