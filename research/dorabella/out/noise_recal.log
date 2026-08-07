@@ -1,2 +1,10 @@
 recalibrated corruption sweep over the measured inter-transcriber range
   rate  score/gram     sd    acc  frac>90%  note
+ 0.000      -4.216  0.127   0.97      0.97  
+ 0.023      -4.305  0.173   0.91      0.70  consensus vs dCode
+ 0.050      -4.479  0.183   0.77      0.40  
+ 0.092      -4.702  0.188   0.66      0.10  consensus vs Schmeh
+ 0.115      -4.738  0.165   0.46      0.00  Schmeh vs dCode
+ 0.150      -4.834  0.128   0.37      0.00  
+ 0.184      -4.856  0.171   0.31      0.00  my image transcription
+ 0.250      -4.873  0.128   0.25      0.00  

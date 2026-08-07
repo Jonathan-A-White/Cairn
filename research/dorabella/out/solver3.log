@@ -3,3 +3,41 @@ PHASE 4 ON PUBLISHED TRANSCRIPTIONS — 20x15000 budget everywhere
 ==============================================================================
 
 [A] Reference bands at n=87
+    enciphered real English : mean=-4.196 sd=0.168 5th=-4.513  (recovery acc 0.96)
+    shuffled consensus      : mean=-5.010 sd=0.087 95th=-4.860 max=-4.834
+    uniform random          : mean=-5.178 sd=0.125 max=-4.899
+
+[B] Observed
+    variant                  fwd     rev  pct(null)  z vs Eng
+    E0_consensus          -4.680  -4.707       1.00     -2.88
+    E1_schmeh             -4.948  -4.936       0.86     -4.47
+    E2_dcode              -4.678  -4.726       1.00     -2.86
+    E3_cons_dcodeCore     -4.678  -4.717       1.00     -2.86
+    E4_cons_schmehCore    -4.856  -4.913       0.98     -3.92
+    E5_cons_coreMasked    -4.622  -4.625       1.00     -2.53
+
+    best plaintexts (forward):
+    E0_consensus         WPROUTCONGDAYSAMAATPPASIGILDECACTIONFORAARTLYCADATHEYSINNIDERETHERSHBLERATHYELOPLETOSIO
+    E1_schmeh            KDSAWNRALKMETHEBEENDDEORPROMIRERNYALFUSEESNOTREMENGITHYLLYMISINCISHCCOISENCTIOADOINAHWA
+    E2_dcode             KMNOUTSOFCLARDAGAATMMADICIPLESASTSOFWONAANTPRSALATHERDIFFILENETHENDHYPENATHREDOMPETODIO
+    E3_cons_dcodeCore    KMNOUTSOFCLARDAGAATMMADICIPLESASTSOFWONAANTPRSALATHERDIFFILENETHENDHYPENATHREDOMPETODIO
+    E4_cons_schmehCore   PSDIFTMILYBENCEWEETSSERMYMRBAMEMTOILVIDEEDTRNMEBETHANCOLLOBADATHADCHURADETHNARISRATICKI
+    E5_cons_coreMasked   CHINGTENDWASMESPSSTHHSEEWEEARESETENDUNISSITEMESASTORMEEDDEARIRTORIEOVERISTOMRENHERTNEEN
+
+    best plaintexts (reversed):
+    E0_consensus         AINATERFARECUTODERBUNDEUTEDEMILLINCEUTOMOSCRTDOODAYLAITSOSEMRIPINOFFTOOKONCOMPLASTHADFJ
+    E1_schmeh            AHPATEDMADENSTOREDSSPRESTEREFULLUPNEWTOFOINDTROORBYLAUTIOIEFDIVIDOMMTOOKOPNOFCLAITHARMC
+    E2_dcode             AINATORGANOBUTEDORFUNDOUTODOMILLINBOUTEMESBRTDEEDAYLASTSESOMRIPINEGGTEEVENBEMPLASTHADGJ
+    E3_cons_dcodeCore    OITOSAYPOTAHUSEMAYBUTMAUSAMARILLITHAUSEREWHYSMEEMOFLOWSWEWARYINITEPPSEEVETHERNLOWSCOMPK
+    E4_cons_schmehCore   ACTASONGANOHUSERONBUTROUSOROWYLLYTHOUSEWEDHNSREERAPLAYSDEDOWNDIDNEGGSEEVETHEWILADSMARGX
+    E5_cons_coreMasked   REERSNEARENDISTONEVIEONISNONHEFFEEDNISTHTEDESOTTORYFRESETENHEELEETAASTTUTEDTHLFRESPROAC
+
+[C] Crib-constrained solves on the consensus transcription
+    MALVERN        pattern-compatible at  19 positions: [0, 4, 5, 6, 7, 24, 30, 41, 47, 48]
+    WOLVERHAMPTON  pattern-compatible at   0 positions
+    ALFRED         pattern-compatible at  31 positions: [0, 1, 4, 5, 6, 7, 8, 24, 25, 30]
+    MISSPENNY      pattern-compatible at   0 positions
+    PENNY          pattern-compatible at   0 positions
+    SYMPATHY       pattern-compatible at   1 positions: [69]
+    JULY           pattern-compatible at  58 positions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ELGAR          pattern-compatible at  44 positions: [0, 1, 2, 4, 5, 6, 7, 8, 9, 20]

@@ -15,7 +15,7 @@ import corpus, ensemble2
 from solver import qscore, norm
 
 A=corpus.A; AI={c:i for i,c in enumerate(A)}
-RESTARTS=14; ITERS=12000; N=87
+RESTARTS=5; ITERS=7000; N=87   # modest but IDENTICAL for observed and null
 
 def anneal_fixed(cidx, k, fixed, rng, iters=ITERS):
     """fixed: dict symbol_index -> letter_index, held constant."""
@@ -90,7 +90,7 @@ def run():
             continue
         # null: same crib forced into shuffled versions of the same text
         nl=[]
-        for _ in range(12):
+        for _ in range(10):
             s=list(cons); rng.shuffle(s)
             nb,_,_=solve_with_crib(s,crib,int(rng.integers(1e6)))
             if nb>-1e8: nl.append(norm(nb,N))

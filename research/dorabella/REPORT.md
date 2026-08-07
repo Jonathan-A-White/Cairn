@@ -246,7 +246,135 @@ Calibrated on 500 samples of plain English at exactly n=87, Sukhotin achieves
 
 ## 4. Phase 4 — Constrained solving
 
-*(pending: `scripts/solver3.py` and `scripts/noise_recalibrate.py` in flight)*
+All scores are mean quadgram log-probability per gram. **Every solve —
+observed, null and control — uses an identical budget of 20 restarts × 15 000
+annealing iterations.** (My first pass gave the observed text 40 × 20 000
+against nulls at 12 × 12 000; search budget alone raises the achievable score,
+and correcting that removed most of an apparent effect.)
+
+### 4.1 Positive control and reference bands
+
+| band | mean | sd | note |
+|------|------|----|------|
+| enciphered real English, n=87 | **−4.196** | 0.168 | solver recovers 96% of characters |
+| shuffled consensus (order destroyed) | −5.010 | 0.087 | max over 60 runs: −4.834 |
+| uniform random, 20 symbols | −5.178 | 0.125 | max over 60 runs: −4.899 |
+
+The positive control is the licence to interpret anything else here: at exactly
+87 characters the solver recovers *known* enciphered English at 96% character
+accuracy. The method has power at this length.
+
+### 4.2 Observed
+
+| variant | forward | reversed | percentile vs null | z vs English |
+|---------|---------|----------|--------------------|--------------|
+| consensus | **−4.680** | −4.707 | 1.00 | **−2.88** |
+| dCode | −4.678 | −4.726 | 1.00 | −2.86 |
+| consensus + dCode core | −4.678 | −4.717 | 1.00 | −2.86 |
+| consensus + Schmeh core | −4.856 | −4.913 | 0.98 | −3.92 |
+| Schmeh | −4.948 | −4.936 | 0.86 | −4.47 |
+| consensus, core masked | −4.622 | −4.625 | 1.00 | −2.53 |
+
+Three readings:
+
+1. **Above the meaningless-text null.** The consensus at −4.680 beats the best
+   of 120 null runs (−4.834) by 0.15, roughly 3.8 null sd above the null mean.
+   Unlike my image transcription — which sat *inside* the null range once
+   budgets were matched — the published transcription is genuinely more
+   language-like than scrambled text.
+2. **Far below real English.** −2.88 sd below the enciphered-English band, and
+   below its 5th percentile (−4.513). It does not behave like a simple
+   substitution of ordinary English.
+3. **No support for reversal.** Reversed scores are consistently *slightly
+   worse* than forward across every variant. Whatever the text is, it is not
+   improved by reading backwards.
+
+Two internal consistency checks worth noting. Schmeh's transcription — the one
+that disagrees most with the other two (9.2% and 11.5%) — also solves worst,
+essentially at the null. And the masked variant scores "best" of all, purely
+because collapsing 20 positions to one symbol leaves 17 distinct symbols and
+more repeats to overfit. Both confirm that solver score tracks transcription
+quality and symbol count, not just content.
+
+### 4.3 The corruption control — what the gap actually means
+
+Take real English, encipher it properly, then corrupt the ciphertext by
+swapping symbols to a confusable neighbour at a controlled rate — the exact
+error mode transcription produces. (An earlier version of this sweep was
+**wrong**: the neighbour map was keyed on `0..k−1` while ciphertext symbols
+came from a permutation of `0..25`, so a `.get` default silently skipped most
+corruptions. Fixed and re-run; a nominal 0.21 rate now changes 0.206 of
+positions.)
+
+| corruption rate | score/gram | char accuracy | note |
+|-----------------|-----------|---------------|------|
+| 0.000 | −4.216 | 0.97 | |
+| 0.023 | −4.305 | 0.91 | consensus vs dCode distance |
+| 0.050 | −4.479 | 0.77 | |
+| **0.092** | **−4.702** | 0.66 | consensus vs Schmeh distance |
+| 0.115 | −4.738 | 0.46 | Schmeh vs dCode distance |
+| 0.150 | −4.834 | 0.37 | |
+| 0.184 | −4.856 | 0.31 | my image transcription's measured error |
+| 0.250 | −4.873 | 0.25 | |
+
+**The observed consensus score of −4.680 interpolates to an equivalent
+transcription-error rate of ≈ 8.8%.**
+
+A side result worth recording: my image transcription has a *measured* 18.4%
+error and scored −4.735, whereas this sweep predicts −4.856 for 18.4% *random*
+confusion. Systematic transcription error — consistently collapsing the same
+pair of rotations — is markedly less destructive than random error of the same
+magnitude, because a consistent collapse is itself close to a substitution the
+solver can absorb.
+
+So the honest statement is conditional, and it hinges on a quantity nobody has
+measured — the consensus transcription's *absolute* error:
+
+- If the consensus is as accurate as its 2.3% distance from dCode suggests,
+  a simple substitution of ordinary English should score ≈ −4.31. We observe
+  −4.680, a shortfall of ~2.2 sd of the corruption-trial spread. **Simple
+  substitution of ordinary English is disfavoured.**
+- If the consensus carries ~9% absolute error, the observation is *exactly*
+  what simple-substitution English predicts, and nothing is excluded.
+
+The pairwise distances cannot settle this, because the three transcriptions
+are not independent — a shared misreading of the same ambiguous glyph moves
+them together. This is now the single quantity on which the whole question
+turns.
+
+### 4.4 Crib-constrained solves
+
+Not pattern screens: the crib is pinned into the key and everything else is
+annealed around it. The meaningful comparison is against the same crib forced
+into *shuffled* versions of the same text, at matched budget.
+
+| crib | fitting positions | best constrained | shuffled-text null | z | vs unconstrained (−4.680) |
+|------|-------------------|------------------|--------------------|---|---------------------------|
+| ALFRED | 31 | −4.883 | −5.230 ± 0.114 | 3.04 | costs 0.20 |
+| JULY | 58 | −5.048 | −5.216 ± 0.057 | 2.94 | costs 0.37 |
+| ELGAR | 44 | −5.036 | −5.263 ± 0.112 | 2.03 | costs 0.36 |
+| MALVERN | 19 | −5.357 | −5.418 ± 0.084 | 0.72 | costs 0.68 |
+| SYMPATHY | 1 (pos 69) | −5.657 | −5.763 ± 0.277 | 0.38 | costs 0.98 |
+| PENNY | **0** | — | — | — | cannot be placed |
+| WOLVERHAMPTON | **0** | — | — | — | cannot be placed |
+| MISS PENNY | **0** | — | — | — | cannot be placed |
+
+**PENNY cannot be placed anywhere in the consensus transcription.** It needs a
+doubled symbol (the `NN`), and the text contains only four doubled symbols,
+none in a compatible context. Same for WOLVERHAMPTON and MISSPENNY. That is a
+clean structural negative, independent of any language model — and it disposes
+of the most obvious candidate cribs from the 1897 context.
+
+**No crib is supported.** Every one of them *costs* score relative to leaving
+the solver unconstrained, meaning the solver does better when free to ignore
+the crib entirely. And the apparent significances are a selection artifact:
+z tracks the number of fitting positions almost monotonically (ALFRED 31 → 3.04,
+JULY 58 → 2.94, ELGAR 44 → 2.03, MALVERN 19 → 0.72, SYMPATHY 1 → 0.38). A crib
+with 58 placements gets 58 chances to find a lucky fit; one with a single
+placement gets one. That ordering is what a null-effect-plus-selection looks
+like, not what a genuine crib looks like — a real crib should show a *large* z
+at a *specific* position and cost little relative to the unconstrained solve.
+None does.
 
 ---
 
@@ -306,6 +434,102 @@ exists even in principle.
 
 ---
 
-## 7. Conclusions
+## 7. Conclusions, ranked by robustness
 
-*(completed after Phase 4)*
+### Well supported
+
+**1. The text is not random, and not a melody.** It beats every
+meaningless-text null on solver score (percentile 1.00) and sits at the 98th
+percentile of the uniform-symbol IC null. Against music: the best of 96
+pitch mappings scores *worse* than the sequence's own shuffles (p = 0.903),
+and consecutive glyphs are further apart on the rotational dial than chance
+(z = +2.25, p = 0.989) — replicated independently on my image transcription
+(z = 1.2–2.6 across six variants). **The music hypothesis is disfavoured**
+within the mapping families tested.
+
+**2. 87 characters is *not* too short — for simple substitution.** Unicity
+distance is ≈ 27 characters, so the text is ~3.2× what uniqueness requires,
+and the solver empirically recovers known enciphered English at this length
+with 96% accuracy. The folk explanation for the cipher's survival is wrong.
+
+**3. The arc-count channel carries no detectable structure.** Entropy 1.576
+against a 1.585 ceiling, distribution 29/33/25. Replicated across the
+consensus and my independent transcription (which got arc count 97.7% right).
+If loop count encodes anything systematic, it leaves no trace.
+
+**4. No polyalphabetic period.** No Kasiski spacing divisor is enriched above
+chance, and row-by-row drift is not significant in any variant (p = 0.07–0.32).
+
+**5. PENNY, MISS PENNY and WOLVERHAMPTON cannot appear in the text.** A
+structural fact about doubled symbols, independent of any language model.
+
+### Genuinely uncertain — and now the crux
+
+**6. Whether this is a simple substitution of ordinary English depends
+entirely on the consensus transcription's absolute error rate.** The observed
+score corresponds to ≈ 8.8% equivalent glyph error. At the ~2% error implied
+by consensus-vs-dCode agreement, the hypothesis is disfavoured by ~2.2 sd; at
+~9% it is perfectly consistent. Pairwise transcription distances cannot
+resolve this because the transcriptions are not independent.
+
+**7. Arc count and orientation are not independent** (χ² = 40.18,
+MC p = 0.001, Cramér's V = 0.481). I discarded this in my first pass as an
+artifact of my own reading — sound reasoning, wrong conclusion, since it
+replicates at the same strength on a transcription I had no hand in. It is
+real; its meaning is open. The four never-used symbols (`D3`, `E1`, `E2`,
+`H3`) are consistent with the inventory being shaped rather than uniform.
+
+### Not supported / uninformative
+
+**8. Reversal.** Reversed scores are consistently slightly worse. Note also
+that IC, entropy, unigram frequencies and doubled-symbol counts are *exactly*
+reversal-invariant, so any "reads backwards" claim resting on them is vacuous.
+
+**9. Sukhotin vowel separation.** Precision 0.56 when calibrated on plain
+English at n=87 — barely better than chance. Its output here carries no
+information.
+
+**10. All cribs tested.** ALFRED's z = 3.04 does not survive multiple-comparison
+correction and still costs 0.20 relative to leaving the solver unconstrained.
+
+### Methodological findings worth carrying forward
+
+**11. The identity-partition metric overstates transcription disagreement by
+~10×.** Consensus vs dCode is "20 disputed positions" but only 2 actual glyph
+differences. Anyone using disputed-position counts as an error rate will badly
+misjudge how uncertain the transcriptions are.
+
+**12. Search budget must be matched between observed and null**, and per-row
+scores need *length-matched* nulls. Both errors independently produced
+convincing-looking effects in my first pass that vanished on correction. A
+27-character row can be forced to read `TSINSTANDASTHINGSAREASURALR` at the
+44th percentile of its own null.
+
+**13. Symbol-count proximity is not evidence of transcription accuracy.** My
+18 distinct symbols against the true 20 coexisted with 16 misread glyphs.
+
+---
+
+## 8. The single most informative next experiment
+
+**Measure the consensus transcription's absolute error against a
+high-resolution scan of the original.** Everything now turns on conclusion 6,
+and that one number decides it: at ~2% error the simple-substitution-English
+hypothesis is disfavoured and the interesting question becomes *what else* the
+cipher is; at ~9% error nothing has been excluded and the field is back where
+it started.
+
+Every other avenue is currently rate-limited by this. More compute, more
+mapping families, more cribs and better language models all sit downstream of
+a quantity that a single good photograph would fix. The original is held by
+the Elgar Birthplace Museum; the British Library holds related material.
+
+The second experiment, worth building in parallel, is the latent-variable
+formulation: joint inference over (glyph labels, key) with the ~20 contested
+positions as the only free label variables and per-glyph geometric confidence
+as the prior. That search space is small (≤ 2²⁰, far less with
+transcriber-attested values only) and it yields a falsifiable output the
+discrete ensemble cannot: if the posterior concentrates on one labelling that
+*also* clears the null, that is evidence; if it stays flat, the cipher is
+provably underdetermined by the available images — itself a publishable
+negative.
