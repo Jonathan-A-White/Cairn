@@ -1429,7 +1429,118 @@ not "identified".
 
 ---
 
-## 17. Conclusions, ranked by robustness
+## 17. Round 12 — the mirror pairs are not clustered, and the puzzle turns out to be structural
+
+### 17.1 The position test: no clustering
+
+Pre-registered by the literature rather than by this report: Massey observed
+that the mirror pairs and the alternation runs occupy disjoint stretches, and
+Pelling (2020) flagged "the cluster of mirror pairs at the end of the middle
+line" as candidate padding, proposing its excision before solving. Under a
+mirror-key MASC the pairs should track high-mass bigrams and be roughly
+uniform; under a composite/decoration reading they should cluster.
+
+The 13 pairs sit at adjacency positions
+`12, 27, 38, 40, 49, 52, 54, 56, 58, 62, 71, 73, 78` — 2 in line 1, 7 in line
+2, 4 in line 3, with five of them in positions 49–58. That looks exactly like
+the reported cluster.
+
+It is not one.
+
+| test | observed | null | p |
+|------|----------|------|---|
+| max pairs in any 12-wide window | 5 | uniform placement of 13 points: 4.26 ± 0.78 | **0.33** |
+| max pairs in any 12-wide window | 5 | shuffled sequence, conditioned on 11–15 pairs: 3.95 ± 0.77 | **0.20** |
+| KS against uniform | D = 0.294 | — | **0.17** |
+
+**Thirteen points scattered at random across 86 slots produce a five-in-twelve
+window as a matter of course.** The apparent cluster at the end of line 2 is
+what randomness looks like at this density.
+
+This is the third human visual observation in this cipher's literature to fail
+a proper null, after Massey's alternation-run claim (§11.1, p = 0.19) and the
+run-length control that accompanied it. The one visual observation that *has*
+survived is the mirror excess itself (p = 0.0018) — which is a reminder that
+the eye is good at detecting that something is unusual and unreliable at
+saying what.
+
+### 17.2 The excision experiment is declined
+
+Pelling's proposed excision — remove the mirror-dense region, re-solve the
+remainder — was the one procedure on the table that could have produced a
+partial decipherment, since ~70 characters is above the empirically validated
+recovery threshold of §4.1.
+
+It is not run, for two reasons that would each be sufficient. There is no
+statistically real cluster to excise (§17.1). And the excision window would be
+chosen by inspecting the data, so any improvement would be the §12.1
+circularity in a new costume — with the added hazard that removing 18 symbols
+from 87 raises the null for *any* window, as §4.3's length-matched row nulls
+already demonstrated.
+
+### 17.3 The sixth model: pre-registered, and it fails where it was built to succeed
+
+MIRROR + light transposition was declared in advance with falsification
+targets, precisely because it is assembled from the two features it is meant
+to explain. Judged on six held-out features:
+
+| feature | Dorabella | model mean | z | verdict |
+|---------|-----------|------------|---|---------|
+| IC | 0.059 | 0.065 | −0.76 | pass |
+| entropy | 4.030 | 3.960 | +0.51 | pass |
+| doubles | 4 | 5.000 | −0.48 | pass |
+| repeated bigrams | 19 | 14.625 | +0.97 | pass |
+| row-IC spread | 0.011 | 0.012 | −0.12 | pass |
+| distinct symbols | 20 | 19.400 | +0.37 | pass |
+| *mirror pairs* | *13* | *5.775* | *+1.89* | **(assembled — FAILS)** |
+| *solver* | *−4.806* | *−4.916* | *+0.30* | *(assembled — matches)* |
+
+The automated verdict printed PASS on 6/6 held-out features. **That verdict is
+wrong and is overridden here.** The model reproduces the solver deficit and
+**not** the mirror excess — its mirror mean is 5.775 against Dorabella's 13,
+barely above the shuffled baseline of 5.15. It fails on one of the two features
+it was specifically constructed to capture.
+
+### 17.4 Why — and this is the round's actual finding
+
+The failure has a cause, and the cause resolves the puzzle's status.
+
+**Mirror-pair excess and transposition make incompatible demands on
+adjacency.** Mirror pairs are a property of *which symbols sit next to which*:
+a mirroring key produces them only because common plaintext bigrams remain
+adjacent in the ciphertext. Transposition's entire mechanism is the destruction
+of that adjacency. Composing the two therefore cannot preserve both — the
+transposition step scrambles away the mirror structure the key created, which
+is exactly what the simulation shows.
+
+So the Round-10 puzzle upgrades from *unexplained* to *structurally
+constrained*: Dorabella's two distinguishing features pull in opposite
+directions on the same underlying property. Any model that reproduces both
+needs a mechanism that **preserves plaintext adjacency** (to keep the mirrors)
+while **destroying n-gram fitness** (to depress the solver) — and substitution,
+transposition, and their composition each fail one half by construction.
+
+Six-way posterior: MIRROR 0.376, MIRROR_TRANS 0.368, DIAL 0.082, COMPOSITE
+0.072, MASC 0.062, TRANS 0.040. MIRROR remains the best single account, now on
+a near-tie with a composed model that does not actually do its job.
+
+### 17.5 What this leaves
+
+The surviving space is narrower and better characterised than at any earlier
+point. A mechanism preserving adjacency while depressing n-gram fitness would
+be: a plaintext that is not ordinary English (idiolect, coinage, abbreviation —
+§7.4 measured the required dose at 40–50%, implausible but not impossible), or
+a substitution key we have not guessed that both mirrors common bigrams and
+maps them unfavourably for a quadgram model. Both remain untested and neither
+is currently distinguishable from the other at n = 87.
+
+*(Keyword-mixed Heraldic sweep not run. If attempted, note that `ENIGMA` must
+be excluded as a candidate keyword — the Variations postdate the July 1897
+note by roughly two years.)*
+
+---
+
+## 18. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -1540,7 +1651,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 18. The single most informative next experiment
+## 19. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three
