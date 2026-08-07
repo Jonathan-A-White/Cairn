@@ -649,7 +649,295 @@ alphabet is currently in hand.**
 
 ---
 
-## 9. Conclusions, ranked by robustness
+## 9. Round 4 — the Zenodo archive does not contain the raw transcriptions
+
+The Hauer et al. code-and-data archive (DOI 10.5281/zenodo.4819086, 119 MB,
+8,709 files) was reassembled and searched exhaustively. **The five source
+transcriptions are not in it.**
+
+It contains exactly one Dorabella transcription, appearing in four different
+symbol labelings for four different experiments:
+
+| file | agreement with consensus (Fig. 2) |
+|------|-----------------------------------|
+| `LanguageIdentification/IsDorabellaEnglish/DorabellaTranscription.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora1/dora.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora2/dora2.txt` | **100.0%** |
+| `ImpactOfPerplexityMusicVsText/dora3/dora4.txt` | **100.0%** |
+
+All four are exact relabelings of the published consensus under Hungarian
+alignment — identical partitions, different names. Confirmed absent: any file
+referencing Schmeh, Pelling, Hartmeier or benzedrine (the only greps that hit
+are large English word-frequency tables); any file with 87 lines (per-position
+votes); any file using orientation+count tokens; any consensus-building script.
+
+**Consequence for the crux.** The reader-noise floor cannot be estimated from
+ten pairwise comparisons, because only one independent reading is in hand
+(Schmeh). And that single number is itself **biased low**: the consensus is a
+majority vote over five readers *including Schmeh*, so Schmeh agrees with it
+more than with an arbitrary independent reader. Consensus-vs-Schmeh at 9.2% is
+therefore a **lower bound** on true reader-to-reader disagreement.
+
+Against the pre-registered decision rule — floor ~8–12% favours transcription
+noise, ≤4–5% reopens the deficit — the only available estimate is ≥9.2%,
+already inside the upper band and able only to rise. **The rule fires for the
+transcription-noise branch.** The maximum-parsimony reading of this project is:
+*a simple substitution whose plaintext we cannot recover because the surviving
+source cannot be read accurately enough*, with the caveat that shared-source
+error (a halftone artifact fooling all readers identically) is invisible to any
+such analysis and always will be, the manuscript being lost.
+
+### 9.1 Incidental findings from the archive
+
+- The authors' reference corpus is **Letters of Jane Austen** (`LJA.txt`,
+  Gutenberg), the same text independently chosen for §7.3 here.
+- `CiphertextCharacteristics/Scripts/encodeDorabella.py` encodes the alphabet
+  as `1⇑ 1⇗ 1⇒ … 3⇖` — 3 arc counts × 8 directions, matching the structure
+  extracted from Elgar's notebook in §8.1.
+- The same script contains `isReflection` / `countReflections`, and the archive
+  ships `mirroredSymbols.sh`: the authors tested whether adjacent symbols are
+  **mirror reflections** of one another. That hypothesis is untested here and
+  is a reasonable next probe, being cheap and structurally motivated.
+
+---
+
+## 10. Round 5 — three readers, per-reader error rates, and a reversal
+
+### 10.1 Provenance: "dCode" was never a fourth reader
+
+A screenshot of Hartmeier's benzedrine.ch page shows the letter string
+`BPECAHTCKYFRQDRIRRHPPRDXYXGFS / TRTHTCKLCERREHGQTRFRHUSQDXKKXFS /
+ESHUSEDUWGSERHUQSDCPGSHCDXC` — character-identical to dCode's. **dCode copied
+Hartmeier.** The archive of "independent" sources shrinks again.
+
+The same page also states outright that its letters are a *decipherment under
+an "(arbitrary) key"*, not raw glyph names, and describes that key exactly as
+extracted in §8.1: "the first symbol is two semi-circles with their open sides
+facing east, we pick the second eastern letter, B". Since a fixed key is a
+relabeling, the partition analyses are unaffected. The page also quotes Kevin
+Jones on the Liszt fragment being an **18-character** code, independently
+corroborating Pelling's count over Thorley's 25 (§8.4).
+
+### 10.2 Three genuinely pre-consensus readers, triangulated
+
+Hartmeier (2006), Schmeh (2018), Pelling (2012) all read the plate before the
+2021 consensus existed. Aligned to a common labelling by Hungarian assignment:
+
+| pair | disagreement |
+|------|--------------|
+| Hartmeier vs Schmeh | 10 / 87 = 11.5% |
+| Hartmeier vs Pelling | 4 / 87 = 4.6% |
+| Schmeh vs Pelling | 12 / 87 = 13.8% |
+
+All three verify exactly as reported. The three-way structure is where it gets
+informative: **74 of 87 positions are unanimous, and there are ZERO three-way
+splits.** At every one of the 13 contested positions exactly two readers agree
+and one dissents — a perfect fit to a model of independent single-reader error,
+and a strong internal validation of the triangulation.
+
+That yields per-reader error rates directly:
+
+| reader | dissents | rate | 95% CI (Clopper–Pearson) | positions |
+|--------|----------|------|--------------------------|-----------|
+| Hartmeier | 1 | **1.1%** | [0.0%, 6.2%] | 33 |
+| Pelling | 3 | **3.4%** | [0.7%, 9.7%] | 12, 21, 84 |
+| Schmeh | 9 | **10.3%** | [4.8%, 18.7%] | 9, 22, 23, 25, 37, 50, 68, 77, 85 |
+
+**Schmeh is the noisy reader**, by roughly an order of magnitude. This is
+independently corroborated by Phase 4: Schmeh's string solved at the null
+(−4.948) while the Hartmeier and consensus lineages solved at −4.68 (§4.2).
+
+The 3-reader majority differs from Hartmeier at exactly one position (33).
+
+### 10.3 The bitmap classifier and the human readers agree on where the plate is hard
+
+The 13 reader-contested positions are
+`9, 12, 21, 22, 23, 25, 33, 37, 50, 68, 77, 84, 85`. The 12 positions flagged
+in §7.2 by a leave-one-out nearest-neighbour classifier on glyph bitmaps — a
+method that knew nothing about any reader — are
+`0, 4, 9, 15, 21, 23, 24, 33, 36, 68, 71, 77`.
+
+**Six positions overlap: 9, 21, 23, 33, 68, 77. Fisher exact p = 0.0020.**
+
+Two entirely different methods — human transcribers reading a halftone, and a
+pixel classifier trained on consensus labels — independently localise the same
+glyphs as the hard ones. This substantially raises confidence in both, and it
+makes the error budget *position-localised* rather than diffuse. It also
+retracts the §7.2 remark that contested positions do not track illegibility:
+that was computed against the *transcriber-contested* list, which is now known
+to have been contaminated by dCode's non-independence.
+
+### 10.4 Round 4's conclusion does not survive
+
+Round 4 concluded that transcription noise explained the entire solver gap. It
+rested on 9.2% (consensus vs Schmeh) as the noise floor. With Schmeh now
+identified as a 10.3% outlier against readers at 1.1% and 3.4%, that figure was
+inflated by one reader, and the conclusion has to be withdrawn.
+
+### 10.5 The residual deficit, recomputed
+
+Corruption anchors at the rates the three-reader data actually supports, all at
+matched solver budget (40 trials per rate). Observed consensus: **−4.680**.
+
+| assumed error rate | expected score | sd | sem | residual deficit | source of the rate |
+|--------------------|----------------|----|----|------------------|--------------------|
+| 0.0% | −4.229 | 0.143 | 0.023 | **−0.451** | perfect transcription |
+| 1.1% | −4.329 | 0.173 | 0.027 | **−0.351** | Hartmeier's rate (≈ consensus) |
+| 3.4% | −4.412 | 0.189 | 0.030 | **−0.268** | Pelling's rate |
+| 6.2% | −4.616 | 0.223 | 0.035 | **−0.064** | upper 95% CI on Hartmeier |
+| 10.3% | −4.695 | 0.210 | 0.033 | **+0.015** | Schmeh's rate — the outlier |
+
+A negative residual means Dorabella scores *worse* than a genuine simple
+substitution of English read at that error rate.
+
+If the consensus inherits the accuracy of its best readers — 1–3%, which is
+what §10.2 implies — then **a deficit of roughly −0.27 to −0.35/gram
+survives**. Round 4's clean "transcription noise explains everything"
+conclusion was an artifact of using Schmeh's error rate as if it were the
+plate's, and is withdrawn.
+
+**But the deficit is not robust to the uncertainty in that error rate, and
+this should not be overstated.** Dorabella is a single draw, so the right yardstick
+is the corruption distribution's sd, not its standard error:
+
+| assumed error | deficit | deficit / sd | one-tailed p |
+|---------------|---------|--------------|--------------|
+| 0.0% | −0.451 | −3.15 | ~0.001 |
+| 1.1% | −0.351 | −2.03 | ~0.02 |
+| 3.4% | −0.268 | −1.42 | ~0.08 |
+| 6.2% | −0.064 | −0.29 | ns |
+| 10.3% | +0.015 | +0.07 | ns |
+
+Hartmeier's error rate rests on **one** dissent in 87, so its 95% interval is
+[0.0%, 6.2%] — and across that interval the deficit runs from decisive to
+absent. The honest statement is: *a deficit of about 2 sd at the point
+estimate, decaying to nothing by 6% error.* Suggestive, not established.
+
+### 10.6 Exhaustive latent sweep over the contested positions
+
+With zero three-way splits, every contested position has exactly two candidate
+readings — the majority value and the dissenter's — so the latent-variable
+model collapses to an enumeration of 2¹³ = 8192 complete labellings. Each is
+solved, and the best is compared against the identical best-of-8192 procedure
+applied to shuffled text, so the selection effect sits in the null too.
+
+*(running; result to follow)*
+
+### 10.7 The fork this all turns on
+
+Everything above assumes **Pelling read the plate independently of
+Hartmeier**. I do not think 4 glyphs of disagreement establishes that, and the
+suggestion that it "rules out copying" should be resisted — dCode copying
+Hartmeier verbatim is direct proof that copying happens in this literature, and
+4 corrections to an inherited transcription is an entirely ordinary amount of
+editing.
+
+The two branches diverge sharply:
+
+- **If Pelling is independent:** three readers, errors 1.1 / 3.4 / 10.3%, the
+  consensus inherits roughly 1–3% error, and a residual deficit of ~0.3–0.45
+  survives. The "plain English, badly transcribed" story weakens and
+  second-layer or non-English hypotheses revive.
+- **If Pelling derives from Hartmeier:** there are two lineages, not three. The
+  H/P agreement measures editing rather than independent reading, and the only
+  true independent comparison is lineage-vs-Schmeh at 11.5–13.8% — at which the
+  residual deficit vanishes entirely and Round 4 stands.
+
+Two refinements pull in opposite directions and are worth stating rather than
+silently netting off. Reader *disagreement* is a lower bound on *absolute*
+error, since a glyph all three misread identically is invisible — which makes
+the true error higher and the deficit smaller. But §7.4 showed systematic error
+is less damaging than random error of the same rate, and transcription error is
+systematic — which makes the expected score higher and the deficit larger.
+
+**Resolving Pelling's provenance is now the single highest-value question in
+the project**, and unlike every previous "next experiment" it is answerable
+from documentary evidence rather than from the plate.
+
+---
+
+## 11. Round 6 — Massey replicated, and what the mirror excess actually implies
+
+### 11.1 One of Massey's two observations replicates; the other does not
+
+Massey (2017) reported two anomalies by eye. Both are testable against
+permutation nulls that hold the symbol multiset fixed and randomise only order.
+
+| statistic | observed | null | p |
+|-----------|----------|------|---|
+| adjacent 180°-opposed pairs, **same arc count** | **13** | 5.15 ± 2.17 | **0.0018** |
+| adjacent 180°-opposed pairs, any arc count | 27 | 12.58 ± 3.13 | **0.0001** |
+| longest arc-count alternation run | 13 | 10.31 ± 3.00 | 0.19 (ns) |
+
+**The mirror-pair anomaly replicates exactly** — 13 against ~5 expected, which
+is precisely Massey's "12–13 versus ~5". Two independent routes (his by eye,
+mine via the dial statistic of §5, z = +2.25) find the same thing.
+
+**The alternation-run claim does not survive.** A longest run of 13 sounds
+striking against his stated control maximum of 5–6, but a proper permutation
+null gives a mean of 10.3 and a maximum of 37: with three near-equal arc-count
+classes, long alternation runs are ordinary. That control was wrong.
+
+### 11.2 What the mirror excess implies — a constructive discrimination
+
+The excess is anomalous for monoalphabetic English because plaintext bigrams do
+not know the key's geometry. Unless the key was *built* so that common bigrams
+land on mirrored symbols. That is quantifiable.
+
+Under Elgar's key (§8.1), the bigrams that become same-arc opposed pairs are
+`AN NA BO OB CP PC DQ QD ER RE FS SF GT TG HU UH IW WI KX XK LY YL MZ ZM`.
+They carry 6.63% of English bigram mass — dominated by ER (16.1‰), AN (16.0‰)
+and RE (14.3‰).
+
+| key | mirror-producing bigram share | expected pairs in 86 slots |
+|-----|-------------------------------|----------------------------|
+| order-shuffled null | — | 5.15 |
+| **Elgar's actual 1920 key** | 6.63% | **5.70** |
+| **best possible key** (max-weight perfect matching over letter pairs) | 12.23% | **10.52** |
+| share needed to expect 13 | 15.12% | 13 |
+
+The optimal matching pairs `HT, ER, IN, AL, FO, MP, SU, CK, BY, DW, GQ, XZ` —
+i.e. a key deliberately arranged so TH/HT, ER/RE and IN/NI fall opposite.
+
+Three conclusions follow:
+
+1. **Elgar's actual key cannot produce the excess.** It predicts 5.70; we
+   observe 13, about +2.4 sd. This is independent corroboration of §8.3's
+   exhaustive negative, by a completely different statistic.
+2. **A bigram-optimised key can.** The best achievable expectation is 10.52,
+   and observing 13 against that is +0.8 sd — entirely unremarkable. So
+   Pelling's "key crafted so common bigrams mirror" hypothesis **survives the
+   test that kills Elgar's own key**.
+3. **Massey's hoax/nonsense reading is therefore not required.** The mirror
+   excess has a live explanation that keeps the text meaningful. It is evidence
+   against *this particular key*, not against language.
+
+No key can reach 15.12% — the theoretical ceiling is 12.23% — so the observed
+13 sits slightly above even the optimum's expectation, but well inside its
+noise. The mirror statistic constrains the key without condemning the plaintext.
+
+### 11.3 The notebook is 1924 or later, which reframes Round 3
+
+Marco the spaniel was born 27 May 1924, so the "Marco Elgar" page postdates
+Dorabella by ~27 years, not 23 — and Pelling reads it as Elgar *reconstructing*
+a system he no longer remembered, with `A VERY OLD CYPHER` enciphered on the
+same page.
+
+That materially changes how §8.3 should be read. The exhaustive sweep killed
+**the reconstructed 1924 geometry**, not the concept of a structured key. If
+Elgar's own later recollection was imperfect, failure of that family on the
+1897 note is expected rather than damning. §11.2 sharpens this from the other
+side: whatever the 1897 key was, it put common bigrams opposite in a way the
+1924 geometry does not.
+
+It also means known plaintext in the arc alphabet **does** exist after all —
+`MARCO ELGAR` and `A VERY OLD CYPHER` on that page — which retracts the flat
+statement in §8.4 that no such sample is known. The arc-count channel test on
+those lines remains outstanding.
+
+---
+
+## 12. Conclusions, ranked by robustness
 
 ### Well supported
 
@@ -760,7 +1048,7 @@ convincing-looking effects in my first pass that vanished on correction. A
 
 ---
 
-## 10. The single most informative next experiment
+## 13. The single most informative next experiment
 
 **A genuinely independent re-transcription of the plate — by a reader who has
 not seen the consensus.** Round 3 showed that what looked like three

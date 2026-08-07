@@ -1,0 +1,15 @@
+==============================================================================
+RESIDUAL DEFICIT UNDER THE THREE-READER ERROR MODEL
+==============================================================================
+
+Observed (consensus, matched budget): -4.680/gram
+
+   rate    n  expected     sd    sem   residual deficit note
+  0.000   40    -4.229  0.143  0.023             -0.451 
+  0.011   40    -4.329  0.173  0.027             -0.351 Hartmeier error (=~consensus)
+  0.034   40    -4.412  0.189  0.030             -0.268 Pelling error
+  0.062   40    -4.616  0.223  0.035             -0.064 upper 95% CI, Hartmeier
+  0.103   40    -4.695  0.210  0.033             +0.015 Schmeh error (the outlier)
+
+  A negative residual means Dorabella scores WORSE than a genuine simple
+  substitution of English read at that error rate -- i.e. unexplained deficit.
