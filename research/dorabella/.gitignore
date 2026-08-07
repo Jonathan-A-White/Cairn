@@ -1,4 +1,7 @@
 data/corpus.pkl
-out/*.png
+out/big_*.png
+out/sheet_*.png
+out/row*_x4.png
+out/r[123]_c*.png
 __pycache__/
 *.pyc

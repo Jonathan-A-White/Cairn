@@ -57,14 +57,45 @@ def panelB(ax, s2):
     ax.set_yticks(range(1,len(ys)+1)); ax.set_yticklabels(list(ys), fontsize=9)
     ax.set_xlabel('best quadgram score per gram, matched search budget')
     ax.legend(fontsize=8, loc='upper left')
-    ax.set_title('B. Solver: Dorabella beats meaningless text, but falls far short of English',
+    ax.set_title("B. Solver: Dorabella sits in the null's upper tail, nowhere near English",
+                 fontsize=10, loc='left')
+
+def parse_noise(path):
+    rows=[]
+    for l in open(path):
+        m=re.match(r'\s+(\d\.\d\d)\s+(-\d+\.\d+)\s+(\d+\.\d+)\s+(\d+\.\d+)\s+(\d+\.\d+)', l)
+        if m: rows.append(tuple(float(x) for x in m.groups()))
+    return rows
+
+def panelC(ax, noise, s2):
+    r=[x[0] for x in noise]; s=[x[1] for x in noise]; sd=[x[2] for x in noise]; acc=[x[3] for x in noise]
+    ax.errorbar(r, s, yerr=sd, marker='o', color='#2c3e50', lw=1.6, capsize=3,
+                label='enciphered English, corrupted at rate r')
+    if s2['obs']:
+        o=s2['obs'][0][1]
+        ax.axhline(o, color='#c0392b', lw=2, label=f'Dorabella observed ({o:.2f})')
+    if s2['shuf'][0]:
+        ax.axhline(s2['shuf'][0], color='#7f8c8d', ls='--', lw=1.4,
+                   label=f"shuffled-text null ({s2['shuf'][0]:.2f})")
+    ax.axvspan(0.21, 0.45, color='#e67e22', alpha=.15)
+    ax.text(0.33, s[0]-0.15, "this transcription's\nown ambiguity rate", ha='center',
+            fontsize=8, color='#a04000')
+    ax2=ax.twinx(); ax2.plot(r, acc, marker='s', ms=4, color='#27ae60', lw=1.2, alpha=.8)
+    ax2.set_ylabel('solver char-accuracy', color='#27ae60', fontsize=9)
+    ax2.tick_params(axis='y', colors='#27ae60'); ax2.set_ylim(0,1.05)
+    ax.set_xlabel('symbol-confusion (transcription error) rate')
+    ax.set_ylabel('best quadgram score/gram')
+    ax.legend(fontsize=8, loc='lower left')
+    ax.set_title('C. Transcription noise alone reproduces Dorabella\'s unsolvability',
                  fontsize=10, loc='left')
 
 if __name__=='__main__':
     s2=parse_solver2('out/solver2.log')
-    fig,axes=plt.subplots(2,1, figsize=(9,7.2))
-    panelA(axes[0]); panelB(axes[1], s2)
-    for a in axes: a.grid(alpha=.2, axis='x')
+    noise=parse_noise('out/noise.log')
+    fig,axes=plt.subplots(3,1, figsize=(9,10.5))
+    panelA(axes[0]); panelB(axes[1], s2); panelC(axes[2], noise, s2)
+    for a in axes[:2]: a.grid(alpha=.2, axis='x')
+    axes[2].grid(alpha=.2)
     fig.suptitle('Dorabella cipher against simulated nulls at n = 87', fontsize=12)
     fig.tight_layout()
     fig.savefig('out/summary.png', dpi=140)

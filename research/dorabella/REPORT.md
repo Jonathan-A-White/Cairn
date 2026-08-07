@@ -284,7 +284,164 @@ Sukhotin is barely better than a coin flip, so neither the vowel set nor the
 
 ## 4. Phase 4 — Constrained solving
 
-*(filled in from `scripts/solver.py`; see §4 below)*
+### 4.0 A correction to my own method
+
+The first run (`out/phase4_firstrun.log`) gave the observed text 40 restarts ×
+20000 iterations while giving the nulls 12 × 12000. Search budget alone raises
+the achievable score, so that comparison was biased in favour of the observed
+text — and it produced the misleading result that Dorabella beat the null's
+maximum. Everything below uses **one shared budget (20 restarts × 15000
+iterations) for every solve**: observed, null and control alike
+(`scripts/solver2.py`). The correction changed the conclusion, which is the
+point of running it.
+
+### 4.1 Positive control: the solver works at n = 87
+
+Encipher real 87-character English with a random simple substitution, then
+solve it blind:
+
+| trials | mean char-accuracy | median | fraction > 90% correct |
+|--------|--------------------|--------|------------------------|
+| 12 (first run) | 0.98 | 0.99 | 1.00 |
+| 40 (matched budget) | 0.96 | — | — |
+
+Example recovery (first run, verbatim):
+
+```
+true : FORASTHEMONEYOFINDIASTRAGICALLYHAPPENSTHETAKEOFEGYPTTENSIONNUCLEARCARSONLETOFALTHOUGHAC
+got  : FORASTHEMONEYOFINDIASTRAGICALLYHAPPENSTHETAKEOFEGYPTTENSIONNUCLEARCARSONLETOFALTHOUGHAC
+```
+
+**The method has real power at this length.** A negative result on Dorabella
+is therefore interpretable — provided the input is a faithful transcription.
+That proviso turns out to be the whole story (§4.5).
+
+### 4.2 Reference bands, matched budget, n = 87
+
+| band | mean | sd | extremes |
+|------|------|-----|----------|
+| enciphered real English | −4.213 | 0.139 | 5th pct −4.465 |
+| shuffled Dorabella (null) | −4.926 | 0.082 | 95th −4.811, **max −4.695** |
+| uniform random (null) | −5.096 | 0.121 | 95th −4.915, max −4.742 |
+
+### 4.3 Observed
+
+| variant | forward | reversed | percentile in null | z vs English |
+|---------|---------|----------|--------------------|--------------|
+| T0_canonical | −4.735 | −4.756 | 0.99 | −3.76 |
+| T1_L_alt1 | −4.706 | −4.679 | 0.99 | −3.55 |
+| T2_L_alt2 | −4.827 | −4.837 | 0.93 | −4.43 |
+| T3_LM_alt1 | −4.725 | −4.778 | 0.99 | −3.69 |
+| T4_random1 | −4.866 | −4.927 | 0.85 | −4.71 |
+| T5_random2 | −4.812 | −4.772 | 0.96 | −4.32 |
+
+Two readings, and the second is the correct one:
+
+- Dorabella sits in the **upper tail** of the null (85th–99th percentile).
+- But the best of 60 shuffles reached **−4.695, which beats T0's −4.735**.
+  Dorabella's best "solution" is therefore *not* outside the range of what
+  this solver extracts from text known to carry no message.
+- Against genuine enciphered English it is **3.5–4.7 σ short**.
+
+**No plaintext is claimed, and the best-scoring output is shown only to be
+scored, not read.** For the record, T0 forward yields
+`PFRADOIALPHNITSMSSOFFSTIWITHEISIODALBARSSSOTWISHSONECTILLWHEREONERTNUTERSONCETAFTEMATWA`,
+which contains `WITH`, `WISH`, `WHERE`, `ONCE`, `TILL` — and scores *below the
+maximum a shuffle achieves*. This is precisely the trap the brief warned
+about: fragments of English are what a hill-climber manufactures at this
+length, not evidence.
+
+**Reversal:** forward and reverse scores differ by 0.02–0.06, well inside the
+null's 0.08 sd, and the direction is inconsistent across variants (T1 and T5
+favour reverse, the rest favour forward). **No support for the
+reads-backwards hypothesis.**
+
+### 4.4 Rows independently, against length-matched nulls
+
+| row | n | observed | shuffle null | enciphered English | percentile |
+|-----|---|----------|--------------|--------------------|------------|
+| 1 | 29 | −4.041 | −4.033 ± 0.098 (max −3.817) | −3.931 ± 0.093 | 0.44 |
+| 2 | 31 | −4.208 | −4.094 ± 0.086 (max −3.913) | −3.996 ± 0.117 | 0.12 |
+| 3 | 27 | −3.811 | −3.952 ± 0.119 (max −3.655) | −3.859 ± 0.106 | 0.90 |
+
+The row "readings" are the sharpest illustration in this report of why solver
+output cannot be read:
+
+```
+row1: DSCABLEANDTHEROFOOLSSOREVERTI     <- "ABLE AND THE", 44th percentile of the null
+row2: ITIESOFYOUTTTEDWITHTERANDIFFWHA   <- "ITIES OF YOU ... WITH ... AND", 12th percentile
+row3: HTINTHANDATHEINSTARYATORALR       <- "AND A THE", 90th percentile
+```
+
+Row 2 reads more like English than row 1 to a human eye, and scores *worse
+than the average meaningless text of the same length*. Note also that at
+n = 27–31 the null band and the English band **overlap almost entirely**
+(row 3: null −3.952 ± 0.119 vs English −3.859 ± 0.106). At row length there
+is no discriminating power at all. Best row-order permutation was the
+original (0,1,2); no reordering helped.
+
+### 4.5 Cribs
+
+Testing each crib by repetition-pattern compatibility (a crib can only sit
+where the ciphertext's repeat structure matches the crib's letter pattern):
+
+| crib | compatible positions | informative? |
+|------|----------------------|--------------|
+| DORABELLA | **0** | yes — pattern needs a doubled symbol plus a repeat; the text has only 5 doubles |
+| WORCESTER | **0** | yes |
+| PENNY | 1 (position 53) | mildly |
+| SYMPATHY | 2 | mildly |
+| MISS | 3 | mildly |
+| MALVERN | 16 | weak |
+| ELGAR | 41 | uninformative |
+| DORA, JULY | 57 | uninformative (no repeated letters — fits almost anywhere) |
+
+Cribs with no repeated letters fit nearly everywhere and carry no
+information; only the patterned ones constrain. `DORABELLA` and `WORCESTER`
+are excluded outright under the simple-substitution assumption — but that
+exclusion is only as good as the transcription, and §4.6 shows it is not
+good enough to lean on.
+
+### 4.6 The control that governs every negative result above
+
+Everything so far says "Dorabella does not behave like enciphered English."
+Before that can mean anything about Elgar, one alternative has to be
+eliminated: **would my own transcription noise produce exactly this result on
+a cipher that genuinely IS enciphered English?**
+
+The test: encipher real English, then corrupt the ciphertext at rate *r* by
+swapping affected symbols to a *confusable neighbour* — the exact error mode
+§1.2 established (adjacent rotations collapsing) — and solve at the same
+budget.
+
+| confusion rate | score/gram | char-accuracy | fraction > 90% |
+|----------------|-----------|---------------|----------------|
+| 0.00 | −4.249 ± 0.120 | 0.98 | 0.92 |
+| 0.05 | −4.468 ± 0.259 | 0.86 | 0.52 |
+| 0.10 | −4.655 ± 0.301 | 0.65 | 0.24 |
+| **0.21** (my "L" rate) | **−4.972 ± 0.199** | **0.33** | **0.00** |
+| 0.35 | −5.091 ± 0.185 | 0.20 | 0.00 |
+| **0.45** (my "L or M" rate) | −5.206 ± 0.177 | 0.12 | 0.00 |
+| 0.60 | −5.167 ± 0.167 | 0.13 | 0.00 |
+
+**This is the most important table in the report.**
+
+At a 21% symbol-confusion rate — the fraction of glyphs I marked genuinely
+ambiguous — known, genuine, simple-substitution English scores **−4.972**,
+which is *worse than Dorabella's observed −4.735*, and the solver recovers
+only 33% of characters with **not one trial in 25 exceeding 90% accuracy**.
+
+Dorabella's observed score corresponds to a confusion rate of roughly
+**10–15%** on genuine enciphered English — i.e. Dorabella looks *more*
+solvable than my own transcription of a true simple substitution would.
+
+The conclusion is unavoidable and it cuts against my own negative findings:
+
+> **At the transcription accuracy obtainable from this image, the experiment
+> has no power to reject the simple-substitution hypothesis.** Transcription
+> noise alone is more than sufficient to reproduce every negative result in
+> §4.2–4.5. The binding constraint is the transcription, not the cipher and
+> not the cryptanalysis.
 
 ---
 
@@ -370,4 +527,105 @@ The escape routes are the ones that raise H(K) or lower D:
 
 ## 7. Conclusions, ranked by robustness
 
-*(completed after Phase 4 results)*
+![summary](out/summary.png)
+
+### Tier 1 — independent of my transcription
+
+1. **87 characters is not "too short to ever solve."** The unicity distance of
+   simple substitution is ≈ 27 characters; the text is 3.2× that. The folk
+   claim is wrong as stated.
+2. **A quadgram solver has real power at n = 87**: 96–98% character recovery
+   on known enciphered English, 100% of trials above 90% in the first run.
+   Length is not the obstacle.
+3. **Solver output at this length is worthless without a null.** A 27–31
+   character row yields fluent-looking fragments (`ABLE AND THE`,
+   `ITIES OF YOU … WITH … AND`) while scoring at the 12th–44th percentile of
+   meaningless text. At row length, the English and null bands overlap
+   almost completely.
+4. **IC cannot distinguish the hypotheses anyone cares about at n = 87.** The
+   English, abbreviated-English, enciphered-English and melody nulls all
+   overlap; only uniform randomness is excluded. IC and entropy are also
+   exactly invariant under injective substitution *and* under reversal, so
+   neither can bear on those hypotheses at all.
+
+### Tier 2 — robust across the whole transcription ensemble
+
+5. **The text is not uniform random.** IC sits at the top of both uniform
+   nulls; repeated bigrams (19) far exceed uniform-24 (6.1) and uniform-18
+   (10.4). Something structured is encoded.
+6. **No evidence for a polyalphabetic period.** Kasiski spacings have gcd 1
+   and no divisor is enriched above chance.
+7. **No evidence for reversal.** Forward/reverse solver scores differ by less
+   than the null sd, inconsistently in direction.
+8. **No evidence for a mid-message key change.** Row-drift permutation tests
+   reach p = 0.10–0.65; the monotone IC/H trend across rows does not survive.
+9. **The music hypothesis is disfavoured in both natural mapping families**
+   (p = 0.80 and p = 0.95 against shuffled-order nulls), and successive
+   glyphs are *further* apart on the rotational dial than chance in all six
+   variants (z = 1.2–2.6). A transcribed melody should show the opposite.
+
+### Tier 3 — cannot be settled from this image
+
+10. **Whether Dorabella is a simple substitution of ordinary English is
+    undecidable here.** §4.6 is decisive: at my measured ambiguity rate,
+    genuine enciphered English becomes *less* solvable than Dorabella
+    appears. Every negative result in Phase 4 is fully explained by
+    transcription noise.
+11. **Arc count and orientation dependence: artefact, not finding.** Strong
+    on my deliberate readings (V = 0.45), collapsing on randomly resampled
+    ones (p = 0.06) — the signature of my own visual cues, which correlate
+    shape with arc count.
+12. **Sukhotin is uninformative at this length** (precision 0.56 on plain
+    English at n = 87). The 54% "vowel" share means nothing.
+13. **The `DORABELLA`/`WORCESTER` crib exclusions** are real under the
+    transcription but inherit all its uncertainty.
+
+### What this adds up to
+
+The honest summary is not "Dorabella is not a substitution cipher." It is:
+**this image cannot support that inference, and neither can any analysis built
+on a transcription of comparable quality.** The orientation channel — half the
+information in Elgar's alphabet — is below the noise floor of a photographed
+Wikipedia scan, and half-read symbols destroy solvability faster than any
+cipher design does.
+
+That also reframes the published literature. Five independent transcriptions
+disagree because the source *genuinely underdetermines* the symbols, and every
+solution proposed from such a transcription has been fitted to noise that
+differs between analysts. The disagreement is not sloppiness; it is the data.
+
+---
+
+## 8. The single most informative next experiment
+
+**Re-transcribe from a high-resolution photograph of the original manuscript
+(Elgar Birthplace Museum, Broadheath), then re-run this pipeline unchanged.**
+
+Not more solver compute, not more cipher models, not a larger corpus. The
+case is quantitative:
+
+- Transcription choice moves IC by 0.017, versus 0.006 between the competing
+  hypotheses (§2.2). The measurement noise is 3× the effect.
+- Moving from a 21% to a ≤5% confusion rate moves the solver from 33% to 86%
+  character recovery and from 0% to 52% of trials above 90% (§4.6). That is
+  the difference between an experiment with no power and one that decides the
+  question outright.
+- Everything in Tier 3 becomes decidable, and Tiers 1–2 are unaffected.
+
+Concretely, the experiment: photograph the letter at ≥ 1200 dpi with raking
+light to capture pen-stroke direction; segment with the pipeline in
+`scripts/glyphs.py` (which already reproduces the 29/31/27 row lengths from a
+far worse image); classify orientation by fitting each arc's centre and
+tangent rather than by hull geometry, which §1.2 shows fails at 45°
+resolution; publish the transcription **with per-glyph confidence**, which no
+existing published transcription provides. Then §4.6's curve tells you
+immediately, from the recovered confusion rate alone, whether the resulting
+transcription is good enough to decide the question — before any solving is
+attempted.
+
+A secondary experiment, worth doing only after the above: stroke *order* and
+*direction* are recoverable from a raking-light photograph and are completely
+absent from every existing transcription. If Elgar's rotations were written
+as a consistent motor gesture, stroke direction may disambiguate rotations
+that are geometrically identical — the one channel that could break the 45°
+degeneracy at its source rather than statistically.
