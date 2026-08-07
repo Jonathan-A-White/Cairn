@@ -128,6 +128,18 @@ often had to correct.
 
 ---
 
+## Freeze point
+
+This analysis was frozen after 15 rounds at commit **`3822b25`**
+("Round 15: freeze — conclusion, reader-facing docs, TODOs, source artifacts")
+on branch `claude/dorabella-cipher-analysis-xtnnsr`.
+
+A local tag `dorabella-v1.0` marks it, but **the tag could not be pushed** —
+the session's credentials returned HTTP 403 on tag creation. Use the commit SHA
+to identify the freeze; anything after it is follow-up work.
+
+---
+
 ## Open work
 
 See `TODO.md`. Five items, each with the prior attached, so the next reader
