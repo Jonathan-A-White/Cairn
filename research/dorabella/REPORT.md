@@ -1602,18 +1602,36 @@ original note rather than a reproduction artifact — which is the first direct
 support for treating it as intentional, and the strongest thing the edition
 ensemble has produced.
 
-The line-1 sub-baseline mark is **not** resolvable in the 1947 capture. That is
-inconclusive rather than refuting: at 2–3 px in a blurred sepia JPEG, a mark of
-that size would be lost regardless of whether it is there. Its status is
-unchanged — observed in 1937, unverified elsewhere.
+**The line-1 sub-baseline mark is absent from the 1947 plate.** A
+high-magnification capture of the right-hand portion of the lines resolves this
+properly. The comparison is anchored to content rather than coordinates: the
+visible glyph run `3 3 w a v ᶶ ᶜ` is the same sequence in which the 1937 mark
+appears, so the same stretch of the line is being inspected in both. The line-1
+glyph band ends cleanly at its baseline with **zero ink below it**, and at a
+magnification where the pencil numerals are legible and the glyph strokes crisp,
+a 2–3 px mark would be conspicuous.
 
-Summary of the dot inventory:
+So the two anomalous marks behave oppositely across editions, and that is what
+makes the ensemble useful:
 
 | mark | 1937 | 1947 | verdict |
 |------|------|------|---------|
-| line 3, between glyphs 5–6 | present | **present** | original feature, cross-edition |
-| line 1, sub-baseline at ordinal 24 | present | not resolvable | unverified |
+| line 3, between glyphs 5–6 | present | **present** | **original feature** |
+| line 1, sub-baseline at ordinal 24 | present | **absent** | **1937 print artifact** |
 | line 2 | absent | absent | no support for a second dot |
+
+The full glyph-level cross-edition comparison was not achievable (§18.3), but
+the ensemble adjudicates individual marks cleanly, because the logic is
+asymmetric and does not need segmentation: **a mark surviving an independent
+re-screening is on the original; a mark appearing in one screening only is an
+artifact of that screening.** That disposes of the line-1 mark I raised last
+round — it was a print speck, exactly as its 14 px size suggested — and
+promotes the line-3 dot from "documented" to "physically corroborated".
+
+By the same argument, the reported second dot in the 1949 Methuen plate, absent
+from both editions examined here, is more likely a 1949 screening artifact than
+a recovered original feature. The line-2 region is the specific thing to
+inspect if that edition surfaces.
 
 ### 18.3 The 1947 plate is not usable at this resolution
 
