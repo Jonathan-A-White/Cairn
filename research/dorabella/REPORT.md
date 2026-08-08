@@ -2342,3 +2342,152 @@ Elgar's own spellings would change the phoneme table, not the finding of §25.5
 that re-basing the model does not move the gap. The letters remain the right
 source for the *crib* question and for the §19 genre caveat; they are not the
 right next step for this branch.
+
+---
+
+## 26. Round 19 — the keyword-mixed Heraldic sweep
+
+§16.1 identified this gap and named it the cheapest remaining probe; §21 ranked
+it third of the things that would move the analysis; `TODO.md` item 1 carried it
+with a 20% prior. It had never been run.
+
+§8.3 exhausted 483,840 **standard-alphabet** layouts of the Heraldic geometry.
+That sweep permutes **where each triplet sits**; it cannot change **which
+letters form a triplet**, which alphabetical order fixes as `(A,B,C)`,
+`(D,E,F)`, … A keyword-mixed alphabet changes exactly that: `MALVERN` gives
+`(M,A,L)`, `(U,E,R)`, `(N,B,C)`, … Pre-registered in `PREREG-keyword.md`.
+
+**`ENIGMA` is excluded as anachronistic.** The *Variations* were composed in
+1898–99 and first performed in June 1899; the note is dated 14 July 1897. It is
+excluded on those grounds and not scored at all.
+
+### 26.1 Leg A is exhaustive and free, because the arc permutation cancels
+
+Under layout A a mirror pair is `MIXED[g[o]*3+t]` against `MIXED[g[o+4]*3+t]`.
+As *t* runs over all three arc counts the arc permutation *h* cancels, so the
+set of 12 mirror-producing letter pairs depends **only on how the eight triplets
+pair up across the dial** — 105 partitions, and 105 again for layout B, whose
+triples are the columns. **210 evaluations therefore cover the entire
+483,840-key family exactly**, which makes a dictionary pass affordable.
+
+| | mirror share | expected pairs / 86 |
+|---|---|---|
+| Elgar's actual 1920 key | 6.63% | 5.70 |
+| **best of the standard alphabet, all 483,840 keys** | **7.46%** | **6.41** |
+| period keywords, range over the ten | 7.13% – 9.26% | 6.13 – 7.96 |
+| best period keyword (`ALICE`) | **9.26%** | **7.96** |
+| best of 35,817 dictionary words (`SOUTHEASTERN`) | **11.33%** | **9.74** |
+| unconstrained ceiling, no geometry (§11.2/§23) | 12.19% | 10.48 |
+
+**A new and stronger form of §11.2's first conclusion.** §11.2 showed *Elgar's
+actual key* cannot produce the mirror excess. Leg A shows **no key in §8.3's
+entire swept family can**: the best of all 483,840 standard-alphabet layouts
+reaches 6.41 expected pairs against 13 observed. The exhaustive negative of §8.3
+and the mirror constraint of §11.2 now agree by construction, not merely by
+coincidence of two statistics.
+
+**Q1, the pre-registered 10% threshold: period keywords FAIL (best 9.26%),
+the dictionary pass PASSES (11.33%; 267 of 35,817 words reach 10%).** Both
+outcomes matched their stated priors (10% and 35%).
+
+### 26.2 What that does to the anomaly
+
+The observed 13 pairs, against each achievable expectation, in that
+expectation's own binomial sd:
+
+| expectation is set by | expect | z of 13 |
+|---|---|---|
+| order-shuffled null (§11.1) | 5.15 | **+3.57** |
+| Elgar's actual key | 5.70 | +3.17 |
+| best standard-alphabet key — all of §8.3's family | 6.41 | +2.70 |
+| best period keyword (`ALICE`) | 7.96 | **+1.87** |
+| best dictionary keyword | 9.74 | +1.11 |
+| unconstrained ceiling | 10.48 | +0.83 |
+
+**Keyword mixing deflates the anomaly without dissolving it.** This is the
+question `TODO.md` item 1 was asked to settle — whether the mirror structure
+could arise as a *byproduct* of an ordinary period key-making habit rather than
+by design — and the answer is *partly*. A keyword no more exotic than Elgar's
+wife's name takes 13 pairs from +2.70 sd (the best §8.3 could offer) to
++1.87 sd, which is not anomalous at any conventional threshold. It does not
+need Elgar to have intended mirrors; it needs him to have used a keyword.
+
+Two things keep this from being more than a deflation. `ALICE` is the best of
+ten pre-registered keywords, so +1.87 is a best-of-ten selection; the *worst*
+period keyword (`FORLI`, 7.13%) sits at +2.88, barely better than no keyword at
+all. And the geometry still cannot reach the free-matching ceiling: the triplet
+structure forces the 12 mirror pairs to be three consecutive mixed-alphabet
+letters against three others, which costs about a percentage point of share
+even for the best dictionary word.
+
+### 26.3 Leg B passes its stated threshold, and the pass is worth very little
+
+Full 483,840-key sweep per keyword — 4,838,400 keys — nulled by the identical
+best-of-family procedure on shuffled text, 15 reps.
+
+| | score/gram |
+|---|---|
+| best of the keyword family (`FORLI`) | **−5.940** |
+| null: identical best-of-10×483,840 on shuffled text | −6.137 ± 0.088 (max −5.987) |
+| observed z | **+2.24** |
+| §8.3, standard alphabet, same geometry | −6.272 vs −6.266 ± 0.083, p = 0.500 |
+| plain unconstrained MASC solve (§4.2) | −4.680 |
+| enciphered real English | ≈ −4.20 |
+
+**Q2's pre-registered threshold was z ≥ +2, and it is met.** The threshold is
+not moved after the fact. But what it certifies is thin, and three things say
+so. The best member is **1.26 worse than simply solving the text as an
+unconstrained substitution** — the family is a constraint that costs score, not
+a key that buys it, and it remains 1.74 below English. The observed exceeds the
+null *maximum* by 0.047 against a null sd of 0.088, so a handful more null reps
+could plausibly overturn it. And the effect the z measures is the one §4 already
+established — that Dorabella's symbol order is not random — now visible through
+a family in which it was invisible before (§8.3's p = 0.500), which is a
+statement about the family's sensitivity, not about the key.
+
+### 26.4 The two legs disagree with each other, and that is the finding
+
+| keyword | leg A share | z of 13 | leg B score | leg B rank |
+|---|---|---|---|---|
+| `ALICE` | **9.26%** | +1.87 | −6.099 | 5 |
+| `CALICE` | 9.10% | +1.94 | −6.339 | 10 |
+| `CRAEGLEA` | 8.81% | +2.06 | −6.264 | 7 |
+| `MALVERN` | 8.79% | +2.07 | −6.274 | 8 |
+| `EDWARDELGAR` | 8.63% | +2.14 | −6.207 | 6 |
+| `BRAUT` | 8.55% | +2.18 | −6.293 | 9 |
+| `CAROLINE` | 7.91% | +2.47 | −6.044 | 2 |
+| `CAROLINEALICE` | 7.91% | +2.47 | −6.044 | 3 |
+| `WORCESTER` | 7.37% | +2.75 | −6.091 | 4 |
+| `FORLI` | **7.13%** | +2.88 | **−5.940** | **1** |
+
+**No keyword wins both legs.** Leg A's winner (`ALICE`) is leg B's fifth; leg
+B's winner (`FORLI`) is leg A's **worst**. If any of these were the 1897 key it
+would have to explain both of Dorabella's features, and none comes close to
+doing so.
+
+The ranks are in fact *anti*-correlated (Spearman −0.695). **Declared post-hoc**
+— it was computed after seeing both legs, on ten points, and is reported as an
+observation rather than a test. It has a mechanical reading worth recording:
+both legs are functions of the same triplet partition, and an arrangement that
+seats high-mass bigrams opposite is thereby committed to placements that the
+solver cannot exploit. If that is what it is, then **§17.4's constraint has
+reappeared inside a single key family** — the same trade-off between preserving
+bigram adjacency and achieving quadgram fitness, now visible across ten
+keywords rather than across six generative models.
+
+`CAROLINEALICE` and `CAROLINE` produce the identical mixed alphabet, because
+`ALICE` adds no new letters after `CAROLINE`; both are kept in the table so the
+pre-registered list is reported as pre-registered.
+
+### 26.5 Ledger
+
+**The family is exhausted on leg A and swept on leg B.** Leg A is exact over
+the whole 483,840-key family for every keyword tested, by the cancellation
+argument. Leg B is exhaustive within the ten pre-registered keywords and, like
+any keyword search, not exhaustive over keywords.
+
+**The one implausibility of §20.2's leading hypothesis is reduced, not
+removed.** A mirroring key no longer requires design intent — an ordinary
+keyword gets most of the way there — but the leading hypothesis gains no
+positive support from this round, and the keyword that best supplies the mirror
+structure is the one that solves worst.

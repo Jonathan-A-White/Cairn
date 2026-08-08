@@ -1,0 +1,102 @@
+==============================================================================
+EXPERIMENT 2 — KEYWORD-MIXED HERALDIC SWEEP
+==============================================================================
+run against PREREG-keyword.md; thresholds fixed before any alphabet was built
+
+------------------------------------------------------------------------------
+LEG A — can the geometry seat common bigrams opposite?
+------------------------------------------------------------------------------
+
+  reference points:
+    Elgar's actual 1920 key (standard alphabet, pairing o<->o+4) :  6.63%  (5.70 pairs)   [section 11.2: 6.63%]
+    best of the standard alphabet over all 483,840 keys          :  7.46%  (6.41 pairs)   [what 8.3's family can do]
+    unconstrained ceiling (free matching, no geometry)            : 12.19%  (10.48 pairs)   [section 23: 12.19%]
+    share needed to expect 13 pairs                               : 15.12%
+
+  pre-registered period keywords  (exhaustive over all 483,840 keys per keyword)
+    keyword            share  pairs/86  lay  mixed alphabet
+    ALICE              9.26%      7.96    A  ALICEBDFGHKMNOPQRSTUWXYZ
+    CALICE             9.10%      7.82    A  CALIEBDFGHKMNOPQRSTUWXYZ
+    CRAEGLEA           8.81%      7.58    B  CRAEGLBDFHIKMNOPQSTUWXYZ
+    MALVERN            8.79%      7.56    B  MALUERNBCDFGHIKOPQSTWXYZ
+    EDWARDELGAR        8.63%      7.42    B  EDWARLGBCFHIKMNOPQSTUXYZ
+    BRAUT              8.55%      7.35    A  BRAUTCDEFGHIKLMNOPQSWXYZ
+    CAROLINE           7.91%      6.81    B  CAROLINEBDFGHKMPQSTUWXYZ
+    CAROLINEALICE      7.91%      6.81    B  CAROLINEBDFGHKMPQSTUWXYZ
+    WORCESTER          7.37%      6.34    B  WORCESTABDFGHIKLMNPQUXYZ
+    FORLI              7.13%      6.13    B  FORLIABCDEGHKMNPQSTUWXYZ
+
+    threshold Q1 = 10.00% share (>= 8.6 expected pairs)
+    best period keyword: ALICE at 9.26%  -> Q1 FAIL
+
+  dictionary pass over 35817 English words >= 4 letters:
+    word               share  pairs/86
+    SOUTHEASTERN      11.33%      9.74
+    OUTWARDLY         11.16%      9.60
+    WHOLESALER        11.08%      9.53
+    WHOLESALERS       11.08%      9.53
+    THUNDERBIRDS      11.06%      9.51
+    YOUNG             11.04%      9.49
+    DEBUTS            10.93%      9.40
+    WESTLAKE          10.92%      9.39
+    COLCHESTER        10.92%      9.39
+    VULNERABILITY     10.92%      9.39
+    MYUNG             10.90%      9.37
+    HINTERLAND        10.85%      9.33
+
+    dictionary max = 11.33%  (9.74 pairs)  -> Q1(dictionary) PASS
+    distribution: mean 7.75%  sd 0.79%  95th 9.10%
+    words reaching the 10% threshold: 267 / 35817
+
+  what the observed 13 mirror pairs look like against each expectation
+  (binomial sd over 86 slots at that share):
+    order-shuffled null (section 11.1)         expect  5.15   z = +3.57
+    Elgar's actual key                         expect  5.70   z = +3.17
+    best standard-alphabet key (8.3's family)  expect  6.41   z = +2.70
+    best period keyword (ALICE)                expect  7.96   z = +1.87
+    best dictionary keyword                    expect  9.74   z = +1.11
+    unconstrained ceiling (no geometry)        expect 10.48   z = +0.83
+
+------------------------------------------------------------------------------
+LEG B — the solver, over the same family
+------------------------------------------------------------------------------
+
+  section 8.3's exhaustive 483,840-key sweep, re-run once per keyword
+  with the alphabet keyword-mixed. 10 keywords -> 4,838,400 keys.
+
+    MALVERN          best = -6.274
+    FORLI            best = -5.940
+    CAROLINE         best = -6.044
+    ALICE            best = -6.099
+    CAROLINEALICE    best = -6.044
+    CALICE           best = -6.339
+    CRAEGLEA         best = -6.264
+    WORCESTER        best = -6.091
+    EDWARDELGAR      best = -6.207
+    BRAUT            best = -6.293
+
+  best of the keyword family: -5.940  (FORLI)
+  section 8.3, standard alphabet, same geometry: -6.272
+
+  null: identical best-of-10x483,840 on shuffled text, 15 reps
+    rep  1: -6.178
+    rep  2: -6.147
+    rep  3: -6.160
+    rep  4: -5.987
+    rep  5: -6.278
+    rep  6: -6.101
+    rep  7: -6.068
+    rep  8: -6.253
+    rep  9: -6.255
+    rep 10: -6.123
+    rep 11: -5.989
+    rep 12: -6.204
+    rep 13: -6.033
+    rep 14: -6.165
+    rep 15: -6.115
+
+    null mean=-6.137 sd=0.088 max=-5.987
+    observed=-5.940  z=+2.24  p=0.000
+
+  Q2 threshold was z >= +2  ->  PASS
+  Reference: enciphered real English at n=87 is about -4.20/gram.
