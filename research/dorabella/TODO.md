@@ -1,79 +1,28 @@
 # Open work, with priors attached
 
-Five items. Each states what was *not* done, what I expect, and why — so the
+Each item states what was *not* done, what I expect, and why — so the
 expectation is on record before the experiment, not after. Where I give a
 probability it is a genuine prior, not a hedge; hold me to it.
 
----
-
-## 1. Keyword-mixed Heraldic sweep — never run
-
-**What.** §8.3 exhausted all 483,840 *standard-alphabet* layouts of the
-Heraldic/notebook geometry (24 letters, no J or V, orientation × 1–3 ticks).
-It did **not** cover keyword-mixed alphabets laid into the same triplet
-geometry: mix the alphabet on a keyword, then group in threes.
-
-**Why it matters.** It is the only untested family that could produce the
-mirror structure of §11.2 as a **byproduct** rather than by design — a keyword
-mixing that happens to seat ER/AN/IN opposite gives a mirror-structured
-substitution without Elgar intending mirrors at all. That would dissolve the
-one implausible-feeling feature of the best-supported reading.
-
-**Prior.** ~20% that some keyword lands materially above the null. Low, because
-§8.3 and §12.2 both came back at null on the same geometry — but this is the
-cheapest remaining shot and it targets the §20.3 open problem directly.
-
-**Candidate keywords.** Period-anchored: `MALVERN`, `FORLI`, `WORCESTER`,
-`CRAEGLEA`, `EDWARDELGAR`, `CAROLINE`, `ALICE`, `CAROLINEALICE`, `CALICE`.
-**Exclude `ENIGMA`** — the Variations postdate the July 1897 note by ~2 years.
-Note the exclusion in any write-up so a reviewer does not catch it first.
-
-**Discipline.** Exhaustive within the keyword list, identical best-of-family
-procedure on shuffled nulls (rule 2), pre-registered keyword list before
-scoring (rule 5).
+**Rounds 16–20 (§23–§27) closed four of the original five items and opened
+three new ones.** Closed items are kept below with their outcome and their
+prior, because a prior is only worth writing down if it is scored afterwards.
 
 ---
 
-## 2. Marco arc-count known-plaintext test — never run
+## Scoreboard on the original five
 
-**What.** The 1924+ notebook page carries `MARCO ELGAR` and `A VERY OLD CYPHER`
-enciphered in the arc alphabet (§8.4 retraction). The arc-count channel is the
-one this project reads at 94–98% accuracy. Extract arc counts from those lines
-and check them against the arc counts the known plaintext predicts under
-Elgar's key.
-
-**Why it matters.** It is the only **positive** experiment left on the table,
-and the only known-plaintext sample in the arc alphabet known to exist. A
-confirmed calibration line strengthens the transcription chapter regardless of
-outcome.
-
-**Prior.** ~85% it lands — the key is known (§8.1), the plaintext is known, and
-the arc channel is the reliable one. If it *fails*, that is far more
-interesting than if it succeeds: it would mean the 1924 key does not encipher
-its own page, which would put §8.1 in question.
-
-**Blocker.** Needs a higher-resolution capture of the notebook page than the
-750×400 GIF used so far.
+| item | prior | outcome | where |
+|------|-------|---------|-------|
+| 1. Keyword-mixed Heraldic sweep | 20% that some keyword lands materially above the null | **run.** Leg A exact and free; leg B met its z ≥ +2 threshold at +2.24 but the best member is 1.26 *worse* than an unconstrained solve. Prior roughly vindicated — something landed, and it was worth little. | §26 |
+| 2. Marco arc-count test | 85% it lands | **blocked, and the blocker measured.** Neither confirmed nor refuted: the experiment could not be run at 750×400. A by-product is the project's first calibration of the arc channel on known plaintext. | §24 |
+| 3. Full columnar sweep | 5% the full sweep finds anything the subset missed | **run, all 46,232 orderings.** | §27 |
+| 4. Interrupted latent null | 95% the completed null confirms | **still open.** See item A below. | §12.3 |
+| 5. Genre caveat on §19 | 60% his letters score below his conversation; 15% they reach the required depth | **superseded in part.** §25.5 shows the deficit survives re-basing the language model, so the register question no longer has the leverage this item assumed. See item B. | §25 |
 
 ---
 
-## 3. Full columnar sweep — §16.2 is not exhaustive
-
-**What.** The transposition sweep tested **21** permutations (columnar k=2–8
-with identity and reversed column orders, plus route variants). A complete
-sweep is all *k*! column orderings: **46,232** for k ≤ 8.
-
-**Why it matters.** §16.2 is the only place this report says a family was
-swept without meaning exhausted, and it says so inline. In a report whose
-other two sweeps are genuinely exhaustive, that asymmetry should not survive.
-
-**Prior.** ~5% that the full sweep finds anything the subset missed. The
-best member (`reverse`) beat identity by 0.079 from 21 tries against a null sd
-of 0.050 — pure selection. But cheap compute makes "exhausted" mean exhausted.
-
----
-
-## 4. Interrupted latent null — §12.3
+## A. Interrupted latent null — §12.3 (carried over unchanged)
 
 **What.** The matched-budget null for the 2¹³ latent labelling sweep was
 interrupted by a container restart at **2 of 8 reps** (−4.841, −4.927, both
@@ -85,41 +34,96 @@ English band at −4.196 ± 0.168), not on the null. Finish it anyway — an
 incomplete null in a report about null discipline is a bad look, and it is
 ~40 minutes of compute.
 
+**Status after Round 16's audit:** unchanged. The audit re-ran the headline
+solve and the mirror statistic but not the long sweeps, so this is still the
+one incomplete null in the report.
+
 ---
 
-## 5. The genre caveat on §19 — load-bearing, read before building on it
+## B. §7.4's coinage dose was priced against a fixed model — §25.5
 
-**This is the item most likely to be misread, so it is stated at length.**
+**What.** §7.4 priced "deliberate coinage or private shorthand" at a 40–50%
+dose, by scoring nonce-word-laden plaintext under the **standard, unchanged**
+quadgram model. §25.5 showed that for phonetic respelling — a closely analogous
+mechanism — that measurement is an artifact of the model rather than of the
+text: once the solver is given a model of the mechanism, the gap to the
+enciphered-English band is flat across every dose from 0 to 0.75.
 
-§19.2 measured Elgar's register from Buckley (1905) and found it
-**indistinguishable from ordinary English** — marginally *more* ordinary, at
-+0.021 above the modern reference. That closed the idiolect-as-register branch.
+**Why it matters.** Surviving hypothesis (2) in §20.2 rests entirely on §7.4's
+number. If coinage behaves like respelling under an adapted model, hypothesis
+(2) loses its quantitative basis and hypothesis (1) stands alone.
 
-**What was actually measured:** Elgar's *conversational* register, as recorded
-and filtered by a biographer, plus quoted speech in a published book.
+**Why it might not.** Coinage is not respelling. Invented words have no
+generative rule to build a model from — that is what makes them invented — so
+there may be no "adapted model" to re-base against, in which case §7.4's
+measurement stands and the analogy fails. Establishing *which* is the
+experiment.
 
-**What was not measured:** Elgar's *epistolary-playful* register. His letters —
-not his conversation — are the documented home of his phonetic spellings,
-coinages and private jokes. `warbling wigorously` is the register in question,
-and none of it is in Buckley.
+**Prior.** ~55% that a nonce-adapted model flattens the §7.4 dose curve the way
+§25.5 flattened the phonetic one. Genuinely uncertain; the disanalogy above is
+real.
 
-**So the finding constrains** "Elgar spoke and was quoted in ordinary English",
-**and does not constrain** "Elgar wrote a deliberately playful, phonetically
-spelled, coinage-dense note to a young friend". Those are different genres and
-§19.2 only reaches the first.
+---
 
-**Consequence.** Surviving hypothesis (2) in §20.2 — deliberate coinage at the
-40–50% dose priced in §7.4 — is **not** closed by §19.2, and any reading of the
-report that treats it as closed is wrong.
+## C. Elgar's letters — narrower than item 5 was
 
-**The measurement that would close it:** run `scripts/idiolect.py` over a
-corpus of Elgar's actual letters. Dora Penny's memoir reproduces several; the
-published *Letters of Edward Elgar* (ed. Young) has many more. If his
-epistolary register lands at −4.3 to −4.4, hypothesis (2) gains its first
-empirical support. If it sits on the reference band with his conversation, (2)
-loses its last escape route and (1) stands alone.
+**What changed.** The original item 5 wanted Elgar's letters as an
+*idiolect corpus*, to test whether his epistolary register sits 0.3–0.4 below
+ordinary English. §25 removed most of that motivation: the phonetic hypothesis
+was given a solver that spoke its language, passed its positive control at 0.96
+recovery, and still failed at every dose. Seasoning a corpus with his documented
+spellings changes the phoneme table, not §25.5's finding that re-basing the
+model does not move the gap.
 
-**Prior.** ~60% that his letters score measurably below his conversation, but
-~15% that they reach the −0.3 to −0.4 depth hypothesis (2) requires. The
-playfulness is real and documented; the *dose* is what is in question, and §7.4
-priced that dose at half the words in the note.
+**What the letters are still worth.** Two things, both narrower.
+
+1. **Cribs.** §4.4 disposed of every obvious crib from the 1897 context —
+   `PENNY`, `MISS PENNY` and `WOLVERHAMPTON` cannot be placed at all. Letters to
+   Dora are the one source of *non-obvious* candidate cribs: shared jokes,
+   nicknames, running references. A crib is testable at n = 87 in a way a
+   register is not.
+2. **Item B's corpus.** If the coinage question above is run, Elgar's letters
+   are where his actual coinages are.
+
+**Prior.** ~25% that a letters-derived crib is placeable in the consensus at
+all, given that the pattern constraint killed three of the four obvious ones.
+
+---
+
+## D. Notebook page at 2–3× resolution — §24.3, a specification not a wish
+
+**What.** A capture of the 1924+ notebook page at **1500–2250 px across**,
+against the 750 px currently held. §24 measured why: the median key-table glyph
+is ~9 px wide, giving a 3-arc glyph ~3 px per arc, at which an arc is
+indistinguishable from a stroke join. Reliable separation needs ~6 px per arc.
+
+**What it would buy.** The Marco test (item 2), the `LONDON TOMORROW` line
+(§14.1), and independent corroboration of Pelling's reading of that page —
+which §24.4 downgraded to a *reported reading* because this project cannot
+check it. The page is held by the Elgar Birthplace Museum.
+
+**Prior.** Unchanged from the original item 2: ~85% the test lands **if** the
+capture is obtained, since the key is known, the plaintext is known, and §24.1
+showed the arc channel carries real signal even at the resolution that defeats
+it.
+
+---
+
+## E. Pelling's provenance — §10.7, still the highest-value documentary question
+
+Unchanged and still open: one email settles whether Pelling's 2012 reading was
+independent of Hartmeier's 2006. It does not change the substantive conclusion
+(§12.3 closed that), but it decides whether the three-reader triangulation has
+three legs or two.
+
+---
+
+## What is now closed and should not be re-opened without new evidence
+
+- **Phonetic English** (§25). Rejected on its own terms, with a passing
+  positive control — not shelved, not untestable.
+- **The transposition family** (§27). Exhausted; §16.2's caveat is discharged.
+- **The mirror excess as evidence of design** (§26.2). Deflated: an ordinary
+  keyword accounts for most of it without design intent.
+- **Elgar's conversational register** (§19.2). Closed in Round 14 and not
+  re-opened by anything since.

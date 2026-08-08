@@ -1,0 +1,50 @@
+==============================================================================
+FULL COLUMNAR SWEEP — ALL 46,232 COLUMN ORDERINGS
+==============================================================================
+
+family: sum k! for k=2..8 = 46232 orderings   (section 16.2 tested 21)
+stage 1 scan 1x2500 over the whole family; stage 2 8x9000 on the top 25
+null: the IDENTICAL two-stage procedure on shuffled text, 5 reps
+
+  scan complete in 420s
+
+  identity (no transposition), 8x9000: -4.685
+    KWROUTCONGDAYSAMAATWWASIGILDECACTIONFORAARTLYCADATHEYSINNIDERETHERSHPLERATHYELOWLETOSIO
+
+  scan distribution over all 46232 orderings:
+    mean -5.374  sd 0.125  max -4.932  min -5.889
+
+  top 10 after full-budget re-solve:
+  rank   k           column order    score   plaintext
+     1   8 (4, 3, 6, 1, 0, 5, 2, 7)   -4.874   BGYOUGGHFORSAYINLOODGSPARAHATEOSSYMATTHETHEOWNAMEAANOALERAPSPROLLTHIELSEDIRDESCTPAINDHY
+     2   8 (1, 0, 5, 2, 6, 4, 3, 7)   -4.917   LMATTHETHEOWNAMEAANOADERAPSPRODDTHIEDSECIRCEPARAHATEOSSBULOGUUHFORSALINDOOCUSSYTPAINCHL
+     3   4           (0, 1, 3, 2)   -4.932   PBYLEICATWELELYOAMEASHITCHEENUNDOUTHNAOSTSANDDEFINGUYESGAYARROLIDOUGETHSEDOTERNGTHARDTD
+     4   6     (0, 1, 4, 5, 3, 2)   -4.970   GDCSYEPSENTMERMORMONDRUSIALSONWHEMAREECHAAASSEENDITHMATTURRYBEHNEDANLUCATIEOUSTCLISFLUR
+     5   7  (2, 5, 4, 0, 6, 3, 1)   -4.991   DVEHESCOLDEASTCAMHELHOPCTBETHTEENDYYOUSEEORTTRYOMNINALSDERTMOSSLEVIDICONTMARKNIFMYHODSH
+     6   4           (0, 3, 1, 2)   -4.992   PKCHEYWAOVEHEHCTAGEARNSSEBYDMICERMACALLTHYSYOWNEEDIDSTIONDATRORADTIMEONRESTOELDMONALSOS
+     7   8 (6, 1, 4, 3, 5, 2, 7, 0)   -5.000   PARAHATEOLLYMATTHETHEOBSYOUSSHWORLAYINFOODSLERAPLPROFFTHIEFLEDIRDELCTPAINDHYKNAMEAANOAF
+     8   8 (6, 1, 0, 3, 5, 2, 7, 4)   -5.034   DAMAHATEORRYBATTHETHEOWNABEAANOAFRAYINFOOPSREMADRDMOFFTHIEFREPIMPERLTDAINPHYGSYOUSSHCOM
+     9   8 (3, 7, 5, 2, 1, 6, 4, 0)   -5.038   SADUNLIICOSSYTPAUNCHDERAPSPRILLTHUELSECURCEDMATTHETHEIPARAHATEISSBODIGOOHFIRKNAMEAANIAL
+    10   7  (3, 2, 4, 6, 5, 0, 1)   -5.048   RCEMBIBYALSTIMEHERYACIEORWESHSEELIPPABLOCRIENSTARSYOTHECHADYSFREEANSSNPATLONGLBUTPHAIRH
+
+  best of family : -4.874   (section 16.2's best of 21: -4.759)
+  gain over identity: -0.189
+
+  null — identical two-stage best-of-46232 on shuffled text:
+    rep 1: -4.808
+    rep 2: -4.798
+    rep 3: -4.705
+    rep 4: -4.843
+    rep 5: -4.921
+
+    null mean=-4.815 sd=0.070 max=-4.705
+    observed=-4.874  z=-0.85  p=0.800
+
+  Read this the way section 16.2 read its own z: the margin is carried by the
+  identity member, which section 4 already established beats meaningless text.
+  The quantity that speaks to transposition is the gain OVER identity,
+  -0.189, taken from 46232 tries.
+
+  Reference: enciphered real English at n=87 is about -4.20/gram.
+  Total runtime 2551s.
+

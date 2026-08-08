@@ -7,7 +7,8 @@ Sceptical cryptanalysis of Edward Elgar's cipher of 14 July 1897 (87 symbols in
 characterisation: which hypotheses the evidence supports, which it excludes,
 and which cannot be decided at this length. `REPORT.md` is the findings
 document; start at its Abstract, then §20 (Conclusions) if you want the
-outcome before the derivation.
+outcome before the derivation — but §20 is the Round-15 conclusion, and
+**§28 carries the revised ledger** after the Round 16–20 follow-up.
 
 If you are here to **audit** rather than read, §20.1 lists every headline claim
 with its section, and the table below maps sections to the script that produced
@@ -82,6 +83,8 @@ should follow them.
 | §23 | Phase 0 audit — headline numbers re-derived | `scripts/audit_phase0.py` |
 | §24 | Marco test; arc channel calibrated on the key table | `scripts/marco.py` |
 | §25 | phonetic English: corpus, four-check test, dose curve | `scripts/phonetic.py`, `phonetic_solve.py`, `phonetic_dose.py` |
+| §26 | keyword-mixed Heraldic sweep, legs A and B | `scripts/keyword_sweep.py` |
+| §27 | full columnar sweep, all 46,232 orderings | `scripts/columnar_full.py` |
 
 Run outputs are committed under `out/*.log` — every number in the report can be
 checked against the log that produced it without re-running anything.
@@ -123,7 +126,21 @@ python3 scripts/discriminate5.py        # model discrimination (~30 min)
 ```
 
 The English corpus (`data/corpus.pkl`) is built on first use and cached; it is
-gitignored because it is large and deterministic from `scripts/corpus.py`.
+gitignored because it is large and deterministic from `scripts/corpus.py`. The
+same applies to `data/phon_corpus.pkl` (`scripts/phonetic.py`). The Round-16
+audit re-derived §4.2 and §11.1 exactly from a corpus rebuilt in a fresh
+container under `wordfreq` 3.1.1, so the score column does not depend on the
+library version.
+
+Follow-up rounds add:
+
+```bash
+python3 scripts/audit_phase0.py     # re-derive the headline numbers (~1 min)
+python3 scripts/marco.py            # notebook arc channel (~1 min)
+python3 scripts/phonetic_solve.py   # phonetic English, 4 checks (~40 min)
+python3 scripts/keyword_sweep.py    # keyword-mixed sweep, legs A+B (~50 min)
+python3 scripts/columnar_full.py    # all 46,232 orderings (~45 min, 4 cores)
+```
 
 **Solver budget** is set per script as `RESTARTS × ITERS`. To compare anything
 new against a published number here, use the same values as the script that
@@ -142,10 +159,19 @@ A local tag `dorabella-v1.0` marks it, but **the tag could not be pushed** —
 the session's credentials returned HTTP 403 on tag creation. Use the commit SHA
 to identify the freeze; anything after it is follow-up work.
 
+**Rounds 16–20** (§23–§28) are that follow-up: an independent audit of the
+frozen numbers, then four experiments — phonetic English, the keyword-mixed
+Heraldic sweep, the Marco arc-count test, and the full columnar sweep. They
+change two rows of the family ledger, discharge the report's one
+non-exhaustive sweep, and reshape the closing open problem. Start at §28.
+
 ---
 
 ## Open work
 
-See `TODO.md`. Five items, each with the prior attached, so the next reader
-inherits open questions rather than rediscovering them. The genre caveat in
-TODO item 5 is load-bearing for anything built on §19.
+See `TODO.md`. Rounds 16–20 closed four of the original five items and opened
+three new ones; the file now carries a scoreboard of the original priors
+against their outcomes, because a prior is only worth writing down if it is
+scored afterwards. Pre-registrations for the two experiments that were tests
+are committed separately and ahead of their results, in `PREREG-phonetic.md`
+and `PREREG-keyword.md`.

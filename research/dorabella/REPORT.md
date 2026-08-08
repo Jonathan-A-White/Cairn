@@ -51,6 +51,7 @@ the related Liszt fragment is inconsistent with its 18-symbol length.
 | §7–12 | successive rounds: imaging limits, Elgar's key, the archive, the three-reader decomposition, the mirror constraint, rotation and latent sweeps |
 | §13 | conclusions ranked by robustness |
 | §14 | what would actually move this |
+| §23–28 | the fresh-eyes phase: audit, then four experiments — see §28 for the revised ledger |
 
 Sections 7–19 are kept in the order the work happened, including two
 conclusions that were drawn and later withdrawn (§9 → §10.4), because the
@@ -1802,6 +1803,14 @@ untestable by construction.
 
 ## 20. Conclusions
 
+> **This section is the Round-15 conclusion and it is not the last word.**
+> Rounds 16–20 (§23–§28) postdate it, and §28 carries the revised ledger. Three
+> things below have moved: §20.1's family table gains two rows and loses its
+> one "not exhausted" entry (§26, §27); §20.2's hypothesis (2) has had the
+> measurement it rests on called into question (§25.6); and §20.3's open
+> problem has been narrowed but not solved (§25.6, §28). One figure in §20.3
+> was corrected by audit (§23.1). Read §28 alongside this.
+
 ### 20.1 What this report establishes
 
 **The transcription-noise decomposition** (§1, §10, §18). Of the four
@@ -2491,3 +2500,162 @@ removed.** A mirroring key no longer requires design intent — an ordinary
 keyword gets most of the way there — but the leading hypothesis gains no
 positive support from this round, and the keyword that best supplies the mirror
 structure is the one that solves worst.
+
+---
+
+## 27. Round 20 — the full columnar sweep: 46,232 of 46,232
+
+§16.2 tested 21 permutations and flagged the gap inline. §20.1's family ledger
+carries the only row in that table reading **not exhausted**, and §22 lists it
+as a limitation. Both are discharged here.
+
+> sum of *k*! for *k* = 2…8 = 2 + 6 + 24 + 120 + 720 + 5040 + 40320 = **46,232**
+
+Procedure follows §12.3's precedent for a family too large to solve at full
+budget everywhere: a cheap scan (1 × 2500) over the whole family, then the top
+25 re-solved at §16.2's own budget (8 × 9000). **The null runs the identical
+two-stage procedure on shuffled text**, so the 46,232-fold selection sits inside
+it — which is the whole point, because a family this size will find something on
+noise alone.
+
+### 27.1 Result
+
+| | score/gram |
+|---|---|
+| identity (no transposition), same budget | **−4.685** |
+| scan over all 46,232, distribution | −5.374 ± 0.125 (max −4.932, min −5.889) |
+| **best of family** after full-budget re-solve, k=8 order (4,3,6,1,0,5,2,7) | **−4.874** |
+| null: identical two-stage best-of-46,232 on shuffled text, 5 reps | **−4.815 ± 0.070** (max −4.705) |
+| observed z | **−0.85**, p = **0.800** |
+| enciphered real English | ≈ −4.20 |
+
+**The observed sits below its own null mean.** Exhaustively, over every columnar
+column ordering for every column count up to 8, transposition does not merely
+fail to help — the best rearrangement of the real text scores no better than the
+best rearrangement of noise, and **0.189 worse than not transposing at all**.
+
+That is the expected result once stated plainly: transposition destroys
+adjacency, the real text has adjacency structure to destroy, and shuffled text
+does not. The 46,232-fold selection then finds an equally good overfit on both.
+
+**Columnar transposition is exhausted and dead.** §20.1's ledger loses its one
+non-exhaustive row, and §22 loses one of its five limitations.
+
+### 27.2 A correction to how §16.2 should be read
+
+§16.2 reported identity at **−4.838** and its best of 21 at −4.759, calling the
+0.079 difference "about 1.6 sd of pure selection". This run puts identity at
+**−4.685** at the same nominal 8 × 9000 budget, differing only in seed.
+
+**The identity's seed-to-seed spread at that budget is 0.153 — about twice the
+0.079 "gain" §16.2 attributed to transposition.** So the gain was not merely a
+selection artifact, as §16.2 cautiously said; it was inside the run-to-run noise
+of its own baseline, which is a stronger statement than the one that section
+made about itself. §16.2's conclusion was right and its reasoning was too
+generous to the effect.
+
+This is standing rule 1 biting in an unexpected place. Matched *budgets* are not
+sufficient when the budget is small enough that a single solve is high-variance:
+matched budgets with unmatched seeds still mislead, and a baseline quoted from
+one seed is a point estimate presented as a constant.
+
+### 27.3 Scope, stated precisely
+
+The 46,232 are the **columnar** orderings, which is what §16.2's caveat counted
+and what "not exhausted — 21 of 46,232" meant. §16.2's family also contained six
+route variants (`reverse`, boustrophedon, row reorderings) that are not columnar
+orderings and are outside this count; they were tested there and are not re-swept
+here. Within the family the report itself defined, the sweep is complete.
+
+---
+
+## 28. What the fresh-eyes phase changed
+
+Five rounds: an audit and four experiments, each pre-registered where it was a
+test and each nulled by its own procedure.
+
+### 28.1 The revised family ledger
+
+| family | status | evidence |
+|--------|--------|----------|
+| Elgar's 1924 notebook geometry | exhausted (483,840 keys) | §8.3 |
+| constant-step additive rotation | exhausted (24 keys) | §12.2 |
+| **columnar transposition** | **exhausted (46,232 of 46,232)** | best −4.874, below identity −4.685 **and below its own null**, p = 0.800 (§27) |
+| **keyword-mixed Heraldic** | **leg A exact over the full family; leg B swept over 10 pre-registered keywords** | best −5.940 vs null −6.137 ± 0.088; 1.26 worse than an unconstrained solve (§26) |
+| **phonetic English, any dose** | **rejected, with a passing positive control** | z = −5.68 against its own band; gap flat across doses 0–0.75 (§25) |
+| homophonic | untestable at n = 87 | §13.2 |
+| digraphic (Two-Word Square) | eliminated on parity | §14.3 |
+| sectional / sliding-card polyalphabetic | underdetermined in principle | §6, §14.2 |
+| transcription-labelling space | enumerated (2¹³), null still incomplete | §12.3 |
+
+Phonetic English is a **new kind of entry**: the first family shown *testable*
+at n = 87 by a passing positive control (0.96 recovery) and then *rejected on
+its own terms*. Everything above it was exhausted at the null; §13.2 was
+untestable. This is neither.
+
+### 28.2 The open problem has changed shape
+
+§20.3 stated it as: *find a mechanism that preserves plaintext adjacency while
+destroying quadgram fitness by ~0.5/gram; substitution, transposition, and their
+composition each fail one half.*
+
+**Such a mechanism was found, and it did not help.** Phonetic respelling
+preserves adjacency (it *raises* the mirror ceiling, 12.19% → 13.22%) and
+destroys standard-model fitness by 1.395/gram, three times what is required —
+and Dorabella scores 5.68 sd below it, worse than under the standard model, at
+every dose. So:
+
+> **Satisfying the adjacency/fitness constraint is necessary and not
+> sufficient.** The deficit is not a mismatch between Dorabella and *standard
+> English*. It survives re-basing the language model: under a model in which
+> phonetic English is perfectly ordinary — and which recovers known phonetic
+> plaintext at n = 87 at 0.96 — Dorabella is further from English, not closer.
+
+**And one of the two features that made the problem a puzzle has partly
+dissolved.** §20.3's puzzle was that no model reproduces both the mirror excess
+and the solver deficit. §26.2 shows the mirror excess largely stops being
+anomalous once the key is allowed an ordinary keyword: 13 pairs run from +3.57 sd
+against a shuffled null, to +2.70 against the best key §8.3's family can offer,
+to **+1.87 against a key mixed on `ALICE`**. It does not need a designed
+mirroring key; it needs Elgar to have used a keyword, which is an unremarkable
+period habit.
+
+So the joint-profile puzzle reduces. What has to be explained is no longer *two*
+features pulling against each other, but **one**: the solver deficit, now known
+to survive both transposition (exhausted) and language-model re-basing.
+
+### 28.3 What that leaves, ranked
+
+1. **The plaintext is not a substitution of any modelable language-like text.**
+   The strongest reading after §25. It covers deliberate nonsense, heavy
+   abbreviation, and text whose statistics no corpus supplies — and it is
+   consistent with every negative in the ledger.
+2. **A substitution key not yet guessed.** Still live, but §26 removed its one
+   piece of positive support: the mirror excess it was invoked to explain is
+   mostly accounted for by keyword mixing, and the keyword that best supplies the
+   mirror structure is the one that solves worst (§26.4).
+3. **Shared transcription error.** §22's standing caveat — a halftone artifact
+   fooling all three readers identically is invisible to every analysis here.
+   §12.3 bounded the *reader-contested* space and found no rescue; it cannot
+   bound errors on which all readers agree.
+4. **Sectional / sliding-card polyalphabetic.** Unchanged: best documentary
+   support, provably underdetermined at n = 87.
+
+### 28.4 On method
+
+Three things this phase is worth citing for, independent of the cipher.
+
+**An uncommitted number is the one that drifts.** §11.2 was the single headline
+calculation without a committed script, and it was the only one that failed to
+reproduce (§23.2). The correlation has an obvious cause and is worth stating
+anyway.
+
+**Channel reliability is a property of the photograph, not of the alphabet.**
+The arc channel reads at 94–98% on the cipher plate and 67–78% on the notebook —
+same alphabet, same hand, different capture (§24.4). Any figure carried across
+images without re-derivation is an assumption wearing a measurement's clothes.
+
+**Matched budgets are not enough when the budget is small.** §16.2's baseline
+moved 0.153 between seeds at a budget where it reported a 0.079 effect (§27.2).
+Standing rule 1 needs a companion: a baseline quoted from a single solve is a
+point estimate, and at low budget it must be reported with its spread.
