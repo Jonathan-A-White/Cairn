@@ -2056,3 +2056,110 @@ the model-discrimination fits), which are checked against their committed logs
 only. The interrupted latent null of §12.3 remains interrupted.
 
 The report's conclusions stand as written, with §20.3's one figure corrected.
+
+---
+
+## 24. Round 17 — the Marco test, and the arc channel calibrated for the first time
+
+`TODO.md` item 2 proposed the one **positive** experiment left on the table.
+Pelling reads the 1924+ notebook page as carrying `MARCO ELGAR` and `A VERY OLD
+CYPHER` in the arc alphabet (§11.3); the arc-count channel is the one this
+project reads at 94–98%; so extract the arc counts from those lines and check
+them against what the known plaintext predicts under Elgar's key. Prior 85%
+that it lands. Blocker: capture resolution.
+
+**The blocker was asserted, never measured.** It is measured here, and the
+measurement needed no new material, because of one fact nobody had used:
+
+> **The same page carries Elgar's own key table.** Twenty-four glyphs, same
+> hand, same photograph, same resolution, each with its letter written
+> underneath. Under his key the arc count of `ALPHA24[i]` is `i mod 3 + 1`, so
+> the table's true arc counts are 1, 2, 3 repeating — **ground truth, free,
+> drawn from the very image the test must read.**
+
+That makes the key table a known-plaintext sample in the arc alphabet in its
+own right, and it is the one this project can actually use.
+
+### 24.1 The arc channel is detectable at this resolution — the project's first positive calibration
+
+Glyphs segmented by column profile; two per-glyph features scored against the
+key table's known arc counts.
+
+| feature | Spearman ρ | permutation p | rank assignment |
+|---------|-----------|---------------|-----------------|
+| glyph width | +0.611 | 0.049 | 5/9 |
+| **ink mass** | **+0.949** | **0.0006** | **9/9** |
+
+Ink mass was *chosen* on row 1, so row 1 cannot also test it. Row 2
+(`KLMNOPQRS`) is the other row the segmenter recovers exactly and was not used
+to pick the feature:
+
+| held-out row 2 | value |
+|---|---|
+| Spearman ρ | **+0.896** |
+| permutation p | **0.0016** |
+| rank assignment | 7/9 |
+| threshold transferred from row 1, no renormalisation | 6/9 |
+
+**The arc-count channel carries real signal at 750 × 400**, and this is the
+first time in the project that the channel has been calibrated against known
+plaintext in the arc alphabet rather than assumed from the cipher plate.
+
+### 24.2 And it is not good enough, which is the finding
+
+Detectable is not reliable. Two failures, either sufficient on its own.
+
+**The channel classifies at 67–78% on held-out data** — 7/9 by rank, 6/9 by
+transferred threshold — against the **94–98%** at which §2.3 and §7.2 read the
+arc channel on the cipher plate. A 70% channel cannot adjudicate a 10-glyph
+prediction: `MARCO ELGAR` predicts arc counts `3,1,2,3,2 / 2,2,1,1,2`, and at
+70% per-glyph accuracy the expected number of matches under the true reading
+(7) overlaps the null for a wrong reading almost completely.
+
+**Glyph segmentation fails upstream of that.** Against the key table's known
+glyph counts:
+
+| row | true glyphs | column profile | connected components |
+|-----|-------------|----------------|----------------------|
+| `ABCDEFGHI` | 9 | 9 | 10 |
+| `KLMNOPQRS` | 9 | 9 | 9 |
+| `TUWXYZ` | 6 | 9 | 9 |
+
+Two of three rows for one segmenter, one of three for the other. On the three
+practice lines the two segmenters return 7/10, 11/16 and 11/17 — **disagreeing
+with each other by more than the four-glyph difference between `MARCO ELGAR`
+(10 glyphs) and `A VERY OLD CYPHER` (14).** The lines cannot be assigned to the
+claimed plaintexts on glyph count, let alone read.
+
+### 24.3 What would unblock it, stated as a specification
+
+The median key-table glyph is ~9 px wide, so a 3-arc glyph gets ~3 px per arc —
+at which an arc is not distinguishable from a stroke join. Reliable separation
+needs ~6 px per arc, hence ~18 px per glyph: **a capture of the notebook page
+at 2–3× linear resolution, 1500–2250 px across.** The page is held by the Elgar
+Birthplace Museum. This is the same class of obstacle as §22's other three, and
+the same remedy.
+
+### 24.4 Consequences for the ledger
+
+**TODO item 2's 85% prior is neither confirmed nor refuted.** The experiment
+could not be run, and the honest ledger entry is *blocked by capture*, not
+*tested and failed* — the distinction §22 exists to preserve.
+
+**One claim is downgraded.** §11.3 records, from Pelling, that the notebook
+page carries known plaintext in the arc alphabet, and §11.3 used that to
+retract §8.4's flat statement that no such sample exists. That retraction
+stands on Pelling's reading, which **this project has not corroborated and
+cannot corroborate at this resolution.** It should be carried as a *reported
+reading*, not as a measurement — the same standard §19.1 applied to the
+Schooling story. What this round establishes independently is narrower and
+firmer: the key table is a known-plaintext sample in the arc alphabet, and the
+arc channel reads it at 67–78%.
+
+**One methodological point generalises.** The 94–98% arc-channel reliability
+quoted throughout this report was measured on the cipher plate and then carried
+to the notebook without re-derivation. It does not transfer: the same channel
+on the same alphabet in the same hand reads at 67–78% on a different capture.
+**Channel reliability is a property of the photograph, not of the alphabet**,
+and any future use of the arc channel on new material must re-calibrate on that
+material rather than inherit the figure.

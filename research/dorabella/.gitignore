@@ -1,4 +1,6 @@
 data/corpus.pkl
+data/phon_corpus.pkl
+data/dose_corpora.npz
 out/big_*.png
 out/sheet_*.png
 out/row*_x4.png

@@ -1,0 +1,121 @@
+capture: 750 x 400 (sources/PROVENANCE.md flags this as too low for
+the Marco test; that flag is now measured rather than asserted)
+
+==============================================================================
+CONTROL 1 — can glyphs even be COUNTED at this resolution?
+==============================================================================
+
+  Ground truth from Elgar's own key table on the same page. If segmentation
+  cannot recover the number of glyphs in a row whose letters are printed
+  underneath it, nothing read from the practice lines is interpretable.
+
+  row           true  profile  components
+  ABCDEFGHI        9        9          10
+  KLMNOPQRS        9        9           9
+  TUWXYZ           6        9           9
+
+  rows recovered exactly: profile 2/3, components 1/3
+
+==============================================================================
+CONTROL 2 — does any feature carry ARC COUNT on known glyphs?
+==============================================================================
+
+  Key-table row 1 is the one row both methods segment consistently, so it is
+  the only row on which a per-glyph feature can be scored at all.
+  Letters ABCDEFGHI -> true arc counts [np.int64(1), np.int64(2), np.int64(3), np.int64(1), np.int64(2), np.int64(3), np.int64(1), np.int64(2), np.int64(3)].
+
+  letter   true   width  ink mass
+  A           1       4       6.5
+  B           2       6      13.1
+  C           3       9      21.2
+  D           1       9      12.1
+  E           2      12      16.5
+  F           3      12      17.6
+  G           1       7       8.8
+  H           2      15      16.8
+  I           3      27      28.7
+
+  glyph width : Spearman rho = +0.611   permutation p = 0.0485
+                rank assignment: 5/9 correct
+
+  ink mass    : Spearman rho = +0.949   permutation p = 0.0006
+                rank assignment: 9/9 correct
+
+==============================================================================
+CONTROL 2b — the held-out row
+==============================================================================
+
+  Ink mass was picked on row 1, so row 1 cannot also test it. Row 2 is the
+  other row the profile segmenter recovers exactly (9 glyphs for
+  9 letters), and it was not used to choose the feature.
+  Letters KLMNOPQRS -> true arc counts [1, 2, 3, 1, 2, 3, 1, 2, 3].
+
+  letter   true  ink mass  rank pred
+  K           1       3.0          1
+  L           2      11.9          2
+  M           3      24.9          3
+  N           1       7.2          2   <- miss
+  O           2      10.3          2
+  P           3      23.8          3
+  Q           1       3.8          1
+  R           2       5.5          1   <- miss
+  S           3      20.5          3
+
+  HELD-OUT: Spearman rho = +0.896  permutation p = 0.0016   rank assignment 7/9 correct
+  threshold transfer (cuts 12.6 / 17.2 fitted on row 1,
+  applied to row 2 with no renormalisation): 6/9 correct
+  the arc channel is quoted at 94-98% on the cipher plate (section 2.3)
+
+==============================================================================
+LEG A — structural: do group sizes match the claimed words?
+==============================================================================
+  MARCO ELGAR          predicts groups [5, 5]  arc counts [[3, 1, 2, 3, 2], [2, 2, 1, 1, 2]]
+  A VERY OLD CYPHER    predicts groups [1, 4, 3, 6]  arc counts [[1], [2, 2, 2, 2], [2, 2, 1], [3, 2, 3, 2, 2, 2]]
+
+  practice lines below the key table, both segmenters:
+  band            profile  components
+  y=147-167            7          10
+  y=183-203           11          16
+  y=219-239           11          17
+
+  MARCO ELGAR needs 10 glyphs, A VERY OLD CYPHER needs 14. The two segmenters
+  disagree with each other on every line by more than the difference between
+  those two targets, so the lines cannot be assigned to the claimed plaintexts
+  on glyph count -- let alone read.
+
+
+==============================================================================
+VERDICT
+==============================================================================
+
+  The Marco test cannot be run on this capture, and the reason is now measured
+  rather than asserted. Two findings, and they point opposite ways.
+
+  POSITIVE. The arc channel is DETECTABLE at 750x400. Ink mass tracks arc
+  count on Elgar's key table at rho = +0.95 on the row it was chosen on and
+  rho = +0.90 on a held-out row (p = 0.0016). This is the project's first
+  calibration of the arc channel against known plaintext in the arc alphabet
+  -- not the Marco line, but the key table on the same page, which is known
+  plaintext by construction because Elgar wrote the letters underneath.
+
+  NEGATIVE, and decisive. Detectable is not reliable. On the held-out row the
+  channel classifies 7/9 by rank and 6/9 by transferred threshold -- 67-78%,
+  against the 94-98% at which this project reads the arc channel on the cipher
+  plate. And upstream of that, glyph segmentation itself fails: the two
+  segmenters recover the key table's glyph count in 2/3 and 1/3 of rows, and
+  disagree on every practice line by more than the 4-glyph difference between
+  MARCO ELGAR (10) and A VERY OLD CYPHER (14). A channel read at 70% through
+  boundaries that are wrong cannot test a 10-glyph prediction.
+
+  What would unblock it: the median key-table glyph is ~9 px wide, giving a
+  3-arc glyph ~3 px per arc, at which an arc is indistinguishable from a
+  stroke join. Reliable separation needs ~6 px per arc, so ~18 px per glyph --
+  a capture at 2x-3x linear resolution, 1500-2250 px across. The page is held
+  by the Elgar Birthplace Museum. TODO item 2's 85% prior is neither confirmed
+  nor refuted; the experiment could not be run.
+
+  The claim that the page carries known plaintext in the arc alphabet
+  (section 11.3, from Pelling) is NOT tested here and remains uncorroborated
+  by this project. It should be carried as a reported reading, not as a
+  measurement.
+
