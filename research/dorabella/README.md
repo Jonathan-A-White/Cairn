@@ -80,6 +80,8 @@ should follow them.
 | §18 | edition segmentation | `scripts/editions.py` |
 | §19.2 | Elgar's measured register | `scripts/idiolect.py` |
 | §23 | Phase 0 audit — headline numbers re-derived | `scripts/audit_phase0.py` |
+| §24 | Marco test; arc channel calibrated on the key table | `scripts/marco.py` |
+| §25 | phonetic English: corpus, four-check test, dose curve | `scripts/phonetic.py`, `phonetic_solve.py`, `phonetic_dose.py` |
 
 Run outputs are committed under `out/*.log` — every number in the report can be
 checked against the log that produced it without re-running anything.

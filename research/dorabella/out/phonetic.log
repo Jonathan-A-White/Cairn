@@ -1,0 +1,93 @@
+EXPERIMENT 1 — PHONETIC ENGLISH
+run against PREREG-phonetic.md; thresholds fixed before the corpus was built
+STD corpus 4000000 chars, PHON corpus 4000000 chars
+
+==============================================================================
+P1 — MECHANISM STRENGTH (threshold: phonetic falls >= 0.20/gram under STD)
+==============================================================================
+
+  scored under the STANDARD quadgram model, 87-char windows:
+    ordinary English  : -4.236 +- 0.136
+    phonetic English  : -5.631 +- 0.304
+    drop              : 1.395/gram
+    deficit to explain: 0.444/gram  (section 7.3: Dorabella -4.680 vs -4.236)
+    fraction of the deficit supplied: 314%
+
+  P1 PASS (threshold 0.20)
+
+==============================================================================
+P2 — ADJACENCY SURVIVAL (threshold: >= 80% of the 11.2 ceiling retained)
+==============================================================================
+
+  mirror-producing bigram mass (section 11.2 machinery, 24-letter alphabet):
+                              ordinary   phonetic   retained
+    under Elgar's 1920 key       6.63%      8.00%      121%
+    best possible key (ceil)    12.19%     13.22%      109%
+    expected pairs / 86 slots   10.48      11.37
+
+    optimal matching, ordinary: AL BY CK DW ER FO GQ HT IN MP SU XZ
+    optimal matching, phonetic: AY BG CF DZ ER HT IL KS MP NU OW QX
+
+  the three bigrams the hypothesis says must survive respelling:
+    ER: ordinary  16.1 per mille   phonetic  25.1   retained 156%
+    AN: ordinary  16.0 per mille   phonetic   9.2   retained  57%
+    IN: ordinary  19.7 per mille   phonetic  19.1   retained  97%
+    TH: ordinary  28.0 per mille   phonetic  28.7   retained 103%
+    RE: ordinary  14.3 per mille   phonetic   8.7   retained  61%
+
+  P2 PASS (threshold 80%)
+
+==============================================================================
+P3 — POSITIVE CONTROL (threshold: >= 0.50 recovery; GATES P4)
+==============================================================================
+
+  Can the solver recover KNOWN enciphered phonetic English at n=87 when
+  its fitness function is the phonetic model?  40 trials, 20x15000.
+
+    phonetic English under PHON : score -4.197 +- 0.119   recovery 0.96  (median 0.99, >90%: 0.95)
+
+  reference — the same control for ordinary English under the standard
+  model, which is what licensed every interpretation in section 4:
+    ordinary English under STD  : score -4.277 +- 0.207   recovery 0.94  (section 4.1 reported -4.196 +- 0.168, 0.96)
+
+  P3 PASS (threshold 0.50 recovery)
+
+==============================================================================
+GATE
+==============================================================================
+
+==============================================================================
+P4 — THE TEST (threshold: z improves by >= 1.0 sd on -2.88)
+==============================================================================
+
+  sanity, consensus under STD : -4.680  (section 4.2: -4.680)
+  consensus under PHON        : -4.872
+  best plaintext under PHON   : WSNAYTKAMZLERDEVEETSSEDIZIPLUKEKTIAMBANEENTPRKELETHURDIMMILUNUTHUNDHOPUNETHRUPASPUTADIA
+
+  nulls, identical procedure and budget under the PHON model:
+    shuffled consensus : -5.119 +- 0.081  max -4.893
+    uniform random     : -5.302 +- 0.144  max -4.803
+    consensus percentile vs null : 0.99
+
+  the comparison that matters — each text against its OWN model's
+  enciphered-English band, in that band's sd units:
+    STD  : -4.680 vs -4.196 +- 0.168  ->  z = -2.88   (section 4.2)
+    PHON : -4.872 vs -4.197 +- 0.119  ->  z = -5.68
+    change: -2.80 sd
+
+  did the model simply flatter everything? (prereg, meaningless-result #1)
+    consensus lift STD->PHON       : -0.191
+    shuffled-null lift STD->PHON   : -0.109
+    net movement against its null  : -0.083
+
+  P4 FAIL (threshold z >= -1.9)
+
+==============================================================================
+SUMMARY AGAINST THE PRE-REGISTRATION
+==============================================================================
+
+  P1 mechanism strength   PASS   phonetic falls 1.395/gram under STD (>= 0.20)
+  P2 adjacency survival   PASS   109% of the ceiling retained (>= 80%)
+  P3 positive control     PASS   0.96 recovery at n=87 (>= 0.50)
+  P4 the test             FAIL   z = -5.68 against the phonetic band (>= -1.90)
+

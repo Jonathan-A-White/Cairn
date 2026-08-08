@@ -2163,3 +2163,182 @@ on the same alphabet in the same hand reads at 67–78% on a different capture.
 **Channel reliability is a property of the photograph, not of the alphabet**,
 and any future use of the arc channel on new material must re-calibrate on that
 material rather than inherit the figure.
+
+---
+
+## 25. Round 18 — phonetic English, given a solver that speaks it
+
+§17.4 left a structural constraint: Dorabella needs a mechanism that
+**preserves plaintext adjacency** (so a mirroring key's bigram structure
+survives, permitting the mirror excess) while **destroying quadgram fitness**
+by ~0.44/gram. Substitution keeps both. Transposition destroys both. Their
+composition destroys adjacency, which is why §17.3's pre-registered sixth model
+failed the feature it was built for.
+
+Phonetic respelling is the one hypothesis that satisfies both halves **by
+construction rather than by assembly**, and it had never been given a solver
+that speaks its language: every solve in this report scored candidates against
+a standard-orthography quadgram model, which penalises a phonetically spelled
+plaintext as gibberish even when it is recovered perfectly. Documentary basis:
+Elgar's letters are dense with jokey phonetic spellings, Sams argued
+phoneticization independently in 1970, and §19.2's contrary measurement used
+his *conversational* register — the wrong genre by its own recorded caveat.
+
+Pre-registered in `PREREG-keyword.md`'s companion `PREREG-phonetic.md`, with
+four thresholds and priors fixed before the corpus was built.
+
+### 25.1 Construction
+
+Grapheme-to-phoneme via CMUdict, then a fixed phoneme→grapheme table (ARPABET,
+stress stripped) chosen from ordinary respelling habits: `NATION` → `NAYSHUN`,
+`ENOUGH` → `INUF`, `THROUGH` → `THROO`, `BEAUTIFUL` → `BYOOTUFUL`. Corpus
+construction is held identical to `scripts/corpus.py` in every other respect —
+same `wordfreq` sampling, same 4M characters — so respelling is the only
+variable. Words absent from CMUdict keep their orthography, which can only make
+the phonetic corpus look *more* like standard English.
+
+**A validation anchor, fixed in the pre-registration before the corpus existed:**
+CMUdict gives *gorgeous* as `G AO R JH AH S`, which the table renders
+**`GORJUS`** — the spelling Elgar actually wrote. The table was written from
+general respelling habits, not fitted to him, and lands on his own spelling
+exactly. Seven of seven anchors reproduce.
+
+### 25.2 The mechanism does exactly what §17.4 asked for
+
+| pre-registered check | threshold | result | |
+|---|---|---|---|
+| **P1** fitness destruction | ≥ 0.20/gram | **1.395/gram** | PASS |
+| **P2** adjacency survival | ≥ 80% of the §11.2 ceiling | **109%** | PASS |
+
+Phonetic English scored under the **standard** quadgram model falls to
+−5.631 ± 0.304 against ordinary English's −4.236 ± 0.136 — a drop of
+**1.395/gram**, which is **314% of the 0.444 deficit to be explained**. And it
+does so while *increasing* mirror-producing bigram mass:
+
+| | ordinary | phonetic |
+|---|---|---|
+| mirror share under Elgar's 1920 key | 6.63% | **8.00%** |
+| best-possible-key ceiling (§11.2 machinery) | 12.19% | **13.22%** |
+| expected mirror pairs in 86 slots, at ceiling | 10.48 | **11.37** |
+
+`ER` gains mass (16.1 → 25.1‰, because `ER` is a phoneme), `IN` and `TH` are
+unchanged (97%, 103%). `AN` and `RE` lose ground (57%, 61%) — the
+pre-registration's specific claim that "ER, AN, IN survive" is **half wrong on
+AN**, and is recorded as such; the aggregate it was standing in for passes.
+
+**This is the first mechanism in the project to satisfy both halves of the
+§17.4 constraint at once.** It is adjacency-preserving and fitness-destroying,
+which no substitution, transposition, or composition of the two can be.
+
+### 25.3 The positive control passes, which is what makes the result a result
+
+| **P3** positive control | threshold ≥ 0.50 | **0.96** | PASS |
+|---|---|---|---|
+
+Known phonetic English, enciphered under a random MASC at n = 87 and solved
+with the phonetic model at the §4.1 budget, is recovered at **0.96 character
+accuracy** — identical to the 0.96 that licensed every interpretation in §4,
+and reproduced here at 0.94 for ordinary English under the standard model as a
+same-run reference.
+
+So this is **not** a second §13.2. The homophonic family was untestable because
+the solver could not separate real homophonic English from noise; here the
+solver has full power. Whatever comes next is a genuine test.
+
+### 25.4 And the test fails, decisively
+
+| **P4** the test | threshold z ≥ −1.90 | **z = −5.68** | FAIL |
+|---|---|---|---|
+
+| | consensus | that model's own English band | z |
+|---|---|---|---|
+| standard model | −4.680 | −4.196 ± 0.168 | **−2.88** |
+| phonetic model | −4.872 | −4.197 ± 0.119 | **−5.68** |
+
+Giving the solver a language model that speaks phonetic English does not shrink
+the deficit. **It nearly doubles it**, moving the consensus 2.80 sd *further*
+from English, and the phonetic solve's best plaintext is no more readable than
+the standard one.
+
+The pre-registration's first "meaningless result" check clears it of the
+obvious artifact: this is not a looser model flattering everything. Against the
+PHON model the consensus falls 0.191 while its own shuffled null falls only
+0.109, so the consensus moved **−0.083 against its own null** — down, not up.
+
+### 25.5 The dose curve — declared post-hoc, and it closes the escape route
+
+P1's overshoot (314% of the deficit) means P4 tested the *wrong dose* by
+construction: full respelling is far too destructive, and the deficit
+corresponds to a partial dose. That objection is real, so the dose curve was
+run — the same move §7.4 made for invented vocabulary, scored the same way, and
+therefore directly comparable.
+
+**Declared post-hoc.** It was not in the pre-registration. Its motivation was
+established before P4 ran, but the decision to run it was taken after seeing P4
+fail, and that is what counts. Reported as a diagnostic, with its own null.
+
+Each word respelled with probability *d*; each dose gets its own model, its own
+enciphered-English band, and its own shuffled null.
+
+| dose | band | recovery | consensus | **gap to band** | z |
+|------|------|----------|-----------|-----------------|---|
+| 0.00 | −4.245 | 0.98 | −4.682 | **−0.437** | −3.52 |
+| 0.15 | −4.298 | 0.95 | −4.717 | **−0.419** | −3.42 |
+| 0.30 | −4.335 | 0.94 | −4.741 | **−0.406** | −2.33 |
+| 0.50 | −4.308 | 0.94 | −4.711 | **−0.403** | −3.18 |
+| 0.75 | −4.280 | 0.94 | −4.738 | **−0.458** | −4.12 |
+| 1.00 | −4.214 | 0.96 | −4.916 | **−0.702** | −4.91 |
+
+Read the **gap** column, not the z column: z divides by a band sd estimated
+from 20 trials and is the noisier statistic (its apparent optimum at d = 0.30
+is a 0.03 movement in the gap dressed up by a small sd estimate).
+
+**The gap is flat.** It sits at −0.40 to −0.46 across doses 0 through 0.75 and
+then worsens to −0.70 at full respelling. The best dose buys **0.034/gram**
+against a standard-orthography baseline of −0.437. Recovery stays at 0.94–0.98
+throughout, so the solver has power at every dose.
+
+The reason is worth stating because it generalises: **the model adapts.** A
+dose-*d* model scores dose-*d* English at about −4.3 whatever *d* is, so
+respelling the plaintext and the reference together moves both and leaves
+Dorabella exactly as far below. Phonetic spelling is only fitness-destroying
+against a model that does not know about it — and a solver that does not know
+about it is a solver we have already been told not to trust.
+
+### 25.6 What this closes
+
+**Phonetic English is rejected, not shelved.** This is the first family in the
+project to be (a) shown testable at n = 87 by a passing positive control and
+(b) rejected on its own terms. §8.3 and §12.2 were exhausted at the null;
+§13.2 was untestable; this is a different and stronger ledger entry.
+
+**And the §17.4 constraint survives its best candidate.** Phonetic respelling
+satisfied the constraint on paper — adjacency-preserving *and* fitness-
+destroying, the only mechanism yet found that is both — and still failed to
+account for Dorabella. That sharpens the open problem rather than solving it:
+
+> Satisfying the adjacency/fitness constraint is **necessary and not
+> sufficient.** A mechanism can preserve bigram adjacency and depress
+> standard-model quadgram fitness by three times the required amount, and still
+> leave the deficit untouched once the solver is given a model of that
+> mechanism. The deficit is not merely a mismatch between Dorabella and
+> *standard* English; it survives re-basing the language model.
+
+**One consequence for §20.2's surviving hypothesis (2).** "Deliberate coinage or
+private shorthand at 40–50% density" (§7.4) is the closest surviving relative of
+what was tested here, and it now inherits a specific liability: §7.4 priced its
+dose against a *fixed standard* model, exactly the condition under which §25.5
+shows the effect is an artifact of the model rather than of the text. Hypothesis
+(2) is not refuted — coinage is not respelling, and invented words have no
+phoneme table to re-base against — but the measurement it rests on has been
+shown to be model-relative in a closely analogous case, and should be re-run
+against an adapted model before being carried further.
+
+**The letters were not needed and are not yet warranted.** The pre-registration
+committed to requesting photographs of Elgar's letters to Dora if the phonetic
+hypothesis showed life. It did not: the mechanism works and the hypothesis
+fails, at every dose, with the solver at full power. Seasoning the corpus with
+Elgar's own spellings would change the phoneme table, not the finding of §25.5
+that re-basing the model does not move the gap. The letters remain the right
+source for the *crib* question and for the §19 genre caveat; they are not the
+right next step for this branch.
