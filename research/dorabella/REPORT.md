@@ -954,6 +954,14 @@ and RE (14.3‰).
 The optimal matching pairs `HT, ER, IN, AL, FO, MP, SU, CK, BY, DW, GQ, XZ` —
 i.e. a key deliberately arranged so TH/HT, ER/RE and IN/NI fall opposite.
 
+*(Audit note, §23: this table was computed inline in Round 6 and had no
+committed script. Re-derived in `scripts/audit_phase0.py`, every entry
+reproduces exactly except the ceiling, which comes back at **12.19% → 10.48**
+rather than 12.23% → 10.52. The optimal matching is identical letter-for-letter,
+so the 0.045pp gap is in the bigram normalisation of a computation that no
+longer exists to be inspected. It does not move the conclusion below: 13
+against 10.48 is +0.83 sd where 13 against 10.52 is +0.82.)*
+
 Three conclusions follow:
 
 1. **Elgar's actual key cannot produce the excess.** It predicts 5.70; we
@@ -1883,7 +1891,7 @@ against −4.196 ± 0.168 for enciphered real English at matched budget).
 Across six generative models — plain substitution, sectional polyalphabetic,
 mirror-key substitution, composite text, transposition+substitution, and
 mirror-key+transposition — **no model reproduces both features at once.**
-Mirror-key substitution matches the mirror excess (+0.66 sd) and misses the
+Mirror-key substitution matches the mirror excess (+0.91 sd) and misses the
 deficit (−0.88 sd). Transposition matches the deficit (+0.32 sd) and misses the
 mirror excess (+2.82 sd). Their composition, pre-registered with falsification
 targets, passed all six held-out features and still failed the mirror count it
@@ -1971,3 +1979,80 @@ orderings. Unlike §8.3 and §12.2, "exhausted" would be an overstatement there.
 **One null run is incomplete** (§12.3): the matched-budget latent null was
 interrupted by a container restart at 2 of 8 reps. Its section's conclusion
 rests on an absolute comparison to the English band, not on that null.
+
+---
+
+## 23. Round 16 — Phase 0 audit, by a reader with no stake in the result
+
+The analysis was frozen at `3822b25` after fifteen rounds. Before extending it,
+its headline numbers were re-derived from the committed scripts in a fresh
+container, by a reader instructed to treat any discrepancy as a finding.
+
+**The environment reproduces.** `data/corpus.pkl` is gitignored and rebuilt on
+first use from `wordfreq`; the rebuild here used `wordfreq` 3.1.1, `numpy`
+2.4.6. This matters more than it looks — every quadgram score in the report is
+computed against that regenerated table, so a corpus that drifted with the
+library version would silently invalidate the whole score column. It did not.
+
+| claim | section | reported | re-derived | verdict |
+|-------|---------|----------|------------|---------|
+| consensus solve, forward | §4.2 | −4.680 | **−4.680** | exact, plaintext identical |
+| consensus solve, reversed | §4.2 | −4.707 | **−4.707** | exact |
+| mirror-pair count | §11.1 | 13 | **13** | exact, same 13 positions |
+| mirror-pair null | §11.1 | 5.15 ± 2.17 | **5.174 ± 2.179** | exact |
+| mirror-pair p | §11.1 | 0.0018 | **0.0017** | exact (MC noise) |
+| Elgar-key mirror share | §11.2 | 6.63% → 5.70 | **6.63% → 5.70** | exact |
+| optimal matching | §11.2 | 12 named pairs | **identical** | exact |
+| best-possible-key ceiling | §11.2 | 12.23% → 10.52 | **12.19% → 10.48** | **0.045pp low** |
+
+The solve was re-run at the published budget (20 × 15 000, seeds 777/778) and
+returns the reported score *and* the reported gibberish plaintext character for
+character. The mirror statistic was deliberately **not** re-run from
+`massey.py`: it was reimplemented from the definition, given a closed-form
+expectation (E = 86 × P(slot is a mirror pair) = 5.1724, no simulation), and
+nulled with a different RNG at ten times the reps. All three routes agree.
+
+### 23.1 Two discrepancies, neither load-bearing
+
+**(a) §11.2's ceiling is 0.045pp high.** The max-weight matching reproduces
+letter-for-letter, so the difference is in the bigram normalisation of a
+Round-6 computation that was never committed and cannot now be inspected.
+13 observed against a 10.48 expectation is +0.83 sd; against 10.52 it is +0.82.
+The section's conclusion — that a bigram-optimised key makes 13 unremarkable,
+and therefore survives the test that kills Elgar's own key — is unchanged.
+Annotated inline rather than overwritten.
+
+**(b) §20.3 spliced two runs in one sentence.** It gave mirror-key
+substitution's mirror-pair z as **+0.66** and its solver z as **−0.88**. Those
+are from different model sets: +0.66 is the four-model run
+(`out/discriminate.log`), −0.88 the five-model run (`out/disc5.log`), whose own
+mirror z is +0.91. §16.3 quotes the consistent five-model pair. §20.3 is
+corrected to **+0.91**, matching the run its other number comes from. The
+statement it supports — MIRROR reproduces the mirror excess and not the solver
+deficit — holds under either figure, and the structural constraint that follows
+from it is untouched.
+
+### 23.2 A gap in the reproducibility claim, now closed
+
+The README says every headline number maps to a committed script. **§11.2 did
+not.** Its constructive discrimination — the calculation that rules out Elgar's
+own key by a route independent of §8.3, and that supplies the ceiling every
+later mirror argument is measured against — was computed inline in Round 6 and
+left uncommitted. It is the single most consequential number in the report
+without a script behind it, and it is also the one that failed to reproduce
+exactly. That ordering is not a coincidence and is worth stating plainly:
+**the uncommitted computation is the one that drifted.**
+
+`scripts/audit_phase0.py` now regenerates all three checks, and the README's
+script map has rows for §11.2 and for the audit itself.
+
+### 23.3 What the audit does not cover
+
+Re-derived: two headline numbers plus the §11.2 table. Cross-checked by reading
+`out/*.log` against the prose: §4.2, §4.3, §4.4, §8.3, §10.5, §12.2, §12.3,
+§13.2, §15.2, §16.2, §16.3, §17.3, §19.2 — all consistent with their logs.
+**Not** re-run: the long sweeps (§8.3's 483,840 keys, §12.3's 8192 labellings,
+the model-discrimination fits), which are checked against their committed logs
+only. The interrupted latent null of §12.3 remains interrupted.
+
+The report's conclusions stand as written, with §20.3's one figure corrected.

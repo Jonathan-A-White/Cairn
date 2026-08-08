@@ -1,0 +1,61 @@
+corpus: 4000000 chars, rebuilt from wordfreq in this environment
+
+==============================================================================
+A. CONSENSUS SOLVE (report 4.2: -4.680 forward, -4.707 reversed)
+==============================================================================
+
+  forward  = -4.680   (report: -4.680)
+  reversed = -4.707   (report: -4.707)
+  plaintext: WPROUTCONGDAYSAMAATPPASIGILDECACTIONFORAARTLYCADATHEYSINNIDERETHERSHBLERATHYELOPLETOSIO
+  report   : WPROUTCONGDAYSAMAATPPASIGILDECACTIONFORAARTLYCADATHEYSINNIDERETHERSHBLERATHYELOPLETOSIO
+
+==============================================================================
+B. MIRROR-PAIR EXCESS (report 11.1: 13 vs 5.15 +- 2.17, p = 0.0018)
+==============================================================================
+
+  observed  = 13                     (report: 13)
+  positions = [12, 27, 38, 40, 49, 52, 54, 56, 58, 62, 71, 73, 78]
+              (report 17.1: [12, 27, 38, 40, 49, 52, 54, 56, 58, 62, 71, 73, 78])
+
+  closed-form E[count] under random ordering = 5.1724   (report: 5.15)
+  independent null (200k perms, stdlib RNG, seed 20260808):
+      mean=5.174  sd=2.179  p(null >= 13) = 0.00170   (report: 0.0018)
+
+==============================================================================
+C. MIRROR-PRODUCING BIGRAM MASS (report 11.2) — no committed script until now
+==============================================================================
+
+  mirror-producing pairs under Elgar's key:
+      AN NA BO OB CP PC DQ QD ER RE FS SF GT TG HU UH IW WI KX XK LY YL MZ ZM
+
+  Elgar-key share      = 6.626%   (report: 6.63%)
+  expected pairs / 86  = 5.70     (report: 5.70)
+      ER = 16.1 per mille   (report: ER 16.1, AN 16.0, RE 14.3)
+      AN = 16.0 per mille   (report: ER 16.1, AN 16.0, RE 14.3)
+      RE = 14.3 per mille   (report: ER 16.1, AN 16.0, RE 14.3)
+
+  best-possible-key share = 12.185%   (report: 12.23%)  <-- 0.045pp low
+  expected pairs / 86     = 10.48     (report: 10.52)
+  optimal matching        = AL BY CK DW ER FO GQ HT IN MP SU XZ
+                     report: AL BY CK DW ER FO GQ HT IN MP SU XZ
+
+  13 observed against the ceiling's expectation: z = +0.83   (report: +0.8 sd, 'entirely unremarkable')
+  share needed to expect 13 = 15.12%   (report: 15.12%)
+
+==============================================================================
+VERDICT
+==============================================================================
+
+  4.2  consensus solve        -4.680 / -4.707   vs -4.680 / -4.707   EXACT
+  11.1 mirror pairs           13 at p=0.0017       vs 13 at p=0.0018    EXACT
+  11.2 Elgar-key share        6.63%              vs 6.63%             EXACT
+  11.2 best-possible ceiling  12.19%             vs 12.23%            LOW BY 0.045pp
+
+  One further discrepancy, found by reading rather than running: section 20.3
+  gives mirror-key substitution's mirror-pair z as +0.66 and its solver z as
+  -0.88. Those come from different runs -- +0.66 is the four-model run
+  (out/discriminate.log), -0.88 the five-model run (out/disc5.log), whose own
+  mirror z is +0.91. Section 16.3 quotes the consistent five-model pair.
+  20.3 is corrected to +0.91 to match the run it takes its other number from.
+  No conclusion depends on which is used.
+

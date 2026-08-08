@@ -68,6 +68,7 @@ should follow them.
 | §10.2 | three-reader triangulation | `scripts/three_readers.py` |
 | §10.5 | residual deficit table | `scripts/crux_rerun.py` |
 | §11.1 | Massey replication (mirror pairs, runs) | `scripts/massey.py` |
+| §11.2 | mirror-producing bigram mass, Elgar's key vs the ceiling | `scripts/audit_phase0.py` |
 | §12.2 | additive-rotation sweep | `scripts/rotation_sweep.py` |
 | §12.3 | 2¹³ latent labelling sweep | `scripts/latent_sweep.py` |
 | §13.2 | homophonic family | `scripts/homophonic.py` |
@@ -78,6 +79,7 @@ should follow them.
 | §17.3 | pre-registered sixth model | `scripts/model6.py` |
 | §18 | edition segmentation | `scripts/editions.py` |
 | §19.2 | Elgar's measured register | `scripts/idiolect.py` |
+| §23 | Phase 0 audit — headline numbers re-derived | `scripts/audit_phase0.py` |
 
 Run outputs are committed under `out/*.log` — every number in the report can be
 checked against the log that produced it without re-running anything.
