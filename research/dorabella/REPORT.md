@@ -2193,7 +2193,7 @@ Elgar's letters are dense with jokey phonetic spellings, Sams argued
 phoneticization independently in 1970, and §19.2's contrary measurement used
 his *conversational* register — the wrong genre by its own recorded caveat.
 
-Pre-registered in `PREREG-keyword.md`'s companion `PREREG-phonetic.md`, with
+Pre-registered in `PREREG-phonetic.md`, committed ahead of the result, with
 four thresholds and priors fixed before the corpus was built.
 
 ### 25.1 Construction
