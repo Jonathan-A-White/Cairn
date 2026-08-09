@@ -4,9 +4,14 @@ Each item states what was *not* done, what I expect, and why — so the
 expectation is on record before the experiment, not after. Where I give a
 probability it is a genuine prior, not a hedge; hold me to it.
 
-**Rounds 16–20 (§23–§27) closed four of the original five items and opened
-three new ones.** Closed items are kept below with their outcome and their
-prior, because a prior is only worth writing down if it is scored afterwards.
+**Rounds 16–22 (§23–§31) closed four of the original five items and opened
+four new ones.** Closed items are kept below with their outcome and their prior,
+because a prior is only worth writing down if it is scored afterwards.
+
+**Read first: §31.4.** All three mechanism-side directions §20.3 named have now
+been run and none accounts for the deficit, and §29 showed the deficit replicates
+across six fitness families. The open items below are therefore no longer about
+finding the mechanism.
 
 ---
 
@@ -109,6 +114,54 @@ it.
 
 ---
 
+## F. A solver that SEARCHES under 6-gram entropy-weighted fitness — §29.5
+
+**What.** §29 re-scored; it did not re-search. Every key in it was chosen by
+quadgram hill-climbing, so the audit can say the deficit is not an artifact of
+window length or of the missing entropy term, and cannot say what a solver
+optimising 6-gram entropy-weighted fitness would find. AZdecrypt broke Z340 with
+that estimator on a comparably short, distorted text.
+
+**Why it matters.** It is the one remaining way the deficit could still be an
+estimator artifact, and §29 explicitly could not close it. It is also the first
+experiment in the project that would use the field's current best solver design
+rather than this report's own.
+
+**Cost.** A rewrite of the annealer's fitness call plus a matched-budget null;
+the 6-gram table already exists in `scripts/fitness_families.py`. Comparable to
+§25's budget.
+
+**Prior.** ~20% that searching under the new fitness moves the consensus more
+than 0.5 σ relative to its own null. Low: §29 found the quadgram estimator is
+the *most charitable* of six to Dorabella, so a better estimator should if
+anything widen the gap. But "should" is what this round exists to stop assuming.
+
+---
+
+## G. The phoneme point prediction — §30.1
+
+**What.** Encipher real merged-phoneme English under a random 24-class MASC and
+solve it with the report's **standard letter** quadgram model at the §4.2 budget.
+
+**Why it matters.** It is a *point* prediction, fixed in advance, on a feature
+the hypothesis was not built from: if Dorabella is phoneme-MASC, a letter-model
+solve of one must land at Dorabella's own score, **≈ −4.68**. Land at −4.2 and
+the text was letter-solvable anyway; land at −5.0 and it is indistinguishable
+from noise. Both kill it.
+
+**Status.** Envelope already passed (§30.1): unicity clears at 44–84 against 87,
+and phoneme English separates from its shuffles at 10.2 pooled sd, three times
+the letter margin. The Pitman-cognate rationale for the mirror pairs is refuted
+and must be dropped — but the hypothesis does not need it.
+
+**Cost.** About two minutes.
+
+**Prior.** ~25% it lands within 0.1 of −4.68. The mechanism is right in kind
+(a wrong unit produces exactly a model-invariant deficit), but the target is
+narrow and nothing says the deficit's *size* should match.
+
+---
+
 ## E. Pelling's provenance — §10.7, still the highest-value documentary question
 
 Unchanged and still open: one email settles whether Pelling's 2012 reading was
@@ -127,3 +180,9 @@ three legs or two.
   keyword accounts for most of it without design intent.
 - **Elgar's conversational register** (§19.2). Closed in Round 14 and not
   re-opened by anything since.
+- **Local / short-scale transposition** (§31). Rejected; both pre-registered
+  thresholds failed, one in the wrong direction.
+- **Article III's music cipher** (§30.2). Struck: the ledger entry described a
+  structure §15.1 had already shown is not in the primary source, and what
+  remains is covered by §4/§8.3/§26 as substitution and by §5 as pitch mapping.
+- **Mirror-pairs-as-doubles** (§30.3). Withdrawn before running, on §26.2.
