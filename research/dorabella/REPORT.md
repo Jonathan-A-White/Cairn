@@ -2659,3 +2659,160 @@ images without re-derivation is an assumption wearing a measurement's clothes.
 moved 0.153 between seeds at a budget where it reported a 0.079 effect (§27.2).
 Standing rule 1 needs a companion: a baseline quoted from a single solve is a
 point estimate, and at low budget it must be reported with its spread.
+
+---
+
+## 29. Round 21 — the fitness-family audit
+
+§28.2 claimed the deficit "survives re-basing the language model". That claim
+rests on §25, where a *phonetic quadgram* model — still a quadgram model — put
+Dorabella 5.68 σ below its own band. **Every headline number in this report is
+mean quadgram log-probability per gram**: §4.1's bands, §4.2's −4.680, and every
+null in §8.3, §12.2, §16.2, §26 and §27. If that estimator is what produces the
+deficit, the report has measured one statistic's behaviour and called it a
+property of the text. Pre-registered in `PREREG-fitness.md`.
+
+**External anchor.** AZdecrypt (Van Eycke), the solver used in the 2020 break of
+Z340, sums n-gram log frequencies, divides by the count, and **multiplies by the
+plaintext's entropy**; its documentation gives the reason explicitly — to stop
+convergence on solutions using only a few common letters — and records that it
+moved from an index-of-coincidence term to an entropy term. That is a different
+estimator in three ways: longer window, a degeneracy penalty this report has no
+analogue of, and constraints on the candidate plaintext rather than on n-grams
+alone.
+
+*(Sign convention, declared in the pre-registration rather than defended
+afterwards: log probabilities are negative, so multiplying by entropy would
+reward degenerate solutions — the opposite of the stated purpose. AZdecrypt
+reports positive scores, so its table holds a positive quantity. Implemented
+here as `mean(log10(count+1)) × H`, with the unweighted term reported alongside
+so the entropy factor is separable.)*
+
+### 29.1 A measurement audit, and the regeneration check passes exactly
+
+**No new searches.** Every key was already chosen by quadgram hill-climbing;
+`solver3.py`'s runs were regenerated at the same seed and budget only to recover
+the plaintexts the frozen run did not save.
+
+| band | regenerated | §4.1 published |
+|---|---|---|
+| enciphered real English | **−4.196 ± 0.168** | −4.196 ± 0.168 |
+| shuffled consensus | **−5.010 ± 0.087** | −5.010 ± 0.087 |
+| uniform random | **−5.178 ± 0.125** | −5.178 ± 0.125 |
+
+Exact on all three. This is the frozen procedure.
+
+### 29.2 §28.4's own rule, applied to §4.2's headline number
+
+The consensus solve re-run at 10 seeds, same 20 × 15 000 budget:
+
+> −4.680, −4.680, −4.708, −4.680, −4.750, −4.680, −4.731, −4.765, −4.680, −4.680
+> — **mean −4.704 ± 0.032, range −4.680 to −4.765**
+
+§4.2 published **−4.680**, which is the *best* of the ten, not the typical one.
+The effect is small (0.024 on the mean, 0.13 σ of the English band) and changes
+no conclusion, but the direction is worth recording: **the report's single most
+quoted number is the most favourable seed of its own distribution.** Every z
+below is therefore computed from the 10-seed mean, which is why F1 reads −3.01
+rather than the published −2.88.
+
+### 29.3 The audit
+
+| family | English band | consensus | z | percentile vs null |
+|---|---|---|---|---|
+| **F1** quadgram log-prob *(frozen)* | −4.196 ± 0.168 | −4.704 ± 0.032 | **−3.01** | 1.00 |
+| **F2** 5-gram log-prob | −5.021 ± 0.342 | −6.339 ± 0.037 | **−3.86** | 0.97 |
+| **F3** 6-gram log-prob | −5.736 ± 0.506 | −7.526 ± 0.163 | **−3.54** | 0.99 |
+| **F4** 5-gram × entropy (AZ form) | 6.590 ± 0.889 | 3.633 ± 0.294 | **−3.33** | 1.00 |
+| **F5** 6-gram × entropy (AZ form) | 4.328 ± 0.965 | 1.447 ± 0.373 | **−2.98** | 1.00 |
+| **F6** quadgram + IoC/χ² penalties | −4.974 ± 0.414 | −5.554 ± 0.112 | **−1.40** | 0.90 |
+
+**The pre-registered prediction fails.** It required |z| ≥ 2.0 in every one of
+F2–F6 and no family more than 1.5 σ from F1. F6 returns −1.40 and sits 1.62 σ
+away. Recorded as a failure before it is diagnosed.
+
+I had put 20% on exactly this outcome and named the wrong family: I expected the
+entropy-weighted families to break, and F5 lands within **0.03 σ** of F1. The
+degeneracy penalty this report lacks turns out not to matter here at all.
+
+### 29.4 The diagnosis — and my threshold was the wrong statistic
+
+`z = (band mean − consensus) / band sd`. A family can lose z two ways: by
+**closing the gap** (the deficit is estimator-dependent — the finding the
+threshold was written to catch), or by **inflating the band sd** (the estimator
+is merely noisier — a statement about power, not about the text). The threshold
+cannot tell them apart. Separating them:
+
+| family | gap | band sd | z | **normalised deficit** |
+|---|---|---|---|---|
+| F1 quadgram | 0.507 | 0.168 | −3.01 | **57%** |
+| F2 5-gram | 1.319 | 0.342 | −3.86 | **77%** |
+| F3 6-gram | 1.790 | 0.506 | −3.54 | **81%** |
+| F4 5-gram × H | 2.956 | 0.889 | −3.33 | **76%** |
+| F5 6-gram × H | 2.881 | 0.965 | −2.98 | **80%** |
+| F6 quad + IoC/χ² | 0.579 | 0.414 | −1.40 | **49%** |
+
+*Normalised deficit* = how far the consensus falls from that family's English
+band **towards that family's own meaningless-text null**, as a percentage of
+that span. It is scale-free, does not divide by the band sd, and is therefore
+the statistic that actually survives a change of estimator. **It is the column
+to read.**
+
+And F6 has a free parameter I chose. λ was set to 0.5 on no principle:
+
+| λ | English band | consensus | z | normalised deficit |
+|---|---|---|---|---|
+| 0.00 | −4.196 ± 0.168 | −4.704 ± 0.032 | −3.01 | 57% |
+| 0.10 | −4.352 ± 0.173 | −4.874 ± 0.033 | −3.02 | 55% |
+| 0.25 | −4.585 ± 0.240 | −5.129 ± 0.058 | −2.26 | 52% |
+| 0.50 | −4.974 ± 0.414 | −5.554 ± 0.112 | **−1.40** | 49% |
+| 1.00 | −5.752 ± 0.809 | −6.404 ± 0.226 | −0.81 | 45% |
+| 2.00 | −7.307 ± 1.623 | −8.104 ± 0.457 | −0.49 | 39% |
+
+z runs from −3.01 to −0.49 as λ goes from 0 to 2, while the band sd inflates
+tenfold. **F6's failure is dominated by variance I injected, not by the deficit
+closing** — the gap itself *widens* slightly (0.507 → 0.579) at λ = 0.5.
+
+So the honest statement has two parts and both are reported:
+
+1. **My pre-registered test failed, and it failed because I chose the wrong
+   statistic.** A z-threshold across estimators with different noise levels
+   tests power, not the quantity of interest. That is a design error in the
+   pre-registration, not a finding about the cipher, and it is exactly the kind
+   of thing pre-registration is supposed to expose rather than hide.
+2. **On the scale-free statistic the deficit replicates in all six families**,
+   at 39–81% of the English-to-noise span, and is **larger** under every
+   longer-window and entropy-weighted family than under the frozen one.
+
+### 29.5 What this does and does not establish
+
+**§28.2's claim survives, and in a stronger form than it was made.** The deficit
+is not an artifact of window length (5- and 6-gram families put it at 77–81%,
+against the quadgram family's 57%), and it is not an artifact of the missing
+degeneracy penalty (F5 lands 0.03 σ from F1). The estimator every number in this
+report shares is, if anything, the *most charitable* of the six to Dorabella.
+
+**One direction does narrow it.** Constraints on the candidate plaintext's own
+distribution — IoC and χ² — move the consensus from 57% to 49% (λ = 0.5) or 39%
+(λ = 2) of the span. The deficit does not close, but this is the first family in
+which it shrinks rather than grows, and the reason is interpretable: the
+consensus's decipherment already has more English-like letter statistics than
+the nulls' do, so rewarding that helps it more than it helps them. It is a real
+if partial effect and the only lead this round produces.
+
+**Between-family variation dominates seed noise, which vindicates the round's
+premise.** The z spread across F2–F6 is 2.46 σ; the spread from solver seed
+alone within F1 is 0.50 σ. §28.4 asked whether the seed spread would rival the
+between-family spread. It does not — it is a fifth of it, so the choice of
+fitness family is a real degree of freedom that the report had never varied.
+
+**The limitation is structural and was declared in advance.** Re-scoring is not
+re-searching. Every key here was chosen to maximise *quadgram* fitness, so a
+gibberish string optimised for quadgrams has no reason to score well on 6-grams;
+F3 and F5 may widen the deficit mechanically. That is why the English band and
+both nulls are re-scored by the identical route — the comparison is fair even
+where the absolute numbers are not — and it is why **a widening is not reported
+as evidence for the deficit.** The conclusion available here is the weaker
+"not an artifact of window length or of the entropy term", not "the deficit is
+real". What a solver that *searched* under 6-gram entropy-weighted fitness would
+find is a different experiment, and after this round it is the obvious one.

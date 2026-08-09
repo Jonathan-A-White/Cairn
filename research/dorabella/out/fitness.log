@@ -1,0 +1,99 @@
+==============================================================================
+ROUND 21 — FITNESS-FAMILY AUDIT
+==============================================================================
+run against PREREG-fitness.md; thresholds fixed before any table was built
+
+building 5-gram and 6-gram tables (sparse; the dense 26^6 is 2.5 GB)...
+  distinct 5-grams 442,479   distinct 6-grams 1,159,247
+
+==============================================================================
+REGENERATION CHECK — is this the frozen procedure?
+==============================================================================
+
+  band                                  regenerated    section 4.1 published
+  enciphered real English        -4.196 +-  0.168       -4.196 +-  0.168
+  shuffled consensus             -5.010 +-  0.087       -5.010 +-  0.087
+  uniform random                 -5.178 +-  0.125       -5.178 +-  0.125
+
+==============================================================================
+SECTION 28.4's SPREAD RULE — the consensus solve is not a point estimate
+==============================================================================
+
+  consensus re-solved at 10 seeds, same 20x15000 budget:
+    [-4.68, -4.68, -4.708, -4.68, -4.75, -4.68, -4.731, -4.765, -4.68, -4.68]
+    mean -4.704  sd 0.032  min -4.765  max -4.680
+    section 4.2 published the single value -4.680
+
+==============================================================================
+THE AUDIT — the consensus against each family's own English band
+==============================================================================
+
+  IoC/chi2 reference from the English band: IoC 0.0657 +- 0.0076, chi2 22.4 +- 8.4
+
+  family                                   Eng band            consensus       z  pct null
+  F1 quadgram logprob (frozen)      -4.196+-0.168        -4.704+-0.032     -3.01      1.00
+  F2 5-gram logprob                 -5.021+-0.342        -6.339+-0.037     -3.86      0.97
+  F3 6-gram logprob                 -5.736+-0.506        -7.526+-0.163     -3.54      0.99
+  F4 5-gram x entropy (AZ)           6.590+-0.889         3.633+-0.294     -3.33      1.00
+  F5 6-gram x entropy (AZ)           4.328+-0.965         1.447+-0.373     -2.98      1.00
+  F6 quadgram + IoC/chi2            -4.974+-0.414        -5.554+-0.112     -1.40      0.90
+
+==============================================================================
+VERDICT AGAINST THE PRE-REGISTRATION
+==============================================================================
+
+  threshold: |z| >= 2.0 in every one of F2-F6, and none more than
+  1.5 sigma from F1's z.
+
+  family                                z  best seed   |z|>=2  |dz| vs F1
+  F1 quadgram logprob (frozen)      -3.01      -2.88      yes        0.00
+  F2 5-gram logprob                 -3.86      -3.60      yes        0.84
+  F3 6-gram logprob                 -3.54      -3.31      yes        0.52
+  F4 5-gram x entropy (AZ)          -3.33      -3.11      yes        0.31
+  F5 6-gram x entropy (AZ)          -2.98      -2.70      yes        0.03
+  F6 quadgram + IoC/chi2            -1.40      -0.95       NO        1.62
+
+  between-family spread of z (F2-F6): -3.86 to -1.40  (range 2.46)
+  within-family spread from seed alone, F1: 0.50 sigma
+
+  PRE-REGISTERED PREDICTION FAILS
+
+==============================================================================
+DIAGNOSTIC 1 — z is a ratio; which part of it moved?
+==============================================================================
+
+  z = (band mean - consensus) / band sd. A family can lose z by closing the
+  GAP (the deficit is estimator-dependent, which is the finding the threshold
+  was written to detect) or by inflating the BAND SD (the estimator is just
+  noisier, which is a statement about power, not about the text). These are
+  different results and the threshold cannot tell them apart. Separated here.
+
+  family                               gap   band sd  gap/sd = z  normalised deficit
+  F1 quadgram logprob (frozen)       0.507     0.168       -3.01                 57%
+  F2 5-gram logprob                  1.319     0.342       -3.86                 77%
+  F3 6-gram logprob                  1.790     0.506       -3.54                 81%
+  F4 5-gram x entropy (AZ)           2.956     0.889       -3.33                 76%
+  F5 6-gram x entropy (AZ)           2.881     0.965       -2.98                 80%
+  F6 quadgram + IoC/chi2             0.579     0.414       -1.40                 49%
+
+  'normalised deficit' = how far the consensus falls from that family's English
+  band towards its own meaningless-text null, as a percentage of that span. It
+  is scale-free and does not divide by the band sd, so it is the statistic that
+  survives a change of estimator. This is the number to read across families.
+
+
+==============================================================================
+DIAGNOSTIC 2 — F6 has a free parameter I chose; how much does it matter?
+==============================================================================
+
+  F6's penalty weight lambda was set to 0.5 by me, with no principle behind it.
+  If z moves materially with lambda then F6 is not a well-specified family and
+  its failure is a fact about my parameterisation, not about the deficit.
+
+    lambda           Eng band          consensus        z  norm deficit
+      0.00     -4.196+-0.168      -4.704+-0.032     -3.01           57%
+      0.10     -4.352+-0.173      -4.874+-0.033     -3.02           55%
+      0.25     -4.585+-0.240      -5.129+-0.058     -2.26           52%
+      0.50     -4.974+-0.414      -5.554+-0.112     -1.40           49%
+      1.00     -5.752+-0.809      -6.404+-0.226     -0.81           45%
+      2.00     -7.307+-1.623      -8.104+-0.457     -0.49           39%
