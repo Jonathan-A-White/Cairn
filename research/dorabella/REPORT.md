@@ -2816,3 +2816,153 @@ as evidence for the deficit.** The conclusion available here is the weaker
 "not an artifact of window length or of the entropy term", not "the deficit is
 real". What a solver that *searched* under 6-gram entropy-weighted fitness would
 find is a different experiment, and after this round it is the obvious one.
+
+---
+
+## 30. Design reviews and ledger corrections
+
+Two proposals assessed on the envelope without running the experiment, and one
+ledger entry corrected.
+
+### 30.1 The phoneme-unit proposal — it clears the envelope, and its structural claim does not
+
+**The proposal.** The 87 symbols are *phonemes*, not letters, over a ~24-class
+inventory produced by Pitman-style cognate merges. Pitman shorthand was
+ubiquitous by 1897 and pairs voiced/unvoiced cognates as light and heavy strokes
+of one shape, which would give 180° rotation a systemic role. **This is not what
+§25 tested:** §25 respelled graphemes and always solved *letters*. If the true
+unit is the phoneme, every letter-based solve in this report — respelled or not
+— is a category error, and §25.5's "the model adapts" argument does not reach
+it, because adapting a letter model cannot fix a wrong unit. That would produce
+exactly a persistent, model-invariant deficit, which is what §29 measures.
+
+Two questions decide whether it is worth running. Both are properties of English
+phoneme sequences, so they are **measured, not asserted** — `scripts/
+phoneme_envelope.py`, arithmetic only, nothing solved and no cipher searched.
+
+Inventory used: the eight Pitman cognate pairs (`P/B`, `T/D`, `K/G`, `F/V`,
+`TH/DH`, `S/Z`, `SH/ZH`, `CH/JH`), the eight unpaired consonants, and eight
+vowel classes on Pitman's long/short pairing, with `ER` folded into `R`.
+Exactly 24 classes. Corpus built the same way as `corpus.py` — `wordfreq`
+sampling, CMUdict pronunciations — 4 M phonemes.
+
+**Q1 — unicity. Clears.** `H(K) = log₂(24!) = 79.0 bits`.
+
+| entropy rate assumed | D = log₂24 − H | unicity | vs 87 |
+|---|---|---|---|
+| H₂ (order-1) 3.649 | 0.936 | **84.4** | clears |
+| H₃ (order-2) 3.350 | 1.235 | **64.0** | clears |
+| H₄ (order-3) 3.098 | 1.487 | **53.2** | clears |
+| optimistic limit | 1.787 | 44.2 | clears |
+
+Clears under every assumption, but note the margin: 87/53 ≈ 1.6× against the
+letter case's 87/27.3 ≈ 3.2× (§6). Phoneme sequences are *less* redundant than
+letter sequences — English orthography adds redundancy that phonemes do not
+carry — so the same 87 tokens buy about half the margin.
+
+**Q2 — band separation. Passes, decisively.** 87-symbol windows, quadgram
+log-prob per gram over the merged inventory:
+
+| | score/gram |
+|---|---|
+| real phoneme English | −4.310 ± 0.131 |
+| order-shuffled | −6.728 ± 0.309 |
+| **separation** | **2.419/gram = 10.2 pooled sd** |
+| the same gap for letters (§4.1) | 0.814/gram |
+
+Phoneme sequences are **three times more separable from their own shuffles**
+than letter sequences at this length, because merged-phoneme phonotactics are
+far more constrained than English spelling. A phoneme positive control should
+pass *more* easily than the letter control that licensed §4.
+
+**So the proposal does not die here. Both questions pass.**
+
+**But its structural claim fails, and by a wide margin.** If 180° rotation
+encodes the cognate relation, Dorabella's 13 adjacent mirror pairs are 13
+adjacent cognate phoneme pairs. That rate is checkable:
+
+| | rate | expected in 86 | observed | z |
+|---|---|---|---|---|
+| adjacent cognate pairs, full phoneme stream | 0.451% | **0.39** | 13 | **+20.3** |
+| adjacent cognate pairs, consonant skeleton | 2.075% | **1.78** | 13 | **+8.5** |
+| share needed to expect 13 (§11.2) | 15.12% | 13 | | |
+
+The consonant-skeleton row is included because **the arithmetic forces it**: 16
+cognate consonants plus 8 unpaired consonants is already 24 symbols, leaving
+none for vowels, so a design in which cognates sit at 180° must be
+consonant-only. That is Pitman-consistent — Pitman outlines are consonant
+skeletons with vowels as optional dots, and Dorabella has dots (§18.2) — and it
+is the most favourable variant available. Even there the prediction is short by
+a factor of **seven**; on the direct reading, by **thirty-three**.
+
+English simply does not put voiced and unvoiced cognates next to each other:
+`/pb/`, `/td/`, `/sz/` occur essentially only across word boundaries.
+
+**Verdict.** The phoneme-unit hypothesis is a legitimate member of §28.3's
+rank-1 space and clears the envelope on both counts. **Its Pitman-cognate
+rationale for the mirror pairs is refuted and should be dropped**, which costs
+it the documentary hook that made it attractive. It does not need that hook —
+§26.2 already showed the mirror excess is largely accounted for by ordinary
+keyword mixing, so a phoneme hypothesis is not obliged to explain it.
+
+**The experiment it should become, stated so it can be pre-registered.** Not
+run here, per the standing instruction, and it is about two minutes of compute:
+
+> **Encipher real merged-phoneme English under a random 24-class MASC, then
+> solve it with the report's *standard letter* quadgram model, at the §4.2
+> budget.** If the phoneme hypothesis is right, Dorabella *is* such a text, and
+> the letter-model solve of it must land at Dorabella's own score. The
+> prediction is a number fixed in advance — **≈ −4.68** — on a feature the
+> hypothesis was not built from. Land near it and the hypothesis has its first
+> positive support in this project. Land at −4.2 (letter-solvable anyway) or
+> −5.0 (indistinguishable from noise) and it is dead.
+
+That is the test rule 4 requires, and unusually it is a *point* prediction
+rather than a threshold, which makes it worth more than most.
+
+### 30.2 Article III's music cipher — the ledger entry is stale and should be struck
+
+§14.4 (Round 9) lists as outstanding and pre-registerable:
+
+> "Article III's music cipher — 12 + 12 notes over 24 letters with I/J and U/V
+> merged, the closest printed analogue to a two-factor 24-symbol design yet
+> identified."
+
+**§15.1 (Round 10) withdrew exactly that description**, on a primary-source
+check: No. 41 is described on p. 460 only as "composed by substituting the
+specified musical notes for the letters of the alphabet which are written
+underneath the notes", and "there is **no** 12 + 12 quarter/eighth-note
+structure and **no** I/J or U/V merge stated." §14.4 was never updated, so the
+ledger has carried a live entry for a family defined by a claim the next round
+retracted. **This is a fourth instance of the §19.1 pattern — source inflation —
+and this time the inflated source is this report.**
+
+With the two-factor structure gone, what remains is a plain substitution of
+notes for letters, and it is not a new family:
+
+- **As a substitution**, it is a MASC over ≤ 26 letters — covered exhaustively
+  by §4, §8.3 and §26, all at the null.
+- **As a pitch mapping**, it is §5, which enumerated all 96 orientation→degree
+  × arc→octave mappings and found the sequence *less* melodic than its own
+  shuffles (p = 0.903).
+
+Nothing unswept is left, and the description that made it look like "the closest
+printed analogue to a two-factor 24-symbol design" is not in the source. The
+genuine closest printed analogue is the **Heraldic cipher** (§16.1), which is
+already exhausted (§8.3) and swept keyword-mixed (§26).
+
+**Recommendation: struck from the ledger, no pre-registration, no cost.** What
+survives from Article III is what §15.1 kept — a *motive*, not a mechanism: the
+musical cipher's stated advantage of "not attracting suspicion, because this
+cipher might very well pass for being merely the copy of a few bars of music …
+sent away to a similarly gifted friend."
+
+### 30.3 Withdrawn: mirror-pairs-as-doubles
+
+A mirror-pairs-as-doubles mechanism was proposed and then **withdrawn by the
+proposer before it was run**, on the grounds that §26.2 de-anomalises the mirror
+excess under ordinary keyword mixing: once an `ALICE`-mixed alphabet takes 13
+pairs to +1.87 σ, a dedicated mechanism for producing them no longer earns
+compute. Logged here so the ledger records what was considered and dropped, not
+only what was run. The reasoning is endorsed — it is the same reasoning §17.2
+used to decline Pelling's excision experiment.

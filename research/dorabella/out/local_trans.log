@@ -1,0 +1,11 @@
+==============================================================================
+ROUND 22 — LOCAL / SHORT-SCALE TRANSPOSITION
+==============================================================================
+run against PREREG-local.md; family fixed and counted before the run
+
+  family: 9129 distinct permutations   (section 27's columnar family: 46,232)
+  maximum displacement: 0 to 5 positions  -- this is what makes the family local
+  stage 1 scan 1x2500; stage 2 8x9000 on top 25
+  null: identical two-stage best-of-9129 on shuffled text, 5 reps
+
+  scan complete in 138s

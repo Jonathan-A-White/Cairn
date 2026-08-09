@@ -1,0 +1,76 @@
+==============================================================================
+PHONEME-UNIT PROPOSAL — BACK-OF-THE-ENVELOPE (no cipher is searched)
+==============================================================================
+
+  Pitman-style merged inventory: 24 classes
+    ['AA|AO', 'AE|EH', 'AH|UH', 'AY|AW|OY', 'CH/JH', 'EY', 'F/V', 'HH', 'IY|IH', 'K/G', 'L', 'M', 'N', 'NG', 'OW', 'P/B', 'R', 'S/Z', 'SH/ZH', 'T/D', 'TH/DH', 'UW', 'W', 'Y']
+
+  building a phoneme corpus (wordfreq sampling, CMUdict pronunciations)...
+    4,000,000 phonemes, 39 distinct CMUdict phones
+
+------------------------------------------------------------------------------
+Q1 — UNICITY
+------------------------------------------------------------------------------
+
+  conditional entropy of the merged phoneme stream, bits/symbol:
+    H1 (order 0) = 4.211
+    H2 (order 1) = 3.649
+    H3 (order 2) = 3.350
+    H4 (order 3) = 3.098
+    log2(24) = 4.585  (maximum)
+
+  key entropy of a phoneme-MASC over 24 classes: log2(24!) = 79.0 bits
+
+  entropy rate assumed          D = log2(k) - H   unicity    vs 87
+  H2 (order-1)                            0.936      84.4   CLEARS
+  H3 (order-2)                            1.235      64.0   CLEARS
+  H4 (order-3)                            1.487      53.2   CLEARS
+  H4 - 0.3 (optimistic limit)             1.787      44.2   CLEARS
+
+  for comparison, section 6's letter MASC: H(K)=87.4 bits, D=3.20, unicity 27.3
+
+------------------------------------------------------------------------------
+Q2 — DOES PHONEME-ENGLISH SEPARATE FROM ITS SHUFFLED NULL AT n=87?
+------------------------------------------------------------------------------
+
+  87-symbol windows, quadgram log-prob per gram, merged phonemes:
+    real phoneme English : -4.310 +- 0.131
+    order-shuffled       : -6.728 +- 0.309
+    separation           : 2.419/gram   = 10.20 pooled sd
+
+  the same quantity for LETTERS (section 4.1, what makes the letter
+  positive control work): English -4.196 vs shuffled-consensus -5.010,
+  a gap of 0.814/gram.
+
+------------------------------------------------------------------------------
+THE 180-DEGREE = COGNATE CLAIM, CHECKED AGAINST ENGLISH
+------------------------------------------------------------------------------
+
+  If 180-degree rotation encodes the voiced/unvoiced cognate relation, then
+  Dorabella's 13 adjacent mirror pairs are 13 adjacent cognate phoneme pairs.
+
+    adjacent cognate pairs in the phoneme corpus : 18,048 of 3,999,999
+    rate                                         : 0.451%
+    expected in 86 adjacencies                   : 0.39
+    observed mirror pairs                        : 13
+
+    z of 13 against that expectation             : +20.3
+
+------------------------------------------------------------------------------
+THE CONSONANT-SKELETON VARIANT, WHICH THE ARITHMETIC FORCES
+------------------------------------------------------------------------------
+
+  Reading (b) -- cognates as DISTINCT symbols sitting at 180 degrees -- needs
+  all 16 cognate consonants present as separate symbols. With the 8 unpaired
+  consonants that is 24 already, leaving nothing for vowels. So reading (b)
+  forces a consonant-only cipher. That is Pitman-consistent: Pitman outlines
+  are consonant skeletons with vowels as optional dots, and Dorabella has dots.
+  Checked on its own terms:
+
+    consonant skeleton length      : 2,420,039 of 4,000,000 phonemes  (60.5%)
+    adjacent cognate pairs         : 50,204 of 2,420,038  = 2.075%
+    expected in 86 adjacencies     : 1.78
+    observed mirror pairs          : 13     z = +8.5
+    share needed to expect 13      : 15.12%  (section 11.2)
+
+    87 consonants ~ 144 phonemes ~ 44 words
