@@ -7,8 +7,9 @@ Sceptical cryptanalysis of Edward Elgar's cipher of 14 July 1897 (87 symbols in
 characterisation: which hypotheses the evidence supports, which it excludes,
 and which cannot be decided at this length. `REPORT.md` is the findings
 document; start at its Abstract, then §20 (Conclusions) if you want the
-outcome before the derivation — but §20 is the Round-15 conclusion, and
-**§28 carries the revised ledger** after the Round 16–20 follow-up.
+outcome before the derivation — but §20 is the Round-15 conclusion. **§28
+carries the revised ledger** and **§31.4 the current state of the mechanism-side
+space**, after the Round 16–22 follow-up.
 
 If you are here to **audit** rather than read, §20.1 lists every headline claim
 with its section, and the table below maps sections to the script that produced
@@ -44,7 +45,13 @@ should follow them.
    English at n=87 (96%) is what licenses interpreting any solver output at all
    (§4.1). Where the control fails, the family is untestable, not rejected
    (§13.2).
-7. **Documentary claims get primary-source checks.** Three failed (§20.1).
+7. **Documentary claims get primary-source checks.** Three failed (§20.1), and
+   a fourth was this report's own stale ledger entry (§30.2).
+8. **One fitness family is a common-mode assumption.** Every score in §1–§28 is
+   mean quadgram log-probability per gram. §29 varied it and found the deficit
+   replicates — but the rule stands: a result quoted in one estimator's units is
+   untested against the estimator until it is re-scored in another. Prefer the
+   scale-free statistic (§29.4) when comparing across them.
 
 ---
 
@@ -85,6 +92,9 @@ should follow them.
 | §25 | phonetic English: corpus, four-check test, dose curve | `scripts/phonetic.py`, `phonetic_solve.py`, `phonetic_dose.py` |
 | §26 | keyword-mixed Heraldic sweep, legs A and B | `scripts/keyword_sweep.py` |
 | §27 | full columnar sweep, all 46,232 orderings | `scripts/columnar_full.py` |
+| §29 | fitness-family audit (5/6-gram, entropy-weighted, IoC/χ²) | `scripts/fitness_families.py` |
+| §30.1 | phoneme-unit envelope: unicity, band separation, cognate rate | `scripts/phoneme_envelope.py` |
+| §31 | local / short-scale transposition, 9,129 permutations | `scripts/local_transposition.py` |
 
 Run outputs are committed under `out/*.log` — every number in the report can be
 checked against the log that produced it without re-running anything.
@@ -140,6 +150,9 @@ python3 scripts/marco.py            # notebook arc channel (~1 min)
 python3 scripts/phonetic_solve.py   # phonetic English, 4 checks (~40 min)
 python3 scripts/keyword_sweep.py    # keyword-mixed sweep, legs A+B (~50 min)
 python3 scripts/columnar_full.py    # all 46,232 orderings (~45 min, 4 cores)
+python3 scripts/fitness_families.py     # re-score under six fitness families (~12 min)
+python3 scripts/local_transposition.py  # 9,129 local permutations (~15 min, 4 cores)
+python3 scripts/phoneme_envelope.py     # phoneme-unit arithmetic (~1 min)
 ```
 
 **Solver budget** is set per script as `RESTARTS × ITERS`. To compare anything

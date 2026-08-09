@@ -52,6 +52,7 @@ the related Liszt fragment is inconsistent with its 18-symbol length.
 | §13 | conclusions ranked by robustness |
 | §14 | what would actually move this |
 | §23–28 | the fresh-eyes phase: audit, then four experiments — see §28 for the revised ledger |
+| §29–31 | the fitness-family audit, two design reviews, and local transposition — §31.4 for what remains |
 
 Sections 7–19 are kept in the order the work happened, including two
 conclusions that were drawn and later withdrawn (§9 → §10.4), because the
@@ -1804,7 +1805,8 @@ untestable by construction.
 ## 20. Conclusions
 
 > **This section is the Round-15 conclusion and it is not the last word.**
-> Rounds 16–20 (§23–§28) postdate it, and §28 carries the revised ledger. Three
+> Rounds 16–22 (§23–§31) postdate it; §28 carries the revised ledger and §31.4
+> the current state of the mechanism-side space. Three
 > things below have moved: §20.1's family table gains two rows and loses its
 > one "not exhausted" entry (§26, §27); §20.2's hypothesis (2) has had the
 > measurement it rests on called into question (§25.6); and §20.3's open
@@ -2966,3 +2968,103 @@ pairs to +1.87 σ, a dedicated mechanism for producing them no longer earns
 compute. Logged here so the ledger records what was considered and dropped, not
 only what was run. The reasoning is endorsed — it is the same reasoning §17.2
 used to decline Pelling's excision experiment.
+
+---
+
+## 31. Round 22 — local / short-scale transposition
+
+§20.3 named this family and did not run it:
+
+> "…or a transposition confined to a scale shorter than the adjacency window,
+> which would preserve local pairs while disrupting longer n-grams. That last is
+> untested and is the most obviously missing member of the model set."
+
+§27 exhausted the **columnar** family, which is long-range — it moves characters
+tens of positions, destroying bigram adjacency wholesale, which is why §17.3's
+composed model failed. This is its complement. Pre-registered in
+`PREREG-local.md`, with the family fixed and counted before the run.
+
+### 31.1 The family
+
+Block-periodic permutations (window *w* ∈ {2…6}, all of S_w, all offsets),
+the same restarting at the 29/31/27 line boundaries, and strictly-local single
+adjacent swaps at *w* ∈ {7,8}. **10,272 generated, 9,129 distinct.**
+
+**Every member has maximum displacement ≤ 5** — 254 members at 1, 813 at 2,
+2,055 at 3, 3,414 at 4, 2,592 at 5. That bound is what makes the family *local*
+rather than merely small, and it is the property the mechanism requires: bigram
+adjacency largely survives while any quadgram crossing a block boundary is
+destroyed.
+
+Excluded with reasons: rail-fence and zigzag routes are long-range and §16.2
+covered that shape; general bounded-displacement permutations are not
+enumerable (displacement ≤ 1 alone is Fib(88) ≈ 10¹⁸). Procedure is §27's
+two-stage protocol unchanged, with the null running the identical
+best-of-9,129 on shuffled text.
+
+### 31.2 Result — both thresholds fail
+
+| | score/gram |
+|---|---|
+| identity (no transposition), 10 seeds | **−4.726 ± 0.049** (best −4.680, spread 0.142) |
+| scan over all 9,129 | −5.300 ± 0.148 (max −4.722, min −5.819) |
+| **best of family**, `w6 (2,1,5,3,0,4) off4 per-line` | **−4.714** |
+| null: identical two-stage best-of-9,129 on shuffled text, 5 reps | **−4.772 ± 0.074** (max −4.697) |
+| **Q1** z against own null | **+0.79**, p = 0.200 — **FAIL** (bar +2) |
+| **Q2** gain over identity | **−0.033** — **FAIL** (bar > 0.153) |
+
+**Q2 fails in the wrong direction.** The best of 9,129 local transpositions does
+not beat the identity's *best* seed at all; measured against the identity's
+mean it gains 0.012, an eighth of the identity's own seed-to-seed spread. There
+is no effect to interpret.
+
+**Q1 fails too**, so this is not even the carried-by-identity result that §16.2
+and §26.3 produced and that the pre-registration labelled uninformative in
+advance. The family sits at its null.
+
+*Prior scored: I put 12% on both passing and 40% on Q1 passing alone. Neither
+happened.*
+
+### 31.3 One datum worth keeping
+
+**The identity ranked 4,562nd of 9,129 in the cheap scan** — dead median. At
+scan budget, 4,561 local transpositions of the real text score better than not
+transposing it, every one of them by noise. That is the clearest illustration in
+this report of why standing rule 2 exists: a family of this size hands you
+thousands of apparent improvements, and only the identical best-of-9,129 null on
+shuffled text — which lands at −4.772, *above* the observed −4.714 minus its
+spread — tells you they are worth nothing.
+
+A second confirmation falls out. The identity's seed-to-seed spread here is
+**0.142**, against the **0.153** §27.2 measured independently at the same
+budget. §28.4's spread rule is not an artifact of one run.
+
+### 31.4 What this closes
+
+§20.3 named three candidate directions for the mechanism. **All three have now
+been run:**
+
+| §20.3's candidate | outcome |
+|---|---|
+| a substitution key adjacency-preserving by definition but mapping high-frequency bigrams onto low-frequency quadgram contexts — "the §16.1 keyword-mixed Heraldic sweep is the cheapest probe" | swept, §26: leg B's best is 1.26 *worse* than an unconstrained solve |
+| a plaintext whose own quadgram statistics are depressed without disturbing bigram adjacency — "coinage at the §7.4 dose does this, and is the only tested mechanism that could" | phonetic respelling tested and **rejected** with a passing positive control, §25; flat across all doses |
+| a transposition confined below the adjacency window — "the most obviously missing member of the model set" | **rejected**, this round: z = +0.79, gain over identity −0.033 |
+
+**The mechanism-side space §20.3 defined is now empty.** Every direction it
+named has been enumerated or tested, and none accounts for the deficit. Combined
+with §29 — the deficit replicates across six fitness families at 39–81% of the
+English-to-noise span, and is *larger* under longer-window estimators than under
+the one this report uses — the remaining explanations are no longer about the
+*mechanism* at all.
+
+What is left is §28.3's list, now with its mechanism-side entries removed:
+
+1. **The plaintext is not a substitution of any modelable language-like text.**
+   Unchanged and now the only reading with no failed test against it.
+2. **Shared transcription error** (§22): a halftone artifact fooling all three
+   readers identically is invisible to every analysis here, and §12.3 bounded
+   only the reader-*contested* space.
+3. **A unit other than the letter** — the phoneme proposal of §30.1, which
+   clears its envelope and has a point prediction waiting.
+4. **Sectional / sliding-card polyalphabetic**, unchanged: best documentary
+   support, provably underdetermined at n = 87.

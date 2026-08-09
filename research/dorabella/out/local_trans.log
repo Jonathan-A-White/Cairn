@@ -9,3 +9,49 @@ run against PREREG-local.md; family fixed and counted before the run
   null: identical two-stage best-of-9129 on shuffled text, 5 reps
 
   scan complete in 138s
+
+  identity (no transposition), 10 seeds at 8x9000:
+    mean -4.726  sd 0.049  min -4.823  max -4.680
+    section 27.2 measured this spread at 0.153; here it is 0.142
+
+  scan distribution over all 9129:
+    mean -5.300  sd 0.148  max -4.722  min -5.819
+    identity's rank in the scan: 4562 of 9129
+
+  top 10 after full-budget re-solve:
+  rank                             member    score   plaintext
+     1    w6 (2, 1, 5, 3, 0, 4) off4 line   -4.714   KMNORSYOUTDEVICESEEMEMYHCHILARERSTONWHONEDSELCEPERSIDTHATHCANASPINLPAGENDSAPOLAMALSOIHO
+     2     w6 (2, 3, 5, 4, 1, 0) off2 all   -4.743   UCKHALANREIMYSEECHBEITTYECOLLERWASAFTHENWHENERHELMMISTOPROONTSONPIPHONHEWDOWCAMPHATIOWA
+     3        w5 (4, 3, 0, 1, 2) off2 all   -4.774   GRSONEWTHEBUTMYITTRTORLDIDUSTHASPBODENTENTTSOLYACHTOBBYIDANDHAINOCANACKLAYTOCALLEREDOEI
+     4    w6 (5, 4, 3, 2, 1, 0) off4 line   -4.785   WLHAMPARTYCONGOFOLLTOOFSIMINERORTHADPAIGSTHOOUTOFORPPINGEIFEHETUSJUNHEGUTOHEESLASETANIA
+     5     w6 (5, 4, 3, 2, 1, 0) off0 all   -4.792   SWANDGEMPLACEEVETRITEDDSCOMFIPLAISCENEENAHMECRFSTROUSEOMILLINOUSONNOFBUTFORUSEASOFDATIA
+     6     w6 (5, 4, 1, 0, 2, 3) off2 all   -4.802   KCORONGTAMBYDECTHEEELBECALREDSIROULTOYSTENENTERMEDYLIFMAINLYDIFAFTINTESWINCOMFISLAISTOO
+     7    w6 (2, 3, 5, 1, 0, 4) off4 line   -4.808   GFROSOUTBYHIMECETFEEEFULCLINASESTYPROLORTHEENCEDESTILYHAYLCARATDIDNRAVETHRADOFANANTOILO
+     8    w6 (1, 4, 0, 3, 5, 2) off4 line   -4.839   QMPERTHEYGOODICSOMOMORNFINDYAGOGREENUPTOFORSPORGOLDSTANTINDAPARLPWALFIPLARSOFFAMAEREINE
+     9    w6 (0, 4, 1, 2, 3, 5) off4 line   -4.845   WMRSCANUSYHEEDIVEMENMEILTYTHOUEUNTSSAPRELERNDUNEHEGOADITATHORONGOFRIGLOGRENDOLLSMONSITS
+    10        w5 (0, 4, 3, 1, 2) off4 all   -4.852   YMRABLADCHUSWEEDEVEMIUMEHOWINCIDECARALPENDERSEWCEDUSTOIWILLOTDROOFTRUNDEORTANSOMADNOUIA
+
+  best of family     : -4.714  (w6 (2, 1, 5, 3, 0, 4) off4 line)
+  identity best seed : -4.680
+  gain over identity : -0.033   (Q2 bar: > 0.153)
+
+  null — identical two-stage best-of-9129 on shuffled text:
+    rep 1: -4.772
+    rep 2: -4.697
+    rep 3: -4.729
+    rep 4: -4.751
+    rep 5: -4.913
+
+    null mean=-4.772 sd=0.074 max=-4.697
+    observed=-4.714  z=+0.79  p=0.200
+
+  VERDICT AGAINST THE PRE-REGISTRATION
+    Q1  family beats its own null (z >= +2)        : FAIL  (z = +0.79)
+    Q2  gain over identity exceeds its seed spread : FAIL  (-0.033 vs 0.153)
+
+  Both were required. Q1 alone was pre-labelled uninformative: a family-level z carried by the
+  identity member restates section 4 and says nothing about the mechanism.
+
+  Reference: enciphered real English at n=87 is about -4.20/gram.
+  Total runtime 838s.
+
