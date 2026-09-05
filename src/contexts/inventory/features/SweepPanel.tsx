@@ -61,7 +61,7 @@ export function SweepPanel({
   return (
     <Card className="mt-4">
       <h3 className="mb-2 font-semibold">Photo-assisted Sweep</h3>
-      <p className="mb-2 text-sm text-gray-500">
+      <p className="mb-2 text-sm text-cairn-dim">
         Export a request, attach a photo of this place by hand in your Claude
         Project, then import the result.
       </p>
@@ -88,7 +88,7 @@ export function SweepPanel({
       </div>
 
       <details className="mt-2">
-        <summary className="cursor-pointer text-sm text-gray-500">
+        <summary className="cursor-pointer text-sm text-cairn-dim">
           …or paste the result JSON
         </summary>
         <TextArea

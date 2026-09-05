@@ -1,12 +1,15 @@
-// Generates the PNG app icons (a cairn: stacked stones on a dark ground)
-// without any image library, by drawing into an RGBA buffer and encoding a
-// PNG with Node's built-in zlib. Run: node scripts/gen-icons.mjs
+// Generates the PNG app icons (a cairn etched onto a circuit board: stacked
+// stones as neon pads, wired by a trace bus) without any image library, by
+// drawing into an RGBA buffer and encoding a PNG with Node's built-in zlib.
+// Run: node scripts/gen-icons.mjs
 import { deflateSync } from "node:zlib";
 import { writeFileSync, mkdirSync } from "node:fs";
 
-const BG = [31, 41, 55, 255]; // #1f2937
-const STONE_A = [226, 232, 240, 255]; // #e2e8f0
-const STONE_B = [203, 213, 225, 255]; // #cbd5e1
+const BG = [5, 7, 10]; // #05070a substrate
+const GRID = [46, 224, 106]; // grid etch, laid down at low alpha
+const TRACE = [28, 127, 69]; // #1c7f45 resting trace
+const NEON = [46, 224, 106]; // #2ee06a stone outline
+const SOLDER = [125, 255, 176]; // #7dffb0 pad highlight
 
 function crc32(buf) {
   let c = ~0;
@@ -50,39 +53,107 @@ function encodePng(size, pixels) {
   ]);
 }
 
+// --- Geometry, in a 64-unit design space ---
+
+// Stones, bottom to top. Each is drawn as a ring (an etched pad outline)
+// rather than a filled stone, with a via at its centre.
+const STONES = [
+  { cy: 48, rx: 16, ry: 6 },
+  { cy: 38, rx: 12, ry: 5 },
+  { cy: 29, rx: 9, ry: 4.5 },
+  { cy: 21, rx: 6, ry: 3.5 },
+  { cy: 15, rx: 3.5, ry: 2.5 },
+];
+const CX = 32;
+const RING_W = 0.9; // ring thickness in design units
+const TRACE_W = 0.8;
+
+const inEllipseRing = (x, y, s) => {
+  const outer = Math.hypot((x - CX) / s.rx, (y - s.cy) / s.ry);
+  const inner = Math.hypot(
+    (x - CX) / (s.rx - RING_W),
+    (y - s.cy) / (s.ry - RING_W),
+  );
+  return outer <= 1 && inner > 1;
+};
+
+const inDisc = (x, y, cx, cy, r) => Math.hypot(x - cx, y - cy) <= r;
+
+const inVSeg = (x, y, cx, y0, y1) =>
+  Math.abs(x - cx) <= TRACE_W / 2 && y >= y0 && y <= y1;
+
+const inHSeg = (x, y, cy, x0, x1) =>
+  Math.abs(y - cy) <= TRACE_W / 2 && x >= Math.min(x0, x1) && x <= Math.max(x0, x1);
+
+/** The bus rising through the stack, plus a lead off each stone to a via. */
+function inTrace(x, y) {
+  if (inVSeg(x, y, CX, 15, 50)) return true;
+  // Alternating leads: right, left, right, left — each ending at a via pad.
+  const leads = [
+    { cy: 48, to: 56 },
+    { cy: 38, to: 10 },
+    { cy: 29, to: 52 },
+    { cy: 21, to: 16 },
+  ];
+  return leads.some((l) => inHSeg(x, y, l.cy, CX, l.to));
+}
+
+function inVia(x, y) {
+  const vias = [
+    { x: 56, y: 48 },
+    { x: 10, y: 38 },
+    { x: 52, y: 29 },
+    { x: 16, y: 21 },
+  ];
+  return vias.some((v) => inDisc(x, y, v.x, v.y, 1.9));
+}
+
+/** The etched routing grid behind everything, on an 8-unit pitch. */
+function inGrid(x, y) {
+  const near = (v) => Math.abs(v - Math.round(v / 8) * 8) <= 0.22;
+  return near(x) || near(y);
+}
+
 function draw(size) {
   const px = Buffer.alloc(size * size * 4);
-  const set = (x, y, c) => {
-    if (x < 0 || y < 0 || x >= size || y >= size) return;
-    const i = (y * size + x) * 4;
-    px[i] = c[0];
-    px[i + 1] = c[1];
-    px[i + 2] = c[2];
-    px[i + 3] = c[3];
-  };
-  // background
-  for (let y = 0; y < size; y++)
-    for (let x = 0; x < size; x++) set(x, y, BG);
-  // five stacked stones (proportional to a 64-unit design)
-  const stones = [
-    { cy: 48, rx: 16, ry: 6, c: STONE_B },
-    { cy: 38, rx: 12, ry: 5, c: STONE_A },
-    { cy: 29, rx: 9, ry: 4.5, c: STONE_B },
-    { cy: 21, rx: 6, ry: 3.5, c: STONE_A },
-    { cy: 15, rx: 3.5, ry: 2.5, c: STONE_B },
-  ];
-  const s = size / 64;
-  const cx = 32 * s;
-  for (const st of stones) {
-    const ecy = st.cy * s;
-    const erx = st.rx * s;
-    const ery = st.ry * s;
-    for (let y = Math.floor(ecy - ery); y <= Math.ceil(ecy + ery); y++) {
-      for (let x = Math.floor(cx - erx); x <= Math.ceil(cx + erx); x++) {
-        const dx = (x - cx) / erx;
-        const dy = (y - ecy) / ery;
-        if (dx * dx + dy * dy <= 1) set(x, y, st.c);
+  const SS = 3; // supersampling factor, for antialiased curves
+  const u = 64 / size; // pixels → design units
+
+  for (let py = 0; py < size; py++) {
+    for (let pxi = 0; pxi < size; pxi++) {
+      // Accumulate coverage per layer across the subsample grid.
+      let grid = 0,
+        trace = 0,
+        ring = 0,
+        via = 0;
+      for (let sy = 0; sy < SS; sy++) {
+        for (let sx = 0; sx < SS; sx++) {
+          const x = (pxi + (sx + 0.5) / SS) * u;
+          const y = (py + (sy + 0.5) / SS) * u;
+          if (inGrid(x, y)) grid++;
+          if (inTrace(x, y)) trace++;
+          if (STONES.some((s) => inEllipseRing(x, y, s))) ring++;
+          if (inVia(x, y)) via++;
+        }
       }
+      const n = SS * SS;
+      // Composite back-to-front onto the substrate.
+      let [r, g, b] = BG;
+      const over = (c, a) => {
+        r = r + (c[0] - r) * a;
+        g = g + (c[1] - g) * a;
+        b = b + (c[2] - b) * a;
+      };
+      over(GRID, (grid / n) * 0.1);
+      over(TRACE, trace / n);
+      over(NEON, ring / n);
+      over(SOLDER, via / n);
+
+      const i = (py * size + pxi) * 4;
+      px[i] = Math.round(r);
+      px[i + 1] = Math.round(g);
+      px[i + 2] = Math.round(b);
+      px[i + 3] = 255;
     }
   }
   return px;

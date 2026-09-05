@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "../../../app/ui";
+import { Button, Select } from "../../../app/ui";
 import { useAsync } from "../../../app/useAsync";
 import { personRepository } from "../../../shared/data/personRepository";
 import { placeRepository } from "../data/placeRepository";
@@ -59,8 +59,7 @@ export function PlacementActions({
           Actually at…
         </Button>
         {persons.data && persons.data.length > 0 && (
-          <select
-            className="rounded-lg border border-gray-300 px-2 py-2"
+          <Select
             value={by}
             onChange={(e) => setBy(e.target.value)}
             aria-label="Who is verifying"
@@ -71,12 +70,12 @@ export function PlacementActions({
                 {p.name}
               </option>
             ))}
-          </select>
+          </Select>
         )}
       </div>
       {redirecting && (
-        <select
-          className="w-full rounded-lg border border-gray-300 px-3 py-2"
+        <Select
+          className="w-full"
           defaultValue=""
           onChange={(e) => e.target.value && redirect(e.target.value)}
           aria-label="Move to place"
@@ -87,7 +86,7 @@ export function PlacementActions({
               {p.path}
             </option>
           ))}
-        </select>
+        </Select>
       )}
     </div>
   );

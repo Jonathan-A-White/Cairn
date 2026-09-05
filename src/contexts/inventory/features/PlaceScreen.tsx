@@ -13,7 +13,7 @@ import { placeRepository } from "../data/placeRepository";
 import { itemRepository } from "../data/itemRepository";
 import { placementRepository } from "../data/placementRepository";
 import { addSweptItems } from "../core/sweep";
-import { indexById, pathOf } from "../core/tree";
+import { indexById, PATH_SEPARATOR, pathOf } from "../core/tree";
 import { PlacementActions } from "./PlacementActions";
 import { SweepPanel } from "./SweepPanel";
 import type { Place, PlaceType } from "../contracts/types";
@@ -94,10 +94,23 @@ export function PlaceScreen() {
 
   return (
     <Screen title={place.name}>
-      <p className="mb-4 text-sm text-gray-500">{path}</p>
+      {/* The breadcrumb is the signal path down the tree: segments as nodes,
+          the separator as the trace between them. */}
+      <p className="mb-4 flex flex-wrap items-center gap-1.5 text-sm text-cairn-dim">
+        {path.split(PATH_SEPARATOR).map((segment, i) => (
+          <span key={i} className="flex items-center gap-1.5">
+            {i > 0 && (
+              <span aria-hidden className="text-cairn-neon-soft">
+                ─●─
+              </span>
+            )}
+            {segment}
+          </span>
+        ))}
+      </p>
 
       <section className="mb-6">
-        <h2 className="mb-2 text-sm font-semibold uppercase text-gray-500">
+        <h2 className="mb-2 border-l-2 border-cairn-neon-soft pl-2 text-sm font-semibold uppercase tracking-[0.15em] text-cairn-dim">
           Inside ({childType}s)
         </h2>
         <div className="mb-2 flex gap-2">
@@ -112,12 +125,12 @@ export function PlaceScreen() {
         {children.length === 0 ? (
           <EmptyHint>No {childType}s here yet.</EmptyHint>
         ) : (
-          <div className="space-y-2">
+          <div className="trace-branch space-y-2">
             {children.map((child) => (
-              <Link key={child.id} to={`/place/${child.id}`}>
+              <Link key={child.id} to={`/place/${child.id}`} className="block">
                 <Card className="tap-hover flex items-center justify-between">
                   <span>{child.name}</span>
-                  <span className="text-gray-400">›</span>
+                  <span className="text-cairn-neon-soft">›</span>
                 </Card>
               </Link>
             ))}
@@ -126,7 +139,7 @@ export function PlaceScreen() {
       </section>
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold uppercase text-gray-500">
+        <h2 className="mb-2 border-l-2 border-cairn-neon-soft pl-2 text-sm font-semibold uppercase tracking-[0.15em] text-cairn-dim">
           Items kept here
         </h2>
         <div className="mb-2 flex gap-2">

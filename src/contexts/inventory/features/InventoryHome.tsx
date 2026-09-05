@@ -35,12 +35,12 @@ export function InventoryHome() {
         </EmptyHint>
       )}
 
-      <div className="space-y-2">
+      <div className="trace-branch space-y-2">
         {floors.data?.map((floor) => (
-          <Link key={floor.id} to={`/place/${floor.id}`}>
+          <Link key={floor.id} to={`/place/${floor.id}`} className="block">
             <Card className="tap-hover flex items-center justify-between">
               <span className="font-medium">{floor.name}</span>
-              <span className="text-gray-400">›</span>
+              <span className="text-cairn-neon-soft">›</span>
             </Card>
           </Link>
         ))}

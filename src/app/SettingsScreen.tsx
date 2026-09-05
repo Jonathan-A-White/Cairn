@@ -42,7 +42,7 @@ export function SettingsScreen() {
     <Screen title="Settings">
       <Card className="mb-4">
         <h2 className="mb-2 font-semibold">Snapshot sync</h2>
-        <p className="mb-3 text-sm text-gray-500">
+        <p className="mb-3 text-sm text-cairn-dim">
           v1 syncs by file: export the whole store on one device and import it on
           another. Importing replaces this device's data (last import wins).
         </p>
@@ -59,7 +59,7 @@ export function SettingsScreen() {
             onChange={onImportFile}
           />
         </div>
-        {message && <p className="mt-3 text-sm text-green-700">{message}</p>}
+        {message && <p className="mt-3 text-sm text-cairn-neon">{message}</p>}
         {error && (
           <div className="mt-3">
             <ErrorNote>{error}</ErrorNote>
@@ -69,11 +69,11 @@ export function SettingsScreen() {
 
       <Card>
         <h2 className="mb-1 font-semibold">About</h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-cairn-dim">
           Cairn — a cairn for the home. Offline-first; your data stays on this
           device.
         </p>
-        <p className="mt-2 text-sm text-gray-400">Version {__APP_VERSION__}</p>
+        <p className="mt-2 text-sm text-cairn-dim">Version {__APP_VERSION__}</p>
       </Card>
     </Screen>
   );
