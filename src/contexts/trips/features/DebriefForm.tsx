@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, TextArea } from "../../../app/ui";
+import { Button, Card, Select, TextArea } from "../../../app/ui";
 import { completeDebrief, type DebriefAnswer } from "../core/debrief";
 import type { NoteScopeType } from "../contracts/types";
 
@@ -57,7 +57,7 @@ export function DebriefForm({
   return (
     <Card>
       <h2 className="mb-1 font-semibold">Debrief</h2>
-      <p className="mb-3 text-sm text-gray-500">
+      <p className="mb-3 text-sm text-cairn-dim">
         Capture what you learned. Each answer is saved as a Travel Note under the
         scope you confirm.
       </p>
@@ -71,8 +71,8 @@ export function DebriefForm({
               value={answers[i].text}
               onChange={(e) => update(i, { text: e.target.value })}
             />
-            <select
-              className="mt-1 w-full rounded-lg border border-gray-300 px-2 py-2"
+            <Select
+              className="mt-1 w-full"
               value={answers[i].scopeKey}
               onChange={(e) => update(i, { scopeKey: e.target.value })}
               aria-label="Note scope"
@@ -82,7 +82,7 @@ export function DebriefForm({
                   {opt.label}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
         ))}
       </div>

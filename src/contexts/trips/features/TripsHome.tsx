@@ -37,15 +37,17 @@ export function TripsHome() {
           No trips yet. Plan an already-decided trip to get started.
         </EmptyHint>
       )}
-      <div className="space-y-2">
+      <div className="trace-branch space-y-2">
         {trips.data?.map(({ trip, destination, kind }) => (
-          <Link key={trip.id} to={`/trips/${trip.id}`}>
+          <Link key={trip.id} to={`/trips/${trip.id}`} className="block">
             <Card className="tap-hover">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{destination}</span>
-                <span className="text-xs text-gray-400">{kind}</span>
+                <span className="rounded border border-cairn-trace px-1.5 py-0.5 text-xs uppercase tracking-widest text-cairn-neon-soft">
+                  {kind}
+                </span>
               </div>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-cairn-dim">
                 {trip.startDate} → {trip.endDate} · {trip.travellerIds.length}{" "}
                 traveller{trip.travellerIds.length === 1 ? "" : "s"}
               </p>

@@ -12,19 +12,39 @@ export function Layout() {
   return (
     <div className="min-h-full">
       <Outlet />
-      <nav className="bottom-nav app-chrome fixed inset-x-0 bottom-0 z-10 flex border-t border-gray-200 bg-white">
+      {/* The nav reads as a board edge connector: a lit bus along the top rule,
+          each tab a contact finger that energises when active. */}
+      <nav className="bottom-nav app-chrome fixed inset-x-0 bottom-0 z-10 flex border-t border-cairn-trace bg-cairn-panel">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-cairn-neon to-transparent opacity-60"
+        />
         {tabs.map((tab) => (
           <NavLink
             key={tab.to}
             to={tab.to}
             end={tab.end}
             className={({ isActive }) =>
-              `flex flex-1 flex-col items-center py-2 text-xs ${
-                isActive ? "font-semibold text-cairn-ink" : "text-gray-500"
+              `relative flex flex-1 flex-col items-center gap-1 py-2 text-[0.65rem] uppercase tracking-[0.15em] transition-colors ${
+                isActive
+                  ? "glow font-semibold text-cairn-neon"
+                  : "text-cairn-dim"
               }`
             }
           >
-            {tab.label}
+            {({ isActive }) => (
+              <>
+                <span
+                  aria-hidden
+                  className={`h-1 w-1 rounded-full transition-all ${
+                    isActive
+                      ? "animate-pad-pulse bg-cairn-neon shadow-emit"
+                      : "bg-cairn-trace"
+                  }`}
+                />
+                {tab.label}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

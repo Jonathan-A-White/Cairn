@@ -4,6 +4,12 @@
 
 /* --- Native-feel + PWA shell (see docs/pwa-best-practices.md) --- */
 
+:root {
+  /* Native widgets (date pickers, scrollbars, checkboxes) render dark. */
+  color-scheme: dark;
+  accent-color: theme("colors.cairn.neon");
+}
+
 html,
 body {
   margin: 0;
@@ -12,22 +18,65 @@ body {
   overflow: hidden;
   /* Disable pull-to-refresh and overscroll glow/bounce */
   overscroll-behavior: none;
-  background-color: theme("colors.cairn.bg");
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  background-color: theme("colors.cairn.void");
+  color: theme("colors.cairn.ink");
+  font-family: theme("fontFamily.mono");
 }
 
 #root {
   height: 100svh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background-color: theme("colors.cairn.bg");
+  background-color: theme("colors.cairn.void");
+  /* The etched substrate rides on the scroll container itself: #root paints an
+     opaque background, so a layer behind it on <body> would never show. Fixed
+     attachment keeps the grid still while content scrolls over it. */
+  background-image:
+    radial-gradient(
+      120% 80% at 50% -10%,
+      rgba(46, 224, 106, 0.09),
+      transparent 60%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(46, 224, 106, 0.05) 0px,
+      rgba(46, 224, 106, 0.05) 1px,
+      transparent 1px,
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(46, 224, 106, 0.05) 0px,
+      rgba(46, 224, 106, 0.05) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+  background-attachment: fixed;
   /* Safe-area padding on the outermost container (notch / home indicator) */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+/* --- The board --- */
+
+/* Scanlines: a single-pixel comb over everything, kept below the threshold of
+   noticing. It sits above the content (nothing to occlude it) and never takes
+   a pointer event. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.09) 0px,
+    rgba(0, 0, 0, 0.09) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }
 
 * {
@@ -63,6 +112,24 @@ textarea {
   font-size: 16px;
 }
 
+::placeholder {
+  color: theme("colors.cairn.dim");
+  opacity: 1;
+}
+
+/* Native selects can't take Tailwind's full treatment, so they're themed here
+   and only sized at the call site. */
+select {
+  background-color: theme("colors.cairn.panel");
+  color: theme("colors.cairn.ink");
+  border: 1px solid theme("colors.cairn.trace");
+  border-radius: theme("borderRadius.lg");
+  outline: none;
+}
+select:focus {
+  border-color: theme("colors.cairn.neon");
+}
+
 /* Fixed bottom navigation needs its own safe-area inset */
 .bottom-nav {
   padding-bottom: env(safe-area-inset-bottom);
@@ -71,9 +138,114 @@ textarea {
 /* Sticky-hover guard: only apply hover on devices that truly hover */
 @media (hover: hover) {
   .tap-hover:hover {
-    background-color: theme("colors.gray.100");
+    background-color: theme("colors.cairn.panel-alt");
+    border-color: theme("colors.cairn.neon-soft");
   }
 }
 .tap-hover:active {
-  background-color: theme("colors.gray.200");
+  background-color: theme("colors.cairn.panel-alt");
+  border-color: theme("colors.cairn.neon");
+}
+
+/* --- Circuit motifs --- */
+
+/* A panel etched onto the board: hairline trace border with solder pads at
+   the corners. The pads are one pseudo-element carrying four radial dots. */
+.etched {
+  position: relative;
+}
+.etched::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      circle 2px at 0 0,
+      theme("colors.cairn.neon-soft") 98%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 100% 0,
+      theme("colors.cairn.neon-soft") 98%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 0 100%,
+      theme("colors.cairn.neon-soft") 98%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle 2px at 100% 100%,
+      theme("colors.cairn.neon-soft") 98%,
+      transparent 100%
+    );
+  background-repeat: no-repeat;
+  opacity: 0.7;
+}
+
+/* Text that reads as emitting rather than printed. Used sparingly — titles,
+   the active tab, primary numerals. */
+.glow {
+  text-shadow: 0 0 8px rgba(46, 224, 106, 0.55);
+}
+
+/* Tree levels drawn as routed traces: a bus rail down the left with an elbow
+   and a via into each node. Applies to the direct children of the list. */
+.trace-branch {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.trace-branch::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    theme("colors.cairn.trace") 0%,
+    theme("colors.cairn.trace") 82%,
+    transparent 100%
+  );
+}
+.trace-branch > * {
+  position: relative;
+}
+/* elbow: rail → node */
+.trace-branch > *::before {
+  content: "";
+  position: absolute;
+  left: -0.95rem;
+  top: 1.45rem;
+  width: 0.95rem;
+  height: 1px;
+  background: theme("colors.cairn.trace");
+}
+/* via: the pad where the trace lands */
+.trace-branch > *::after {
+  content: "";
+  position: absolute;
+  left: -1.1rem;
+  top: calc(1.45rem - 2px);
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: theme("colors.cairn.neon-soft");
+  box-shadow: 0 0 6px rgba(46, 224, 106, 0.6);
+}
+
+/* Motion is ornamental everywhere it appears — drop it wholesale when the
+   device asks, including the scanline comb. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  body::after {
+    display: none;
+  }
 }

@@ -1,9 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#1f2937" />
-  <!-- a cairn: stacked stones -->
-  <ellipse cx="32" cy="48" rx="16" ry="6" fill="#cbd5e1" />
-  <ellipse cx="32" cy="38" rx="12" ry="5" fill="#e2e8f0" />
-  <ellipse cx="32" cy="29" rx="9" ry="4.5" fill="#cbd5e1" />
-  <ellipse cx="32" cy="21" rx="6" ry="3.5" fill="#e2e8f0" />
-  <ellipse cx="32" cy="15" rx="3.5" ry="2.5" fill="#cbd5e1" />
+  <rect width="64" height="64" rx="12" fill="#05070a" />
+  <!-- etched routing grid -->
+  <g stroke="#2ee06a" stroke-width="0.45" opacity="0.1">
+    <path d="M8 0V64M16 0V64M24 0V64M32 0V64M40 0V64M48 0V64M56 0V64" />
+    <path d="M0 8H64M0 16H64M0 24H64M0 32H64M0 40H64M0 48H64M0 56H64" />
+  </g>
+  <!-- the bus rising through the stack, with a lead off each stone -->
+  <g stroke="#1c7f45" stroke-width="0.8" fill="none">
+    <path d="M32 50V15" />
+    <path d="M32 48H56M32 38H10M32 29H52M32 21H16" />
+  </g>
+  <!-- a cairn: stacked stones as etched pads -->
+  <g fill="none" stroke="#2ee06a" stroke-width="0.9">
+    <ellipse cx="32" cy="48" rx="15.5" ry="5.5" />
+    <ellipse cx="32" cy="38" rx="11.5" ry="4.5" />
+    <ellipse cx="32" cy="29" rx="8.5" ry="4" />
+    <ellipse cx="32" cy="21" rx="5.5" ry="3" />
+    <ellipse cx="32" cy="15" rx="3" ry="2" />
+  </g>
+  <!-- vias where the leads land -->
+  <g fill="#7dffb0">
+    <circle cx="56" cy="48" r="1.9" />
+    <circle cx="10" cy="38" r="1.9" />
+    <circle cx="52" cy="29" r="1.9" />
+    <circle cx="16" cy="21" r="1.9" />
+  </g>
 </svg>

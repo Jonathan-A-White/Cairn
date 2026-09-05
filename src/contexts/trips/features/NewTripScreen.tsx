@@ -63,7 +63,7 @@ export function NewTripScreen() {
     <Screen title="New trip">
       <Card className="space-y-3">
         <label className="block">
-          <span className="text-sm text-gray-600">Destination</span>
+          <span className="text-sm text-cairn-dim">Destination</span>
           <TextInput
             list="destination-list"
             placeholder="e.g. Norman's house"
@@ -78,7 +78,7 @@ export function NewTripScreen() {
         </label>
 
         <label className="block">
-          <span className="text-sm text-gray-600">Trip kind</span>
+          <span className="text-sm text-cairn-dim">Trip kind</span>
           <TextInput
             list="kind-list"
             placeholder="e.g. family visit, camping"
@@ -94,7 +94,7 @@ export function NewTripScreen() {
 
         <div className="flex gap-2">
           <label className="block flex-1">
-            <span className="text-sm text-gray-600">Start</span>
+            <span className="text-sm text-cairn-dim">Start</span>
             <TextInput
               type="date"
               value={startDate}
@@ -102,7 +102,7 @@ export function NewTripScreen() {
             />
           </label>
           <label className="block flex-1">
-            <span className="text-sm text-gray-600">End</span>
+            <span className="text-sm text-cairn-dim">End</span>
             <TextInput
               type="date"
               value={endDate}
@@ -112,9 +112,9 @@ export function NewTripScreen() {
         </div>
 
         <div>
-          <span className="text-sm text-gray-600">Travellers</span>
+          <span className="text-sm text-cairn-dim">Travellers</span>
           {options.data && options.data.persons.length === 0 ? (
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-cairn-dim">
               Add household members on the People tab first.
             </p>
           ) : (

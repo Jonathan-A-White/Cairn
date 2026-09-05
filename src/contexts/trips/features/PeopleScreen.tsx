@@ -57,7 +57,7 @@ export function PeopleScreen() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label className="block text-sm text-gray-600">
+          <label className="block text-sm text-cairn-dim">
             Birthdate (optional)
             <TextInput
               type="date"
@@ -87,10 +87,10 @@ export function PeopleScreen() {
 
       <Card className="mt-6">
         <h2 className="mb-2 font-semibold">Household travel notes</h2>
-        <p className="mb-2 text-sm text-gray-500">
+        <p className="mb-2 text-sm text-cairn-dim">
           Knowledge that applies to every trip; bundled into each Plan Request.
         </p>
-        <ul className="mb-2 list-disc pl-5 text-sm text-gray-700">
+        <ul className="mb-2 list-disc pl-5 text-sm text-cairn-ink">
           {view.data?.household.map((n) => <li key={n.id}>{n.text}</li>)}
         </ul>
         <div className="flex gap-2">
@@ -144,7 +144,7 @@ function PersonCard({
     <Card>
       <h3 className="mb-2 font-semibold">{person.name}</h3>
       <div className="space-y-2">
-        <label className="block text-sm text-gray-600">
+        <label className="block text-sm text-cairn-dim">
           Dietary needs (treated as hard constraints)
           <TextInput
             value={dietary}
@@ -152,7 +152,7 @@ function PersonCard({
             placeholder="e.g. low-FODMAP"
           />
         </label>
-        <label className="block text-sm text-gray-600">
+        <label className="block text-sm text-cairn-dim">
           Packing quirks (comma-separated)
           <TextInput
             value={quirks}
@@ -167,7 +167,7 @@ function PersonCard({
 
       <div className="mt-3">
         <span className="text-sm font-medium">Notes about {person.name}</span>
-        <ul className="mb-2 list-disc pl-5 text-sm text-gray-700">
+        <ul className="mb-2 list-disc pl-5 text-sm text-cairn-ink">
           {notes.map((n) => <li key={n.id}>{n.text}</li>)}
         </ul>
         <div className="flex gap-2">

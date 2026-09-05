@@ -132,7 +132,7 @@ export function TripScreen() {
 
   return (
     <Screen title={destinationName}>
-      <p className="mb-4 text-sm text-gray-500">
+      <p className="mb-4 text-sm text-cairn-dim">
         {trip.startDate} → {trip.endDate} · {kindName} ·{" "}
         {view.data.travellerNames.join(", ")}
       </p>
@@ -142,7 +142,7 @@ export function TripScreen() {
         <div className="flex flex-wrap gap-2">
           <Button onClick={exportPlanRequest}>Export Plan Request</Button>
           <label>
-            <span className="inline-block cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium tap-hover">
+            <span className="inline-block cursor-pointer rounded-lg border border-cairn-trace bg-cairn-panel px-4 py-2 font-medium tap-hover">
               Import Trip Plan
             </span>
             <input
@@ -154,7 +154,7 @@ export function TripScreen() {
           </label>
         </div>
         <details className="mt-2">
-          <summary className="cursor-pointer text-sm text-gray-500">
+          <summary className="cursor-pointer text-sm text-cairn-dim">
             …or paste the Trip Plan JSON
           </summary>
           <TextArea
@@ -174,7 +174,7 @@ export function TripScreen() {
       {pending && (
         <Card className="mb-4">
           <h3 className="mb-2 font-semibold">Confirm the Packing List</h3>
-          <p className="mb-2 text-sm text-gray-500">
+          <p className="mb-2 text-sm text-cairn-dim">
             AI output is fallible — edit before saving.
           </p>
           <div className="space-y-2">
@@ -195,7 +195,7 @@ export function TripScreen() {
                     )
                   }
                 />
-                <span className="whitespace-nowrap text-xs text-gray-400">
+                <span className="whitespace-nowrap text-xs text-cairn-dim">
                   {entry.assignedTo ?? "shared"}
                 </span>
                 <Button
@@ -239,11 +239,11 @@ export function TripScreen() {
                   checked={entry.checked}
                   onChange={(e) => toggleChecked(i, e.target.checked)}
                 />
-                <span className={entry.checked ? "line-through text-gray-400" : ""}>
+                <span className={entry.checked ? "line-through text-cairn-dim" : ""}>
                   {entry.item}
                 </span>
                 {entry.assignedTo && (
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-cairn-dim">
                     — {entry.assignedTo}
                   </span>
                 )}
@@ -254,7 +254,7 @@ export function TripScreen() {
           {plan.sections.map((section, i) => (
             <section key={i} className="mt-4">
               <h3 className="font-semibold">{section.title}</h3>
-              <p className="user-content whitespace-pre-wrap text-sm text-gray-700">
+              <p className="user-content whitespace-pre-wrap text-sm text-cairn-ink">
                 {section.body}
               </p>
             </section>
@@ -265,7 +265,7 @@ export function TripScreen() {
       {endPassed &&
         (debriefed ? (
           <Card>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-cairn-dim">
               This trip has been debriefed. Its notes feed your next Plan Request.
             </p>
           </Card>

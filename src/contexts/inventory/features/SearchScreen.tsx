@@ -30,20 +30,20 @@ export function SearchScreen() {
               <div className="flex items-baseline justify-between">
                 <span className="font-medium">{result.item.name}</span>
                 {result.item.aliases.length > 0 && (
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-cairn-dim">
                     also: {result.item.aliases.join(", ")}
                   </span>
                 )}
               </div>
               {result.placements.length === 0 ? (
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-cairn-dim">
                   Not placed anywhere yet.
                 </p>
               ) : (
                 <div className="mt-1 space-y-2">
                   {result.placements.map((pl) => (
                     <div key={pl.placementId}>
-                      <p className="text-sm text-gray-700">{pl.path}</p>
+                      <p className="text-sm text-cairn-ink">{pl.path}</p>
                       <PlacementActions
                         placementId={pl.placementId}
                         onChange={results.reload}
