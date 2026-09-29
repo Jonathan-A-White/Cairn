@@ -95,6 +95,8 @@ tree node; `parentId` null = a Floor. **Travel Notes** carry a `text` field;
 - **Confirm before persist**: a Trip Plan's packing list and a Sweep Result's
   items are AI-fallible — show them for confirm/edit before writing to Dexie.
 - The photo for a sweep is **never imported or stored** — it travels by hand.
+  (ADR-0004 adds the factory path: the photo stays on the phone only until its
+  Sweep Result is confirmed, and is never stored on a Place or in a snapshot.)
 
 ## Feature acceptance criteria (Gherkin)
 
@@ -199,7 +201,8 @@ Each step ends green (typecheck + tests pass) before the next:
 
 ## Out of scope for v1 (do not build)
 
-Quantities/stock counts; stored photos; real-time sync or any backend/API key;
+Quantities/stock counts; stored photos; real-time sync or any backend/API key
+(except the factory path ADR-0004 adds for photo Sweeps: no API key, still);
 destination suggestions; non-household guests; a drawn floor-plan/map. These are
 deliberate (see the ADRs and glossaries) — don't gold-plate them.
 
