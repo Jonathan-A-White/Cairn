@@ -64,6 +64,12 @@ travelling by hand and never stored — ADR-0003). The importer strips code
 fences and validates hard. The bridge sits behind the provider seam so a real
 API can replace it later.
 
+Since ADR-0004 the photo-assisted Sweep has a second, asynchronous provider:
+the household's factory, reached through Postern's licensed backend with a key
+of the phone's own (Sweep Request/Result 1.1, the `grinds/sweep.json` grind).
+The photo is kept on the phone only until its Sweep Result is confirmed. The
+manual file bridge stays as the fallback, and Trip Plans still use it.
+
 ## Conventions inherited from SpellForge
 
 - Repository pattern — UI never touches Dexie directly.
@@ -80,7 +86,10 @@ API can replace it later.
   per device; cross-device sync is a manual snapshot file (accepted).
 - [ADR-0003](./docs/adr/0003-photo-assisted-sweep-transient-photos.md) —
   photo-assisted Sweep rides the manual bridge; photos transient, never stored
-  (accepted).
+  (accepted; the photo rule superseded for the factory path by ADR-0004).
+- [ADR-0004](./docs/adr/0004-photo-sweeps-through-the-factory.md) — photo
+  Sweeps go through the household's factory, asynchronously; the photo stays on
+  the phone only until confirmed (accepted).
 
 ## Build artifacts
 

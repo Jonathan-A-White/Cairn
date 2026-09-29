@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/inventory/sweep-request/1.1",
+  "title": "Sweep Request 1.1",
+  "description": "Sent by the app with one or more photos of one Place to the household's factory (ADR-0004), which answers with a Sweep Result 1.1. The manual Project round-trip keeps using 1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requestType", "place"],
+  "properties": {
+    "schemaVersion": { "const": "1.1" },
+    "requestType": { "const": "sweep" },
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Full Home Tree path of the target Place, e.g. 'Attic -> eaves closet -> blue bin'."
+        }
+      }
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional free-text note from the person about what to focus on in the photo."
+    },
+    "knownItems": {
+      "type": "array",
+      "description": "Names of the Items already kept at this Place, so the answer reuses the household's words rather than inventing near-duplicates.",
+      "maxItems": 300,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "knownContainers": {
+      "type": "array",
+      "description": "Names of the Containers already inside this Place, so a Container seen in the photo is matched rather than proposed twice.",
+      "maxItems": 100,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

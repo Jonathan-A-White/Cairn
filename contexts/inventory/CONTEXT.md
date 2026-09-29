@@ -41,12 +41,15 @@ household first fills the Home Tree. _Avoid_: bulk add, import, audit
 
 **Sweep Request**: The exported instructions for one photo-assisted Sweep —
 the target Place plus the result schema — alongside which the user attaches
-the photo by hand in the Claude Project; the photo never enters the app.
-_Avoid_: photo upload, scan
+the photo by hand in the Claude Project; the photo never enters the app. Since
+ADR-0004 a Sweep Request 1.1 can instead travel to the household's factory with
+the photos, carrying the Place's known Item and Container names; the photos stay
+on the phone only until the Sweep Result is confirmed. _Avoid_: photo upload, scan
 
 **Sweep Result**: The JSON list of Items the Project extracted from the photo,
-imported into the target Place after the user confirms or edits it. _Avoid_:
-scan result, detection
+imported into the target Place after the user confirms or edits it. From the
+factory (1.1) it may also mark Items unsure, carry a note, and propose Containers
+seen inside the Place with their own Items. _Avoid_: scan result, detection
 
 **Verification**: A Person's one-tap report against a Placement — confirming it
 (*found it*), refuting it (*not here*), or redirecting it (*actually at…*) —
