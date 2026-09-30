@@ -1,17 +1,33 @@
 import { useRef, useState } from "react";
-import { Button, Card, ErrorNote, Screen } from "./ui";
+import { Button, Card, ErrorNote, Screen, Select } from "./ui";
 import { downloadJson, readFileText } from "../bridge/file";
 import {
   exportSnapshot,
   importSnapshotJson,
   SnapshotError,
 } from "../shared/data/snapshot";
+import {
+  readSweepGrind,
+  SWEEP_EFFORTS,
+  SWEEP_MODELS,
+  writeSweepGrind,
+  type SweepGrind,
+} from "../bridge/sweepGrind";
+
+const label = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** About + the manual snapshot sync UI (ADR-0002). */
 export function SettingsScreen() {
   const fileInput = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [grind, setGrind] = useState<SweepGrind>(readSweepGrind);
+
+  function onGrind(change: Partial<SweepGrind>) {
+    const next = { ...grind, ...change };
+    writeSweepGrind(next);
+    setGrind(next);
+  }
 
   async function onExport() {
     setError(null);
@@ -65,6 +81,45 @@ export function SettingsScreen() {
             <ErrorNote>{error}</ErrorNote>
           </div>
         )}
+      </Card>
+
+      <Card className="mb-4">
+        <h2 className="mb-2 font-semibold">Photo sweeps</h2>
+        <p className="mb-3 text-sm text-cairn-dim">
+          Used for each photo sent to the factory. Higher costs more fuel.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <label className="flex flex-col gap-1 text-sm text-cairn-dim">
+            Model
+            <Select
+              value={grind.model}
+              onChange={(e) =>
+                onGrind({ model: e.target.value as SweepGrind["model"] })
+              }
+            >
+              {SWEEP_MODELS.map((m) => (
+                <option key={m} value={m}>
+                  {label(m)}
+                </option>
+              ))}
+            </Select>
+          </label>
+          <label className="flex flex-col gap-1 text-sm text-cairn-dim">
+            Effort
+            <Select
+              value={grind.effort}
+              onChange={(e) =>
+                onGrind({ effort: e.target.value as SweepGrind["effort"] })
+              }
+            >
+              {SWEEP_EFFORTS.map((f) => (
+                <option key={f} value={f}>
+                  {label(f)}
+                </option>
+              ))}
+            </Select>
+          </label>
+        </div>
       </Card>
 
       <Card>
