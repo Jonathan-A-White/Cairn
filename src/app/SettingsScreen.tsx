@@ -128,7 +128,9 @@ export function SettingsScreen() {
           Cairn — a cairn for the home. Offline-first; your data stays on this
           device.
         </p>
-        <p className="mt-2 text-sm text-cairn-dim">Version {__APP_VERSION__}</p>
+        <p data-testid="build-version" className="mt-2 break-words text-sm text-cairn-dim">
+          v{__APP_VERSION__}
+        </p>
       </Card>
     </Screen>
   );

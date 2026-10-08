@@ -83,3 +83,15 @@ describe("sweep grind is not in a snapshot", () => {
     expect(json).not.toContain("cairn.sweep.grind");
   });
 });
+
+describe("Settings: build stamp", () => {
+  it("shows 'v<version> · <UTC time>Z · <commit>' under About", () => {
+    render(<SettingsScreen />);
+    expect(screen.getByTestId("build-version")).toHaveTextContent(
+      /^v\d+\.\d+\.\d+ · \d{4}-\d{2}-\d{2} \d{2}:\d{2}Z · ([0-9a-f]{7,}|dev)$/,
+    );
+    expect(screen.getByTestId("build-version")).toHaveTextContent(
+      `v${__APP_VERSION__}`,
+    );
+  });
+});
