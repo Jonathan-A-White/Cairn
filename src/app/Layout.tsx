@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { UpdateBanner } from "./UpdateBanner";
 
 const tabs = [
   { to: "/", label: "Home", end: true },
@@ -11,6 +12,7 @@ const tabs = [
 export function Layout() {
   return (
     <div className="min-h-full">
+      <UpdateBanner />
       <Outlet />
       {/* The nav reads as a board edge connector: a lit bus along the top rule,
           each tab a contact finger that energises when active. */}
