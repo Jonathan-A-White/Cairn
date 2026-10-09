@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { SettingsScreen } from "./SettingsScreen";
 import { readSweepGrind, SWEEP_GRIND_KEY } from "../bridge/sweepGrind";
 import { exportSnapshotJson } from "../shared/data/snapshot";
@@ -13,7 +14,7 @@ beforeEach(async () => {
 
 describe("Settings: Photo sweeps", () => {
   it("shows Sonnet and Low, and reads them, when nothing is stored", () => {
-    render(<SettingsScreen />);
+    render(<SettingsScreen />, { wrapper: MemoryRouter });
     expect(screen.getByText("Photo sweeps")).toBeInTheDocument();
     expect(
       screen.getByText(
@@ -27,12 +28,12 @@ describe("Settings: Photo sweeps", () => {
 
   it("keeps Opus and High on the device across a fresh render", async () => {
     const user = userEvent.setup();
-    const first = render(<SettingsScreen />);
+    const first = render(<SettingsScreen />, { wrapper: MemoryRouter });
     await user.selectOptions(screen.getByLabelText("Model"), "opus");
     await user.selectOptions(screen.getByLabelText("Effort"), "high");
     first.unmount();
 
-    render(<SettingsScreen />);
+    render(<SettingsScreen />, { wrapper: MemoryRouter });
     expect(screen.getByLabelText("Model")).toHaveValue("opus");
     expect(screen.getByLabelText("Effort")).toHaveValue("high");
     expect(readSweepGrind()).toEqual({ model: "opus", effort: "high" });
@@ -43,7 +44,7 @@ describe("Settings: Photo sweeps", () => {
   });
 
   it("offers the three models and the three efforts", () => {
-    render(<SettingsScreen />);
+    render(<SettingsScreen />, { wrapper: MemoryRouter });
     const options = (label: string) =>
       Array.from(
         (screen.getByLabelText(label) as HTMLSelectElement).options,
@@ -74,7 +75,7 @@ describe("readSweepGrind", () => {
 describe("sweep grind is not in a snapshot", () => {
   it("exports neither the model nor the effort", async () => {
     const user = userEvent.setup();
-    render(<SettingsScreen />);
+    render(<SettingsScreen />, { wrapper: MemoryRouter });
     await user.selectOptions(screen.getByLabelText("Model"), "opus");
     await user.selectOptions(screen.getByLabelText("Effort"), "high");
     const json = await exportSnapshotJson();
@@ -86,7 +87,7 @@ describe("sweep grind is not in a snapshot", () => {
 
 describe("Settings: build stamp", () => {
   it("shows 'v<version> · <UTC time>Z · <commit>' under About", () => {
-    render(<SettingsScreen />);
+    render(<SettingsScreen />, { wrapper: MemoryRouter });
     expect(screen.getByTestId("build-version")).toHaveTextContent(
       /^v\d+\.\d+\.\d+ · \d{4}-\d{2}-\d{2} \d{2}:\d{2}Z · ([0-9a-f]{7,}|dev)$/,
     );

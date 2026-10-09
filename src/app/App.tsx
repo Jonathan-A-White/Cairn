@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout";
 import { SettingsScreen } from "./SettingsScreen";
+import { AboutScreen } from "./AboutScreen";
 import { InventoryHome } from "../contexts/inventory/features/InventoryHome";
 import { PlaceScreen } from "../contexts/inventory/features/PlaceScreen";
 import { SearchScreen } from "../contexts/inventory/features/SearchScreen";
@@ -33,6 +34,7 @@ export function App() {
           <Route path="trips/:tripId" element={<TripScreen />} />
           <Route path="people" element={<PeopleScreen />} />
           <Route path="settings" element={<SettingsScreen />} />
+          <Route path="about" element={<AboutScreen />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

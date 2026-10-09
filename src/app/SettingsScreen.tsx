@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Card, ErrorNote, Screen, Select } from "./ui";
 import { downloadJson, readFileText } from "../bridge/file";
 import {
@@ -130,6 +131,11 @@ export function SettingsScreen() {
         </p>
         <p data-testid="build-version" className="mt-2 break-words text-sm text-cairn-dim">
           v{__APP_VERSION__}
+        </p>
+        <p className="mt-2 text-sm">
+          <Link to="/about" className="text-cairn-neon underline">
+            About and credits
+          </Link>
         </p>
       </Card>
     </Screen>
