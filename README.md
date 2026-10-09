@@ -38,6 +38,8 @@ PR and deploys to GitHub Pages on push to `main`.
 
 Cairn stands on other people's work, so we name every source we build on, with a link and its licence, because credit is owed whether or not a licence asks for it. The same list is on the app's About screen (Settings → About and credits), generated from `src/app/credits.ts`; a test fails if a runtime dependency or a credit is missing from either.
 
+A source added or removed changes its credit in the same commit, and the test says so: it fails on a credit for a package no longer in `package.json`, and on a bundled font or data file with no credit (non-package credits, such as services and ideas, carry a `kind` and are left alone).
+
 ### Libraries inside the app
 
 - [Dexie.js](https://dexie.org): The on-device database that holds your places, containers and items. Licence: [Apache-2.0](https://github.com/dexie/Dexie.js/blob/master/LICENSE). Changes: None; used as published.
