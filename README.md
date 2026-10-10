@@ -16,6 +16,7 @@ device is a manual JSON file (the AI bridge or a sync snapshot). See
 [`docs/BUILD-SPEC.md`](./docs/BUILD-SPEC.md) and the context maps for the
 binding design. [`docs/module-map.md`](./docs/module-map.md) maps each module's
 job and API, the files stories collide on, and the proposed splits.
+[`docs/best-practices-audit.md`](./docs/best-practices-audit.md) reads the app against the Governor's PWA checklist, line by line, and ranks the fixes.
 
 ## Develop
 
