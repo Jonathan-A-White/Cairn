@@ -1,7 +1,7 @@
 {
   "name": "cairn",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "A cairn for the home: an offline-first PWA that marks where things are kept and helps plan trips",
   "scripts": {
