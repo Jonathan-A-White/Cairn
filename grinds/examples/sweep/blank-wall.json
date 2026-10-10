@@ -1,0 +1,16 @@
+{
+  "description": "A photo with nothing in it to name: no things are invented, the answer is empty and says why.",
+  "request": {
+    "schemaVersion": "1.1",
+    "requestType": "sweep",
+    "place": { "name": "Top drawer", "path": "Kitchen -> Top drawer" }
+  },
+  "photos": ["blank-wall.jpg"],
+  "expect": {
+    "schemaVersion": "1.1",
+    "responseType": "sweep-result",
+    "placeName": "Top drawer",
+    "items": { "equals": [] },
+    "note": { "present": true }
+  }
+}
