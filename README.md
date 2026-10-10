@@ -14,7 +14,8 @@ Two bounded contexts over a small shared kernel:
 The app is fully static and offline-first; the only thing that ever leaves the
 device is a manual JSON file (the AI bridge or a sync snapshot). See
 [`docs/BUILD-SPEC.md`](./docs/BUILD-SPEC.md) and the context maps for the
-binding design.
+binding design. [`docs/module-map.md`](./docs/module-map.md) maps each module's
+job and API, the files stories collide on, and the proposed splits.
 
 ## Develop
 
