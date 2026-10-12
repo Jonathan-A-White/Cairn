@@ -2,6 +2,8 @@
 
 Its own docs are the law: `docs/BUILD-SPEC.md`, `docs/adr/`, `CONTEXT-MAP.md` and `contexts/`.
 
+VISION.md is the Governor's vision for this app: a change that would cross one of its lines stops and says so.
+
 ## Grinds and their examples
 
 Each grind (`grinds/<kind>.json`) keeps BDD-style scenarios under `grinds/examples/<kind>/<name>.json`: the request (with `schemaVersion`), optional photos beside it, and an `expect` block of simple checks on answer fields. Format: `grinds/examples/README.md`. `mw grist smoke cairn` runs them against the real grist; `src/bridge/grindExamples.test.ts` validates every request against the input schema and every `expect` path against the answer schema, and fails when a grind has no example.

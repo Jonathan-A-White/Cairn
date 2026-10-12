@@ -1,5 +1,7 @@
 # Cairn
 
+The app's vision: [VISION.md](VISION.md).
+
 A cairn for the home: an offline-first PWA that marks where things are kept and helps plan trips.
 
 Two bounded contexts over a small shared kernel:
