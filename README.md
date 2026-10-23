@@ -18,6 +18,7 @@ device is a manual JSON file (the AI bridge or a sync snapshot). See
 [`docs/BUILD-SPEC.md`](./docs/BUILD-SPEC.md) and the context maps for the
 binding design. [`docs/module-map.md`](./docs/module-map.md) maps each module's
 job and API, the files stories collide on, and the proposed splits.
+[`docs/form-door.md`](./docs/form-door.md) says how "Let the tutor do it" fills a form with him, and which screens are not forms.
 [`docs/best-practices-audit.md`](./docs/best-practices-audit.md) reads the app against the Governor's PWA checklist, line by line, and ranks the fixes.
 
 ## Develop
@@ -50,6 +51,7 @@ A source added or removed changes its credit in the same commit, and the test sa
 - [React](https://react.dev): Draws every screen. React DOM puts it on the page. Licence: [MIT](https://github.com/facebook/react/blob/main/LICENSE). Changes: None; used as published.
 - [React Router](https://reactrouter.com): Moves between screens and gives each one an address. Licence: [MIT](https://github.com/remix-run/react-router/blob/main/LICENSE.md). Changes: None; used as published.
 - [Zod](https://zod.dev): Checks every snapshot and every file that crosses the AI bridge before it is trusted. Licence: [MIT](https://github.com/colinhacks/zod/blob/main/LICENSE). Changes: None; used as published.
+- [voice-kit](https://github.com/Jonathan-A-White/voice-kit): The tutor's half of a form: what a form tells the tutor about itself, and the command the Create trip button and the tutor share. Licence: [MIT](https://github.com/Jonathan-A-White/voice-kit/blob/main/LICENSE). Changes: None; used as published.
 - [Workbox](https://developer.chrome.com/docs/workbox): Generates the service worker that makes Cairn work offline and notices a new version. Licence: [MIT](https://github.com/GoogleChrome/workbox/blob/v7/LICENSE). Changes: None; used as published.
 
 ### Tools that build and test it

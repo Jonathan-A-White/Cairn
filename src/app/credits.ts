@@ -108,6 +108,20 @@ export const CREDITS: Credit[] = [
     packages: ["zod"],
   },
   {
+    id: "voice-kit",
+    name: "voice-kit",
+    url: "https://github.com/Jonathan-A-White/voice-kit",
+    group: "runtime",
+    kind: "package",
+    use: "The tutor's half of a form: what a form tells the tutor about itself, and the command the Create trip button and the tutor share.",
+    licence: {
+      name: "MIT",
+      url: "https://github.com/Jonathan-A-White/voice-kit/blob/main/LICENSE",
+    },
+    changes: none,
+    packages: ["voice-kit"],
+  },
+  {
     id: "workbox",
     name: "Workbox",
     url: "https://developer.chrome.com/docs/workbox",

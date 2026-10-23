@@ -18,6 +18,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "voice-kit": "github:Jonathan-A-White/voice-kit#932f97d83eecba278498558bfc202ba346fa906f",
     "zod": "^3.24.1"
   },
   "devDependencies": {
