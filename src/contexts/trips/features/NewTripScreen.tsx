@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { argsOf } from "voice-kit/forms";
+import { defineRegistry } from "voice-kit/talks";
 import {
   Button,
   Card,
@@ -7,11 +9,19 @@ import {
   Screen,
   TextInput,
 } from "../../../app/ui";
+import { FormDoor } from "../../../app/FormDoor";
 import { useAsync } from "../../../app/useAsync";
+import type { FormTalkSender } from "../../../bridge/formTalk";
 import { personRepository } from "../../../shared/data/personRepository";
 import { destinationRepository } from "../data/destinationRepository";
 import { tripKindRepository } from "../data/tripKindRepository";
-import { tripRepository } from "../data/tripRepository";
+import {
+  CREATE_TRIP,
+  NEW_TRIP_COMMAND_FORM,
+  createTripCommand,
+  isIsoDate,
+  newTripForm,
+} from "./newTripForm";
 
 async function loadOptions() {
   const [persons, kinds, destinations] = await Promise.all([
@@ -22,7 +32,14 @@ async function loadOptions() {
   return { persons, kinds, destinations };
 }
 
-export function NewTripScreen() {
+export interface NewTripScreenProps {
+  /** Sends the tutor's talk to the grind; the bridge's provider unless a test gives a fake. */
+  askTutor?: FormTalkSender;
+  /** The day it is, YYYY-MM-DD; his phone's unless a test gives one. */
+  today?: () => string;
+}
+
+export function NewTripScreen({ askTutor, today }: NewTripScreenProps = {}) {
   const navigate = useNavigate();
   const options = useAsync(loadOptions);
   const [destination, setDestination] = useState("");
@@ -38,6 +55,36 @@ export function NewTripScreen() {
     );
   }
 
+  // The tutor fills the four fields; Travellers stay his by hand.
+  const kindNames = useMemo(
+    () => (options.data?.kinds ?? []).map((k) => k.name).sort((a, b) => a.localeCompare(b)),
+    [options.data],
+  );
+  const form = useMemo(() => newTripForm(kindNames), [kindNames]);
+
+  function fill(field: string, value: string) {
+    if (field === "destination") setDestination(value);
+    else if (field === "kind") setKind(value);
+    else if (field === "startDate" && isIsoDate(value)) setStartDate(value);
+    else if (field === "endDate" && isIsoDate(value)) setEndDate(value);
+  }
+
+  // The Create trip button and the tutor's door run the same command.
+  const travellers = useRef(travellerIds);
+  travellers.current = travellerIds;
+  const registry = useMemo(
+    () =>
+      defineRegistry({
+        commands: [
+          createTripCommand({
+            travellerIds: () => travellers.current,
+            onCreated: (trip) => navigate(`/trips/${trip.id}`),
+          }),
+        ],
+      }),
+    [navigate],
+  );
+
   async function save() {
     setError(null);
     if (!destination.trim()) return setError("A destination is required.");
@@ -46,22 +93,27 @@ export function NewTripScreen() {
     if (travellerIds.length === 0)
       return setError("Pick at least one traveller.");
 
-    // Destinations and Trip Kinds are reusable — created on first use.
-    const dest = await destinationRepository.findOrCreate(destination);
-    const tripKind = await tripKindRepository.findOrCreate(kind);
-    const trip = await tripRepository.create({
-      destinationId: dest.id,
-      kind: tripKind.id,
-      startDate,
-      endDate,
-      travellerIds,
-    });
-    navigate(`/trips/${trip.id}`);
+    const ran = await registry.run(
+      CREATE_TRIP,
+      argsOf(NEW_TRIP_COMMAND_FORM, { destination, kind, startDate, endDate }),
+    );
+    if (!ran.ok) setError(ran.why);
   }
 
   return (
     <Screen title="New trip">
       <Card className="space-y-3">
+        <FormDoor
+          form={form}
+          values={{ destination, kind, startDate, endDate }}
+          onFill={fill}
+          sendLabel="Create trip"
+          command={CREATE_TRIP}
+          beforeSend="Tick who is travelling."
+          ask={askTutor}
+          today={today}
+        />
+
         <label className="block">
           <span className="text-sm text-cairn-dim">Destination</span>
           <TextInput
