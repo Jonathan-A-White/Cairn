@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/trips/form-talk-result/1.0",
+  "title": "Form Talk Result 1.0",
+  "description": "The tutor's answer to a Form Talk Request: one question, and the values he just gave, to put in the form's fields.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["answer"],
+  "properties": {
+    "answer": {
+      "description": "One short question in plain words, ending in a question mark; when every required field holds something, one sentence saying so.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    },
+    "form_values": {
+      "description": "The values he just gave, one for each field they belong to; the whole new value of the field.",
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field", "value"],
+        "properties": {
+          "field": { "type": "string", "minLength": 1 },
+          "value": { "type": "string", "maxLength": 1200 }
+        }
+      }
+    },
+    "form_ask": {
+      "description": "The name of the field the question is about; left out when nothing more is needed.",
+      "type": "string"
+    }
+  }
+}

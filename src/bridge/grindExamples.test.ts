@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { extname, resolve } from "node:path";
 import {
   EXAMPLE_PHOTO_MAX_BYTES,
@@ -19,10 +19,14 @@ const MIME_BY_EXT: Record<string, string> = {
   ".webp": "image/webp",
 };
 
-// A grind's input schema: contexts/inventory/schemas/<kind>-request-<version>.schema.json
+// A grind's input schema: contexts/<context>/schemas/<kind>-request-<version>.schema.json
 // (the sweep's request is a "sweep-request"; the name is the kind plus "-request").
-const inputSchemaPath = (kind: string, version: string) =>
-  `contexts/inventory/schemas/${kind}-request-${version}.schema.json`;
+const inputSchemaPath = (kind: string, version: string) => {
+  const found = readdirSync(resolve(repo, "contexts"))
+    .map((context) => `contexts/${context}/schemas/${kind}-request-${version}.schema.json`)
+    .find((path) => existsSync(resolve(repo, path)));
+  return found ?? `contexts/<context>/schemas/${kind}-request-${version}.schema.json (not found)`;
+};
 
 const grindFiles = readdirSync(resolve(repo, "grinds")).filter((f) => f.endsWith(".json"));
 

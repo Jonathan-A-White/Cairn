@@ -1,0 +1,16 @@
+{
+  "grind": 1,
+  "app": "cairn",
+  "kind": "form-talk",
+  "versions": ["1.0"],
+  "model": "sonnet",
+  "effort": "low",
+  "instructions": "grinds/form-talk.md",
+  "answerSchema": "contexts/trips/schemas/form-talk-result-1.0.schema.json",
+  "attachments": {
+    "min": 0,
+    "max": 0,
+    "mime": [],
+    "maxBytes": 0
+  }
+}

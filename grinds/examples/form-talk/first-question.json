@@ -1,0 +1,24 @@
+{
+  "description": "He taps the button on an empty New trip form: the tutor asks one question, about the Destination, and fills nothing.",
+  "request": {
+    "schemaVersion": "1.0",
+    "requestType": "form-talk",
+    "question": "Help me fill this in.",
+    "today": "2026-10-23",
+    "form": {
+      "name": "New trip",
+      "command": "create-trip",
+      "fields": [
+        { "name": "destination", "label": "Destination", "required": true, "kind": "text", "value": "" },
+        { "name": "kind", "label": "Trip kind", "required": true, "kind": "choice", "value": "", "options": ["camping", "family visit"] },
+        { "name": "startDate", "label": "Start", "hint": "A date, YYYY-MM-DD.", "required": true, "kind": "text", "value": "" },
+        { "name": "endDate", "label": "End", "hint": "A date, YYYY-MM-DD.", "required": true, "kind": "text", "value": "" }
+      ]
+    }
+  },
+  "expect": {
+    "answer": { "matches": "\\?" },
+    "form_ask": "destination",
+    "form_values": { "present": false }
+  }
+}

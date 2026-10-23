@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://home-app.local/schemas/trips/form-talk-request/1.0",
+  "title": "Form Talk Request 1.0",
+  "description": "Sent by the app to the household's factory when he taps 'Let the tutor do it' on a form (today: New trip). Carries what he just said, the last turns of the talk and the form as the tutor sees it. No photos. Answered with a Form Talk Result 1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "requestType", "question", "form"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "requestType": { "const": "form-talk" },
+    "question": {
+      "description": "What he just said ('Help me fill this in.' when he taps the button), at most 1200 characters.",
+      "type": "string",
+      "minLength": 1
+    },
+    "today": {
+      "description": "The day it is on his phone, YYYY-MM-DD, so 'next Friday' can be put into a date.",
+      "type": "string"
+    },
+    "history": {
+      "description": "The last turns of this talk, oldest first.",
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["q", "a"],
+        "properties": {
+          "q": { "type": "string" },
+          "a": { "type": "string" }
+        }
+      }
+    },
+    "form": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "fields"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "command": {
+          "description": "The command the form's own button sends it with, when it has one.",
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "label", "required", "kind", "value"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "label": { "type": "string" },
+              "hint": { "type": "string" },
+              "required": { "type": "boolean" },
+              "kind": { "type": "string", "enum": ["text", "link", "choice", "pictures"] },
+              "value": { "description": "What the field holds now.", "type": "string" },
+              "options": {
+                "description": "A choice field's options: the answer is one of them exactly.",
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

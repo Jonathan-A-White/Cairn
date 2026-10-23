@@ -1,3 +1,4 @@
+import type { FormTalkRequest } from "./formTalk";
 import type { PlanRequest, SweepRequest } from "./schemas";
 
 /**
@@ -8,7 +9,7 @@ import type { PlanRequest, SweepRequest } from "./schemas";
  * registry just picks the highest-priority available provider.
  */
 
-export type BridgeRequest = PlanRequest | SweepRequest;
+export type BridgeRequest = PlanRequest | SweepRequest | FormTalkRequest;
 
 export interface BridgeProvider {
   readonly id: string;

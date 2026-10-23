@@ -1,0 +1,28 @@
+{
+  "description": "With the Destination filled, he says a kind and dates in words: the tutor puts the kind (one of the options) and both dates, as YYYY-MM-DD from today, into the form.",
+  "request": {
+    "schemaVersion": "1.0",
+    "requestType": "form-talk",
+    "question": "A family visit, from the second of November to the fifth.",
+    "today": "2026-10-23",
+    "history": [
+      { "q": "Help me fill this in.", "a": "Where are you going?" },
+      { "q": "Norman's house", "a": "What kind of trip is it, and when does it start and end?" }
+    ],
+    "form": {
+      "name": "New trip",
+      "command": "create-trip",
+      "fields": [
+        { "name": "destination", "label": "Destination", "required": true, "kind": "text", "value": "Norman's house" },
+        { "name": "kind", "label": "Trip kind", "required": true, "kind": "choice", "value": "", "options": ["camping", "family visit"] },
+        { "name": "startDate", "label": "Start", "hint": "A date, YYYY-MM-DD.", "required": true, "kind": "text", "value": "" },
+        { "name": "endDate", "label": "End", "hint": "A date, YYYY-MM-DD.", "required": true, "kind": "text", "value": "" }
+      ]
+    }
+  },
+  "expect": {
+    "form_values": { "present": true },
+    "form_values.0.field": { "one_of": ["kind", "startDate", "endDate"] },
+    "form_ask": { "present": false }
+  }
+}
