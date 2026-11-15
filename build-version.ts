@@ -2,6 +2,8 @@
 // adds its UTC time and the short git commit beside it and he can tell on his phone whether
 // a new build has loaded. Used by vite.config.ts (which also serves vitest).
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 export { buildVersion } from "./src/app/buildVersion";
 
@@ -16,5 +18,27 @@ export function shortCommit(cwd: string = process.cwd(), git = "git"): string {
     return out || "dev";
   } catch {
     return "dev";
+  }
+}
+
+function versionOf(json: string): string {
+  return (JSON.parse(json) as { version: string }).version;
+}
+
+/**
+ * The package version the build stamps: HEAD's package.json, so it always sits beside HEAD's
+ * commit (shortCommit) and an edited or older working file cannot stamp a stale version.
+ * Falls back to the working package.json when there is no git or no committed package.json.
+ */
+export function stampedPackageVersion(cwd: string = process.cwd(), git = "git"): string {
+  try {
+    const out = execFileSync(git, ["show", "HEAD:package.json"], {
+      cwd,
+      encoding: "utf-8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    return versionOf(out);
+  } catch {
+    return versionOf(readFileSync(join(cwd, "package.json"), "utf-8"));
   }
 }
